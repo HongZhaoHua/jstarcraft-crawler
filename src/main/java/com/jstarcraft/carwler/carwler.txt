@@ -1,0 +1,17 @@
+GitHub 上有哪些优秀的 Java 爬虫项目:
+https://www.zhihu.com/question/31427895
+
+Java网络爬虫:
+https://github.com/soberqian/Java-Carwler-Technology
+
+A scalable web crawler framework for Java:
+https://github.com/code4craft/webmagic
+
+jsoup: Java HTML Parser, with best of DOM, CSS, and jquery:
+https://www.open-open.com/jsoup/
+
+jsoup Cookbook(中文版):
+https://www.open-open.com/jsoup/
+
+jsoup学习笔记:
+https://github.com/code4craft/jsoup-learning
