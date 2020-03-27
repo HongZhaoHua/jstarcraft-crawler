@@ -7,6 +7,9 @@ https://github.com/soberqian/Java-Carwler-Technology
 A scalable web crawler framework for Java:
 https://github.com/code4craft/webmagic
 
+Easy to use lightweight web crawler（易用的轻量化网络爬虫）:
+https://github.com/xtuhcy/gecco
+
 jsoup: Java HTML Parser, with best of DOM, CSS, and jquery:
 https://www.open-open.com/jsoup/
 
