@@ -1,3 +1,6 @@
+八爪鱼教程:
+https://www.bazhuayu.com/tutorialIndex8
+
 GitHub 上有哪些优秀的 Java 爬虫项目:
 https://www.zhihu.com/question/31427895
 
