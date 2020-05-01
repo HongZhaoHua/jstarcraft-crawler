@@ -10,6 +10,9 @@ https://github.com/soberqian/Java-Carwler-Technology
 A scalable web crawler framework for Java:
 https://github.com/code4craft/webmagic
 
+一个简单、敏捷、分布式的支持SpringBoot的Java爬虫框架:
+https://github.com/zhegexiaohuozi/SeimiCrawler
+
 Easy to use lightweight web crawler（易用的轻量化网络爬虫）:
 https://github.com/xtuhcy/gecco
 
