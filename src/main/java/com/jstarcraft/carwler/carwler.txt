@@ -15,12 +15,3 @@ https://github.com/zhegexiaohuozi/SeimiCrawler
 
 Easy to use lightweight web crawler（易用的轻量化网络爬虫）:
 https://github.com/xtuhcy/gecco
-
-jsoup: Java HTML Parser, with best of DOM, CSS, and jquery:
-https://github.com/jhy/jsoup
-
-jsoup Cookbook(中文版):
-https://www.open-open.com/jsoup
-
-jsoup学习笔记:
-https://github.com/code4craft/jsoup-learning
