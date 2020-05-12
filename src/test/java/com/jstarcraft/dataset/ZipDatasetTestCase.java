@@ -9,6 +9,8 @@ import java.util.zip.ZipFile;
 
 import org.junit.Test;
 
+import com.jstarcraft.core.utility.StringUtility;
+
 public class ZipDatasetTestCase {
 
     @Test
@@ -17,7 +19,7 @@ public class ZipDatasetTestCase {
         String path = url.getPath();
         try (ZipFile zip = new ZipFile(path)) {
             ZipEntry term = zip.getEntry("ml-100k/u.data");
-            try (InputStream termStream = zip.getInputStream(term); InputStreamReader streamReader = new InputStreamReader(termStream); BufferedReader bufferReader = new BufferedReader(streamReader)) {
+            try (InputStream termStream = zip.getInputStream(term); InputStreamReader streamReader = new InputStreamReader(termStream, StringUtility.CHARSET); BufferedReader bufferReader = new BufferedReader(streamReader)) {
                 String line;
                 while ((line = bufferReader.readLine()) != null) {
                     System.out.println(line.toString());

@@ -86,7 +86,7 @@ public class MovieLensDataset {
         String path = movieLensURL.getPath();
         try (ZipFile zipFile = new ZipFile(path)) {
             ZipEntry zipTerm = zipFile.getEntry("ml-100k/u.user");
-            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream); BufferedReader bufferReader = new BufferedReader(streamReader)) {
+            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream, StringUtility.CHARSET); BufferedReader bufferReader = new BufferedReader(streamReader)) {
                 try (CSVParser parser = new CSVParser(bufferReader, CSVFormat.DEFAULT.withDelimiter('|'))) {
                     Iterator<CSVRecord> iterator = parser.iterator();
                     while (iterator.hasNext()) {
@@ -118,7 +118,7 @@ public class MovieLensDataset {
         String path = movieLensURL.getPath();
         try (ZipFile zipFile = new ZipFile(path)) {
             ZipEntry zipTerm = zipFile.getEntry("ml-100k/u.genre");
-            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream); BufferedReader bufferReader = new BufferedReader(streamReader)) {
+            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream, StringUtility.CHARSET); BufferedReader bufferReader = new BufferedReader(streamReader)) {
                 try (CSVParser parser = new CSVParser(bufferReader, CSVFormat.DEFAULT.withDelimiter('|'))) {
                     Iterator<CSVRecord> iterator = parser.iterator();
                     while (iterator.hasNext()) {
@@ -146,7 +146,7 @@ public class MovieLensDataset {
         String path = movieLensURL.getPath();
         try (ZipFile zipFile = new ZipFile(path)) {
             ZipEntry zipTerm = zipFile.getEntry("ml-100k/u.item");
-            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream); BufferedReader bufferReader = new BufferedReader(streamReader)) {
+            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream, StringUtility.CHARSET); BufferedReader bufferReader = new BufferedReader(streamReader)) {
                 try (CSVParser parser = new CSVParser(bufferReader, CSVFormat.DEFAULT.withDelimiter('|'))) {
                     Iterator<CSVRecord> iterator = parser.iterator();
                     while (iterator.hasNext()) {
@@ -174,7 +174,7 @@ public class MovieLensDataset {
         String path = movieLensURL.getPath();
         try (ZipFile zipFile = new ZipFile(path)) {
             ZipEntry zipTerm = zipFile.getEntry("ml-100k/u.data");
-            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream); BufferedReader bufferReader = new BufferedReader(streamReader)) {
+            try (InputStream termStream = zipFile.getInputStream(zipTerm); InputStreamReader streamReader = new InputStreamReader(termStream, StringUtility.CHARSET); BufferedReader bufferReader = new BufferedReader(streamReader)) {
                 try (CSVParser parser = new CSVParser(bufferReader, CSVFormat.DEFAULT.withDelimiter('\t'))) {
                     Iterator<CSVRecord> iterator = parser.iterator();
                     while (iterator.hasNext()) {
