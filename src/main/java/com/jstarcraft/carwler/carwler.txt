@@ -27,3 +27,7 @@ https://fq.chinafcd.org
 ***** 宠物 *****
 宠物品种:
 https://www.ixiupet.com/pinzhong
+
+***** 图书 *****
+中国图书出版数据库:
+http://www.cnpub.com.cn/soushu.html
