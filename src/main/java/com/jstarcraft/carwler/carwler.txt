@@ -31,3 +31,6 @@ https://www.ixiupet.com/pinzhong
 ***** 图书 *****
 中国图书出版数据库:
 http://www.cnpub.com.cn/soushu.html
+
+新华书店:
+https://www.xhsd.com
