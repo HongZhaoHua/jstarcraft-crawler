@@ -24,11 +24,16 @@ https://food.hiyd.com
 食物营养成分查询平台:
 https://fq.chinafcd.org
 
+食物营养成分表查询:
+http://yingyang.00cha.com
+
 ***** 宠物 *****
+
 宠物品种:
 https://www.ixiupet.com/pinzhong
 
 ***** 图书 *****
+
 中国图书出版数据库:
 http://www.cnpub.com.cn/soushu.html
 
@@ -36,6 +41,7 @@ http://www.cnpub.com.cn/soushu.html
 https://www.xhsd.com
 
 ***** 电影 *****
+
 互联网电影数据库:
 https://www.imdb.com
 
