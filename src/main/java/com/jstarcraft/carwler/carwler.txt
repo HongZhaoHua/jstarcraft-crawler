@@ -15,3 +15,8 @@ https://github.com/zhegexiaohuozi/SeimiCrawler
 
 Easy to use lightweight web crawler（易用的轻量化网络爬虫）:
 https://github.com/xtuhcy/gecco
+
+***** 食物 *****
+
+专业全面的食物数据库:
+https://food.hiyd.com
