@@ -15,3 +15,6 @@ https://github.com/zhegexiaohuozi/SeimiCrawler
 
 Easy to use lightweight web crawler（易用的轻量化网络爬虫）:
 https://github.com/xtuhcy/gecco
+
+验证码识别测试页面:
+http://152.136.207.29:19812/preview
