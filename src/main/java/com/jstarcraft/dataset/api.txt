@@ -10,6 +10,12 @@ https://www.intsig.com/ocr/index.shtml
 火山引擎:
 https://www.volcengine.cn/docs
 
+天眼查开放平台:
+http://open.tianyancha.com/api_list
+
+企查查开放平台:
+https://openapi.qcc.com/dataApi
+
 万维易源:
 https://www.showapi.com/api/apiList
 
