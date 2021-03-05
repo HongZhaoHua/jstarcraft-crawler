@@ -1,3 +1,24 @@
+全球各大AI 开放平台汇总:
+https://www.sohu.com/a/376723386_120002313
+
+各大AI 开放平台一览:
+https://blog.csdn.net/qq_15071263/article/details/82908201
+
+合合AI开放平台:
+https://www.intsig.com/ocr/index.shtml
+
+火山引擎:
+https://www.volcengine.cn/docs
+
+万维易源:
+https://www.showapi.com/api/apiList
+
+极速数据:
+https://www.jisuapi.com/api
+
+聚合数据:
+https://www.juhe.cn/docs
+
 条码信息查询:
 http://www.ancc.org.cn/Service/queryTools/Barcode.aspx
 
