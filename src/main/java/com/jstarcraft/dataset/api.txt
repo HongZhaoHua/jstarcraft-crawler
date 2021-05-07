@@ -20,7 +20,7 @@ https://openapi.qcc.com/dataApi
 https://www.showapi.com/api/apiList
 
 极速数据:
-https://www.jisuapi.com/api
+https://www.jisuapi.com/api/
 
 聚合数据:
 https://www.juhe.cn/docs
