@@ -93,6 +93,9 @@ https://www.icvio.cn/bank
 
 ***** 证券 *****
 
+量化投资者是如何获取实时行情数据的呢？:
+https://www.zhihu.com/question/27980657/answer/38966946
+
 AKShare开源财经数据接口库:
 https://github.com/jindaxiang/akshare
 
