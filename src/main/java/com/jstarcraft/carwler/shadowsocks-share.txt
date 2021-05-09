@@ -1,2 +1,5 @@
 示例站点:
 https://github.com/zc-zh-001/ShadowSocks-Share
+
+Java中使用代理-基于Shandowsocks:
+http://www.winseliu.com/blog/2018/01/26/proxy-on-java-via-shandowsocks/
