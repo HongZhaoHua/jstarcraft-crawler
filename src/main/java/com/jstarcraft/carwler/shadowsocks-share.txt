@@ -1,3 +1,6 @@
+A implementation of Shadowsocks in Java base on netty4 framework.:
+https://github.com/TongxiJi/shadowsocks-java
+
 示例站点:
 https://github.com/zc-zh-001/ShadowSocks-Share
 
