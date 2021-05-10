@@ -42,6 +42,18 @@
             <version>1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.2.8.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>5.2.8.RELEASE</version>
+        </dependency>
+
         <!-- 信息抽取框架依赖 -->
         <dependency>
             <groupId>org.apache.tika</groupId>
