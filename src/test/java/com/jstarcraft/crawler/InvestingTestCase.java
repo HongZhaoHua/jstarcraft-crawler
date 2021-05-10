@@ -54,7 +54,7 @@ public class InvestingTestCase {
             headers.add(HttpHeaders.ACCEPT_LANGUAGE, "zh-CN,zh;q=0.9,en;q=0.8");
             headers.add(HttpHeaders.CACHE_CONTROL, "no-cache");
             headers.add(HttpHeaders.ORIGIN, "https://cn.investing.com");
-            headers.add(HttpHeaders.REFERER, "https://cn.investing.com/equities/");
+            headers.add(HttpHeaders.REFERER, "https://cn.investing.com");
             headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
             headers.add("x-requested-with", "XMLHttpRequest");
             MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
