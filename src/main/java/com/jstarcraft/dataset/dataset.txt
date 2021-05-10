@@ -3,6 +3,12 @@
 各国节日时间:
 http://www.shijian.cc/jieri
 
+***** 天气 *****
+
+干货！世界各国地区法定节假日和实时天气详解（附免费查询工具）:
+https://kknews.cc/news/2ye5kly.html
+https://www.timeanddate.com/
+
 ***** 食物 *****
 
 专业全面的食物数据库:
@@ -141,9 +147,3 @@ https://github.com/kingschan1204/istock
 
 国民经济行业分类/统计用区划和城乡划分代码/统计用产品分类目录
 http://www.stats.gov.cn/tjsj/tjbz
-
-***** 天气 *****
-
-干货！世界各国地区法定节假日和实时天气详解（附免费查询工具）:
-https://kknews.cc/news/2ye5kly.html
-https://www.timeanddate.com/
