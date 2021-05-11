@@ -1,3 +1,6 @@
+A curated list of insanely awesome libraries, packages and resources for Quants (Quantitative Finance):
+https://github.com/wilsonfreitas/awesome-quant
+
 ***** 生命日 *****
 
 各国节日时间:
