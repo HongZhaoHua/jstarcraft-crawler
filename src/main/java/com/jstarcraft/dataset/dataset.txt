@@ -1,6 +1,3 @@
-A curated list of insanely awesome libraries, packages and resources for Quants (Quantitative Finance):
-https://github.com/wilsonfreitas/awesome-quant
-
 ***** 生命日 *****
 
 各国节日时间:
@@ -111,6 +108,12 @@ https://www.gurufocus.cn/
 
 理财网:
 https://www.moneydj.com/
+
+A curated list of insanely awesome libraries, packages and resources for Quants (Quantitative Finance):
+https://github.com/wilsonfreitas/awesome-quant
+
+提供超過 50 個金融資料(台股為主)，每天更新:
+https://github.com/FinMind/FinMind
 
 量化投资者是如何获取实时行情数据的呢？:
 https://www.zhihu.com/question/27980657/answer/38966946
