@@ -99,16 +99,6 @@ https://www.icvio.cn/bank
 
 ***** 证券 *****
 
-财报说:
-https://www.moneydj.com/
-https://caibaoshuo.com/terms/{stock}/pe_ratio
-
-价值大师:
-https://www.gurufocus.cn/
-
-理财网:
-https://www.moneydj.com/
-
 A curated list of insanely awesome libraries, packages and resources for Quants (Quantitative Finance):
 https://github.com/wilsonfreitas/awesome-quant
 
