@@ -3,6 +3,12 @@
 各国节日时间:
 http://www.shijian.cc/jieri
 
+***** 天气 *****
+
+干货！世界各国地区法定节假日和实时天气详解（附免费查询工具）:
+https://kknews.cc/news/2ye5kly.html
+https://www.timeanddate.com/
+
 ***** 食物 *****
 
 专业全面的食物数据库:
@@ -93,15 +99,11 @@ https://www.icvio.cn/bank
 
 ***** 证券 *****
 
-财报说:
-https://www.moneydj.com/
-https://caibaoshuo.com/terms/{stock}/pe_ratio
+A curated list of insanely awesome libraries, packages and resources for Quants (Quantitative Finance):
+https://github.com/wilsonfreitas/awesome-quant
 
-价值大师:
-https://www.gurufocus.cn/
-
-理财网:
-https://www.moneydj.com/
+提供超過 50 個金融資料(台股為主)，每天更新:
+https://github.com/FinMind/FinMind
 
 量化投资者是如何获取实时行情数据的呢？:
 https://www.zhihu.com/question/27980657/answer/38966946
