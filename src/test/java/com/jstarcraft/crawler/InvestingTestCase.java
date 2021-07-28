@@ -39,6 +39,7 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 public class InvestingTestCase {
 
     public static void main(String[] arguments) {
+        // 代理
         final String host = "127.0.0.1";
         final int port = 1080;
         HttpHost proxy = new HttpHost(host, port);

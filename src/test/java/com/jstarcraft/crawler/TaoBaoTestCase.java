@@ -92,9 +92,45 @@ public class TaoBaoTestCase {
         System.out.println(content);
     }
 
+    private static void detail(String itemId) throws Exception {
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("detail_v", "3.5.0");
+        Map<String, Object> exParams = new LinkedHashMap<>();
+        exParams.put("appReqFrom", "detail");
+        exParams.put("container_type", "xdetail");
+        exParams.put("dinamic_v3", "true");
+        exParams.put("supportV7", "true");
+        exParams.put("ultron2", "true");
+        data.put("exParams", JsonUtility.object2String(exParams));
+        data.put("itemNumId", itemId);
+        data.put("pageCode", "miniAppDetail");
+        data.put("_from_", "miniapp");
+        String stringData = JsonUtility.object2String(data);
+        System.out.println("stringData=" + stringData);
+        String tme = System.currentTimeMillis() + "";
+        System.out.println("tme=" + tme);
+        String signature = signature(token, tme, "12574478", stringData);
+        stringData = URLEncoder.encode(stringData, "UTF-8");
+        System.out.println("data=" + stringData);
+        String url = StringUtility.format("https://h5api.m.taobao.com/h5/mtop.taobao.detail.getdetail/6.0/?jsv=2.6.1&appKey=12574478&t={}&sign={}&api=mtop.taobao.detail.getdetail&v=6.0&ttid=202012%40taobao_h5_9.17.0&isSec=0&ecode=0&AntiFlood=true&AntiCreep=true&H5Request=true&type=jsonp&dataType=jsonp&callback=mtopjsonp1&data={}", tme, signature, stringData);
+        System.out.println("url=" + url);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        headers.put(HttpHeaders.COOKIE, setCookies);
+        headers.add(HttpHeaders.REFERER, "https://detail.m.tmall.com/item.htm?id=" + itemId + "&bxsign=tb");
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = template.exchange(URI.create(url), HttpMethod.GET, request, String.class);
+        String content = response.getBody();
+        System.out.println(content);
+    }
+
     public static void main(String[] arguments) throws Exception {
         setCookie();
-        search("衣服", 1, 20);
+        System.out.println("***** search *****");
+        search("手机", 1, 20);
+        System.out.println("***** detail *****");
+        detail("634906554412");
     }
 
 }
