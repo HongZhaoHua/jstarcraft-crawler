@@ -1,3 +1,9 @@
+这个仓库主要是为开发者收集非常好的 API:
+https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md
+
+A collective list of free APIs:
+https://github.com/public-apis/public-apis
+
 全球各大AI 开放平台汇总:
 https://www.sohu.com/a/376723386_120002313
 
