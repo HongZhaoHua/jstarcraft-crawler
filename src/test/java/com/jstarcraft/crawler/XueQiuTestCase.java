@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 /**
  * 雪球单元测试
  * 
+ * https://xueqiu.com/
+ * 
  * @author Birdy
  *
  */
