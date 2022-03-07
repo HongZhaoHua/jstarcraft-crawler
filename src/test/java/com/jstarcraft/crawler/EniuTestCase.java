@@ -9,6 +9,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
+import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 
 /**
  * 亿牛单元测试
@@ -34,7 +35,7 @@ public class EniuTestCase {
         ResponseEntity<String> response = template.exchange("https://eniu.com/industry/银行/market/sh/json/true", HttpMethod.GET, request, String.class);
         String content = response.getBody();
         System.out.println(content.length());
-        System.out.println(JsonUtility.pretty(content));
+        System.out.println(JsonUtility.prettyJson(content));
     }
 
     // A股股票
@@ -54,10 +55,15 @@ public class EniuTestCase {
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://eniu.com/chart/pricea/sh600000/t/12", HttpMethod.GET, request, String.class);
+        ResponseEntity<String> response = template.exchange("https://eniu.com/chart/pricea/sh600000/t/1", HttpMethod.GET, request, String.class);
         String content = response.getBody();
         System.out.println(content.length());
-        System.out.println(content);
+        System.out.println(JsonUtility.prettyJson(content));
+        
+        response = template.exchange("https://eniu.com/gu/sh600000", HttpMethod.GET, request, String.class);
+        content = response.getBody();
+        System.out.println(content.length());
+        System.out.println(XmlUtility.prettyHtml(content));
     }
 
     // H股股票
