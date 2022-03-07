@@ -39,11 +39,11 @@ public class EniuTestCase {
 
     // A股股票
     // https://eniu.com/gu/{code}
-    // 价格:https://eniu.com/chart/pricea/{code}/t/all
-    // 市盈率:https://eniu.com/chart/pea/{code}/t/all
-    // 市净率:https://eniu.com/chart/pba/{code}/t/all
-    // 市销率:https://eniu.com/chart/psa/{code}/t/all
-    // 股息率:https://eniu.com/chart/dva/{code}/t/all
+    // 价格:https://eniu.com/chart/pricea/{code}/t/{all,months}
+    // 市盈率:https://eniu.com/chart/pea/{code}/t/{all,months}
+    // 市净率:https://eniu.com/chart/pba/{code}/t/{all,months}
+    // 市销率:https://eniu.com/chart/psa/{code}/t/{all,months}
+    // 股息率:https://eniu.com/chart/dva/{code}/t/{all,months}
     // ROE/ROA:https://eniu.com/chart/roea/{code}/q/{0,1,2,3,4}
     // 净利润:https://eniu.com/chart/profita/{code}/q/{0,1,2,3,4}
     // 现金流:https://eniu.com/chart/cashflowa/{code}/q/{0,1,2,3,4}
