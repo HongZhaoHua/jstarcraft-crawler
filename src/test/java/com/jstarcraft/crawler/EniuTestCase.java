@@ -37,17 +37,17 @@ public class EniuTestCase {
         System.out.println(JsonUtility.pretty(content));
     }
 
-    // 股票
+    // A股股票
     // https://eniu.com/gu/{code}
     // 价格:https://eniu.com/chart/pricea/{code}/t/all
     // 市盈率:https://eniu.com/chart/pea/{code}/t/all
     // 市净率:https://eniu.com/chart/pba/{code}/t/all
     // 市销率:https://eniu.com/chart/psa/{code}/t/all
     // 股息率:https://eniu.com/chart/dva/{code}/t/all
-    // ROE/ROA:https://eniu.com/chart/roea/{code}/q/0
-    // 净利润:https://eniu.com/chart/profita/{code}/q/0
-    // 现金流:https://eniu.com/chart/cashflowa/{code}/q/0
-    // 毛利率:https://eniu.com/chart/grossprofitmargina/{code}/q/0
+    // ROE/ROA:https://eniu.com/chart/roea/{code}/q/{0,1,2,3,4}
+    // 净利润:https://eniu.com/chart/profita/{code}/q/{0,1,2,3,4}
+    // 现金流:https://eniu.com/chart/cashflowa/{code}/q/{0,1,2,3,4}
+    // 毛利率:https://eniu.com/chart/grossprofitmargina/{code}/q/{0,1,2,3,4}
     // 派息率:https://eniu.com/chart/pxla/{code}
     @Test
     public void testStock() {
@@ -60,7 +60,7 @@ public class EniuTestCase {
         System.out.println(content);
     }
 
-    // 股票
+    // H股股票
     // https://eniu.com/gu/{code}
     // 价格:https://eniu.com/chart/priceh/{code}
     // 市盈率:https://eniu.com/chart/peh/{code}
