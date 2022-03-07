@@ -8,6 +8,6 @@ package com.jstarcraft.crawler;
  * @author Birdy
  *
  */
-public class CaiBaoShuaTestCase {
+public class CaibaoshuoTestCase {
 
 }
