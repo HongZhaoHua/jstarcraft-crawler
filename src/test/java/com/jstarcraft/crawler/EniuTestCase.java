@@ -1,5 +1,10 @@
 package com.jstarcraft.crawler;
 
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
+import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 
 /**
  * 亿牛单元测试
@@ -64,6 +70,21 @@ public class EniuTestCase {
         content = response.getBody();
         System.out.println(content.length());
         System.out.println(XmlUtility.prettyHtml(content));
+        Document document = Jsoup.parse(content);
+        JsoupCssSelector changyong = new JsoupCssSelector("div#changyong > p > a[title]");
+        List<Element> changyongElements = changyong.selectContent(document.root());
+        for(Element element : changyongElements ) {
+            String key = element.attr("title");
+            String value = element.text();
+            System.out.println(key + " " + value);
+        }
+        JsoupCssSelector caiwu = new JsoupCssSelector("div#caiwu > p > a[title]");
+        List<Element> caiwuElements = caiwu.selectContent(document.root());
+        for(Element element : caiwuElements ) {
+            String key = element.attr("title");
+            String value = element.text();
+            System.out.println(key + " " + value);
+        }
     }
 
     // H股股票
