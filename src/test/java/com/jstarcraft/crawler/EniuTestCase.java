@@ -1,21 +1,22 @@
 package com.jstarcraft.crawler;
 
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.carwler.share.Share;
+import com.jstarcraft.carwler.share.Stock;
+import com.jstarcraft.carwler.share.eniu.Eniu;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
-import com.jstarcraft.core.common.conversion.xml.XmlUtility;
-import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
+import com.jstarcraft.core.resource.ResourceManager;
+import com.jstarcraft.core.resource.annotation.ResourceAccessor;
 
 /**
  * 亿牛单元测试
@@ -25,7 +26,12 @@ import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
  * @author Birdy
  *
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 public class EniuTestCase {
+
+    @ResourceAccessor
+    private ResourceManager<String, Stock> stocks;
 
     // 行业
     // https://eniu.com/industry/{industry}/market/{share}
@@ -56,7 +62,7 @@ public class EniuTestCase {
     // 毛利率:https://eniu.com/chart/grossprofitmargina/{code}/q/{0,1,2,3,4}
     // 派息率:https://eniu.com/chart/pxla/{code}
     @Test
-    public void testStock() {
+    public void testA_History() {
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -77,60 +83,10 @@ public class EniuTestCase {
     // 列表
     // https://eniu.com/static/data/stock_list.json
 
-    // A股股票
-    // https://eniu.com/gu/{code}
     @Test
-    public void testAshare() {
-        RestTemplate template = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://eniu.com/gu/sh600000", HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
-        JsoupCssSelector changyong = new JsoupCssSelector("div#changyong > p > a[title]");
-        List<Element> changyongElements = changyong.selectContent(document.root());
-        for (Element element : changyongElements) {
-            String key = element.attr("title");
-            String value = element.text();
-            System.out.println(key + " " + value);
-        }
-        JsoupCssSelector caiwu = new JsoupCssSelector("div#caiwu > p > a[title]");
-        List<Element> caiwuElements = caiwu.selectContent(document.root());
-        for (Element element : caiwuElements) {
-            String key = element.attr("title");
-            String value = element.text();
-            System.out.println(key + " " + value);
-        }
-    }
-    
-    // H股股票
-    // https://eniu.com/gu/{code}
-    @Test
-    public void testHshare() {
-        RestTemplate template = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://eniu.com/gu/hk09988", HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
-        JsoupCssSelector changyong = new JsoupCssSelector("div.panel-body > div.row > p > a[title]");
-        List<Element> changyongElements = changyong.selectContent(document.root());
-        for (Element element : changyongElements) {
-            String key = element.parent().ownText();
-            String value = element.text();
-            System.out.println(key + " " + value);
-        }
-        JsoupCssSelector caiwu = new JsoupCssSelector("div#caiwu > p > a[title]");
-        List<Element> caiwuElements = caiwu.selectContent(document.root());
-        for (Element element : caiwuElements) {
-            String key = element.attr("title");
-            String value = element.text();
-            System.out.println(key + " " + value);
-        }
+    public void testStock() {
+        System.out.println(Eniu.getStock(Share.A, "600000"));
+        System.out.println(Eniu.getStock(Share.H, "09988"));
     }
 
 }
