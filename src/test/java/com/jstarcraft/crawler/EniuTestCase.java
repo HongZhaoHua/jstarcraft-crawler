@@ -62,7 +62,7 @@ public class EniuTestCase {
     // 毛利率:https://eniu.com/chart/grossprofitmargina/{code}/q/{0,1,2,3,4}
     // 派息率:https://eniu.com/chart/pxla/{code}
     @Test
-    public void testA_History() {
+    public void testAB_History() {
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -79,6 +79,10 @@ public class EniuTestCase {
     // 股息率:https://eniu.com/chart/dvh/{code}
     // ROE/ROA:https://eniu.com/chart/roeh/{code}
     // 市值:https://eniu.com/chart/marketvalueh/{code}
+    @Test
+    public void testH_History() {
+
+    }
 
     // 列表
     // https://eniu.com/static/data/stock_list.json

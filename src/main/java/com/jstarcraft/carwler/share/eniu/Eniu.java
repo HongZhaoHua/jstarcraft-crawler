@@ -1,7 +1,6 @@
 package com.jstarcraft.carwler.share.eniu;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.carwler.share.Measure;
 import com.jstarcraft.carwler.share.Share;
+import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 
 /**
@@ -31,19 +31,25 @@ public class Eniu {
 
     private static final RestTemplate template = new RestTemplate();
 
-    private static final Map<String, Measure> aMeasures = new HashMap<>();
+    private static final JsoupCssSelector[] abSelectors = { new JsoupCssSelector("div#changyong > p > a[title]"), new JsoupCssSelector("div#caiwu > p > a[title]") };
+
+    private static final JsoupCssSelector[] hSelectors = { new JsoupCssSelector("div.panel-body > div.row > p > a[title]") };
+
+    private static final Map<String, Measure> abMeasures = new HashMap<>();
 
     private static final Map<String, Measure> hMeasures = new HashMap<>();
 
     private static final String regular = "^(-?[\\d\\.]+)([^\\d]+)$";
 
+    private static final JsoupCssSelector industrySelector = new JsoupCssSelector("div.col-md-6 a");
+
     static {
-        aMeasures.put("价 格", Measure.PRICE);
-        aMeasures.put("市盈率", Measure.PE);
-        aMeasures.put("市净率", Measure.PB);
-        aMeasures.put("股息率", Measure.DY);
-        aMeasures.put("ROE", Measure.ROE);
-        aMeasures.put("派息率", Measure.DP);
+        abMeasures.put("价 格", Measure.PRICE);
+        abMeasures.put("市盈率", Measure.PE);
+        abMeasures.put("市净率", Measure.PB);
+        abMeasures.put("股息率", Measure.DY);
+        abMeasures.put("ROE", Measure.ROE);
+        abMeasures.put("派息率", Measure.DP);
 
         hMeasures.put("前复权股价", Measure.PRICE);
         hMeasures.put("历史市盈率", Measure.PE);
@@ -55,74 +61,46 @@ public class Eniu {
     public static Map<Measure, String> getStock(Share share, String code) {
         if (share == Share.A) {
             // A股
-            return getAB_Stock("sh" + code);
+            return getStock("https://eniu.com/gu/sh" + code, abSelectors, abMeasures);
         }
         if (share == Share.B) {
             // B股
-            return getAB_Stock("sz" + code);
+            return getStock("https://eniu.com/gu/sz" + code, abSelectors, abMeasures);
         }
         if (share == Share.H) {
             // H股
-            return getH_Stock("hk" + code);
+            return getStock("https://eniu.com/gu/hk" + code, hSelectors, hMeasures);
         }
         throw new IllegalArgumentException();
     }
 
-    // A股,B股股票
-    // https://eniu.com/gu/{code}
-    private static Map<Measure, String> getAB_Stock(String code) {
-        Map<Measure, String> measures = new TreeMap<>();
+    private static Map<Measure, String> getStock(String url, JsoupCssSelector[] selectors, Map<String, Measure> measures) {
+        Map<Measure, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://eniu.com/gu/" + code, HttpMethod.GET, request, String.class);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
+        System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
-        JsoupCssSelector changyong = new JsoupCssSelector("div#changyong > p > a[title]");
-        List<Element> changyongElements = changyong.selectContent(document.root());
-        for (Element element : changyongElements) {
-            String key = element.attr("title");
-            String value = element.text();
-            Measure measure = aMeasures.get(key);
-            if (measure != null) {
-                value = value.replaceAll(regular, "$1");
-                measures.put(measure, value);
+//        System.out.println(document.title());
+        for (JsoupCssSelector selector : selectors) {
+            for (Element element : selector.selectContent(document.root())) {
+                String key = element.attr("title");
+                String value = element.text();
+                Measure measure = measures.get(key);
+                if (measure != null) {
+                    value = value.replaceAll(regular, "$1");
+                    keyValues.put(measure, value);
+                }
             }
         }
-        JsoupCssSelector caiwu = new JsoupCssSelector("div#caiwu > p > a[title]");
-        List<Element> caiwuElements = caiwu.selectContent(document.root());
-        for (Element element : caiwuElements) {
-            String key = element.attr("title");
-            String value = element.text();
-            Measure measure = aMeasures.get(key);
-            if (measure != null) {
-                value = value.replaceAll(regular, "$1");
-                measures.put(measure, value);
+        for (Element element : industrySelector.selectContent(document.root())) {
+            if (element.id().isEmpty()) {
+                String value = element.text();
+                System.out.println(value);
             }
         }
-        return measures;
-    }
-
-    // H股股票
-    // https://eniu.com/gu/{code}
-    private static Map<Measure, String> getH_Stock(String code) {
-        Map<Measure, String> measures = new TreeMap<>();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://eniu.com/gu/" + code, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
-        JsoupCssSelector changyong = new JsoupCssSelector("div.panel-body > div.row > p > a[title]");
-        List<Element> changyongElements = changyong.selectContent(document.root());
-        for (Element element : changyongElements) {
-            String key = element.attr("title");
-            String value = element.text();
-            Measure measure = hMeasures.get(key);
-            if (measure != null) {
-                value = value.replaceAll(regular, "$1");
-                measures.put(measure, value);
-            }
-        }
-        return measures;
+        return keyValues;
     }
 
 }
