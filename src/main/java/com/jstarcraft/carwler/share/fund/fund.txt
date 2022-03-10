@@ -1,0 +1,5 @@
+AKShare 私募基金数据:
+https://www.akshare.xyz/data/fund/fund_private.html
+
+AKShare 公募基金数据:
+https://www.akshare.xyz/data/fund/fund_public.html

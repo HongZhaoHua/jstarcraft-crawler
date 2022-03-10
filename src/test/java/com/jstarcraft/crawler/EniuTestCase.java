@@ -1,37 +1,29 @@
 package com.jstarcraft.crawler;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.carwler.share.Share;
-import com.jstarcraft.carwler.share.Stock;
 import com.jstarcraft.carwler.share.eniu.Eniu;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
-import com.jstarcraft.core.resource.ResourceManager;
-import com.jstarcraft.core.resource.annotation.ResourceAccessor;
 
 /**
  * 亿牛单元测试
  * 
- * https://eniu.com
+ * <pre>
+ * 数据源 https://eniu.com
+ * 代码元 https://github.com/akfamily/akshare/blob/master/akshare/stock_feature/stock_a_indicator.py
+ * </pre>
  * 
  * @author Birdy
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
 public class EniuTestCase {
-
-    @ResourceAccessor
-    private ResourceManager<String, Stock> stocks;
 
     // 行业
     // https://eniu.com/industry/{industry}/market/{share}

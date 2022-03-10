@@ -111,11 +111,14 @@ https://www.zhihu.com/question/27980657/answer/38966946
 AKShare开源财经数据接口库:
 https://github.com/jindaxiang/akshare
 
-腾讯股票接口、和讯网股票接口、新浪股票接口、雪球股票数据、网易股票数据:
-https://my.oschina.net/u/2332532/blog/1933482
+AKShare 数据字典:
+https://www.akshare.xyz/data/index.html
 
 Tushare大数据开放社区:
 https://tushare.pro/
+
+腾讯股票接口、和讯网股票接口、新浪股票接口、雪球股票数据、网易股票数据:
+https://my.oschina.net/u/2332532/blog/1933482
 
 老虎证券开放API:
 https://www.tigersecurities.com/openapi
