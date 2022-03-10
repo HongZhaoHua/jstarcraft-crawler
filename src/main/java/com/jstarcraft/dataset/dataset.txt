@@ -117,6 +117,9 @@ https://www.akshare.xyz/data/index.html
 Tushare大数据开放社区:
 https://tushare.pro/
 
+Tushare 数据字典:
+http://tushare.org/index.html
+
 腾讯股票接口、和讯网股票接口、新浪股票接口、雪球股票数据、网易股票数据:
 https://my.oschina.net/u/2332532/blog/1933482
 
