@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler;
+package com.jstarcraft.crawler.trade;
 
 /**
  * 富途牛牛单元测试

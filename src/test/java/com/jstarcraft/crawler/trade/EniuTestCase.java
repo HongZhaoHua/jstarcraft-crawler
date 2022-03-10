@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler;
+package com.jstarcraft.crawler.trade;
 
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.share.Share;
-import com.jstarcraft.carwler.share.eniu.Eniu;
+import com.jstarcraft.carwler.trade.Share;
+import com.jstarcraft.carwler.trade.eniu.Eniu;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 
 /**

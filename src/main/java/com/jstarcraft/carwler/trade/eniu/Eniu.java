@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.share.eniu;
+package com.jstarcraft.carwler.trade.eniu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.share.Measure;
-import com.jstarcraft.carwler.share.Share;
+import com.jstarcraft.carwler.trade.Measure;
+import com.jstarcraft.carwler.trade.Share;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 

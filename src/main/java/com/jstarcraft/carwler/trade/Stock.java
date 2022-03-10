@@ -1,12 +1,12 @@
-package com.jstarcraft.carwler.share;
+package com.jstarcraft.carwler.trade;
 
 /**
- * 指数
+ * 股票
  * 
  * @author Birdy
  *
  */
-public class Index {
+public class Stock {
 
     private Share share;
 

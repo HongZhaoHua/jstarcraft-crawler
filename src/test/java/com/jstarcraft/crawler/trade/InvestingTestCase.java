@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler;
+package com.jstarcraft.crawler.trade;
 
 import java.io.IOException;
 import java.util.List;

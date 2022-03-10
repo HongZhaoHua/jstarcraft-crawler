@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler;
+package com.jstarcraft.crawler.trade;
 
 /**
  * 韭圈儿单元测试

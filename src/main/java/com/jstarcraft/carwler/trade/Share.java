@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.share;
+package com.jstarcraft.carwler.trade;
 
 /**
  * 证券交易所
