@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.carwler.trade.Share;
 import com.jstarcraft.carwler.trade.eniu.Eniu;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
@@ -81,8 +82,18 @@ public class EniuTestCase {
 
     @Test
     public void testStock() {
-        System.out.println(Eniu.getStock(Share.A, "600000"));
-        System.out.println(Eniu.getStock(Share.H, "09988"));
+        System.out.println(Eniu.getStock(Share.SH, "601225"));
+        System.out.println(Eniu.getStock(Share.SH, "600900"));
+        System.out.println(Eniu.getStock(Share.SH, "600031"));
+        System.out.println(Eniu.getStock(Share.SH, "601318"));
+        System.out.println(Eniu.getStock(Share.SZ, "000895"));
+        System.out.println(Eniu.getStock(Share.SZ, "000651"));
+        System.out.println(Eniu.getStock(Share.SZ, "000063"));
+        System.out.println(Eniu.getStock(Share.HK, "01810"));
+        System.out.println(Eniu.getStock(Share.HK, "09988"));
+        System.out.println(Eniu.getStock(Share.HK, "00700"));
+        System.out.println(Eniu.getStock(Share.HK, "03333"));
+        System.out.println(Eniu.getStock(Share.HK, "01448"));
     }
 
 }

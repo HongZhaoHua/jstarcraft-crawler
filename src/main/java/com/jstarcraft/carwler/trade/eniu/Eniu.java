@@ -59,15 +59,15 @@ public class Eniu {
     }
 
     public static Map<Measure, String> getStock(Share share, String code) {
-        if (share == Share.A) {
+        if (share == Share.SH) {
             // A股
             return getStock("https://eniu.com/gu/sh" + code, abSelectors, abMeasures);
         }
-        if (share == Share.B) {
+        if (share == Share.SZ) {
             // B股
             return getStock("https://eniu.com/gu/sz" + code, abSelectors, abMeasures);
         }
-        if (share == Share.H) {
+        if (share == Share.HK) {
             // H股
             return getStock("https://eniu.com/gu/hk" + code, hSelectors, hMeasures);
         }
@@ -80,7 +80,7 @@ public class Eniu {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(XmlUtility.prettyHtml(content));
+//        System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
 //        System.out.println(document.title());
         for (JsoupCssSelector selector : selectors) {
@@ -97,7 +97,7 @@ public class Eniu {
         for (Element element : industrySelector.selectContent(document.root())) {
             if (element.id().isEmpty()) {
                 String value = element.text();
-                System.out.println(value);
+//                System.out.println(value);
             }
         }
         return keyValues;
