@@ -1,7 +1,5 @@
 package com.jstarcraft.crawler.trade;
 
-import java.time.temporal.ChronoUnit;
-
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,9 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.carwler.trade.Share;
 import com.jstarcraft.carwler.trade.eniu.Eniu;
+import com.jstarcraft.carwler.trade.eniu.EniuNow;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
-
-import it.unimi.dsi.fastutil.longs.Long2FloatMap;
 
 /**
  * 亿牛单元测试
@@ -72,7 +69,7 @@ public class EniuTestCase {
         System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.DY));
         System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.DP));
 //        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.ROE));
-        
+
         System.out.println(Eniu.getBefore(Share.HK, "09988", Measure.ROE));
     }
 
@@ -93,18 +90,19 @@ public class EniuTestCase {
 
     @Test
     public void testStock() {
-        System.out.println(Eniu.getNow(Share.SH, "601225").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.SH, "600900").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.SH, "600031").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.SH, "601318").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.SZ, "000895").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.SZ, "000651").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.SZ, "000063").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.HK, "01810").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.HK, "09988").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.HK, "00700").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.HK, "03333").get(Measure.PRICE));
-        System.out.println(Eniu.getNow(Share.HK, "01448").get(Measure.PRICE));
+        RestTemplate template = new RestTemplate();
+        System.out.println(EniuNow.SH.getMeasures(template, "601225").get(Measure.PRICE));
+        System.out.println(EniuNow.SH.getMeasures(template, "600900").get(Measure.PRICE));
+        System.out.println(EniuNow.SH.getMeasures(template, "600031").get(Measure.PRICE));
+        System.out.println(EniuNow.SH.getMeasures(template, "601318").get(Measure.PRICE));
+        System.out.println(EniuNow.SZ.getMeasures(template, "000895").get(Measure.PRICE));
+        System.out.println(EniuNow.SZ.getMeasures(template, "000651").get(Measure.PRICE));
+        System.out.println(EniuNow.SZ.getMeasures(template, "000063").get(Measure.PRICE));
+        System.out.println(EniuNow.HK.getMeasures(template, "01810").get(Measure.PRICE));
+        System.out.println(EniuNow.HK.getMeasures(template, "09988").get(Measure.PRICE));
+        System.out.println(EniuNow.HK.getMeasures(template, "00700").get(Measure.PRICE));
+        System.out.println(EniuNow.HK.getMeasures(template, "03333").get(Measure.PRICE));
+        System.out.println(EniuNow.HK.getMeasures(template, "01448").get(Measure.PRICE));
     }
 
 }
