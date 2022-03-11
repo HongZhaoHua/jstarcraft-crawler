@@ -9,8 +9,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.carwler.trade.Measure;
-import com.jstarcraft.carwler.trade.Share;
-import com.jstarcraft.carwler.trade.stock.eniu.Eniu;
 import com.jstarcraft.carwler.trade.stock.eniu.EniuHistory;
 import com.jstarcraft.carwler.trade.stock.eniu.EniuSummary;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
