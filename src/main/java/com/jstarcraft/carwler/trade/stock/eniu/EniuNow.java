@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.trade.eniu;
+package com.jstarcraft.carwler.trade.stock.eniu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +65,7 @@ public enum EniuNow {
 
     private final JsoupCssSelector[] selectors;
 
-    private EniuNow(Share share, String prefix, String[] names, Measure[] measures, String[] selectors) {
+    private EniuNow(Share share, String prefix, String[] names, Measure[] measures, String[] queries) {
         this.share = share;
         this.prefix = prefix;
         if (names.length != measures.length) {
@@ -75,10 +75,10 @@ public enum EniuNow {
         for (int index = 0, size = names.length; index < size; index++) {
             this.name2Measures.put(names[index], measures[index]);
         }
-        int size = selectors.length;
+        int size = queries.length;
         this.selectors = new JsoupCssSelector[size];
         for (int index = 0; index < size; index++) {
-            this.selectors[index] = new JsoupCssSelector(selectors[index]);
+            this.selectors[index] = new JsoupCssSelector(queries[index]);
         }
     }
 
