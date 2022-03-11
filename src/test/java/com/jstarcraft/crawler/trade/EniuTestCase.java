@@ -88,18 +88,18 @@ public class EniuTestCase {
     @Test
     public void testSummary() {
         RestTemplate template = new RestTemplate();
-        System.out.println(EniuSummary.AB.getSummary(template, "sh601225").get(Measure.PRICE));
-        System.out.println(EniuSummary.AB.getSummary(template, "sh600900").get(Measure.PRICE));
-        System.out.println(EniuSummary.AB.getSummary(template, "sh600031").get(Measure.PRICE));
-        System.out.println(EniuSummary.AB.getSummary(template, "sh601318").get(Measure.PRICE));
-        System.out.println(EniuSummary.AB.getSummary(template, "sz000895").get(Measure.PRICE));
-        System.out.println(EniuSummary.AB.getSummary(template, "sz000651").get(Measure.PRICE));
-        System.out.println(EniuSummary.AB.getSummary(template, "sz000063").get(Measure.PRICE));
-        System.out.println(EniuSummary.H.getSummary(template, "hk01810").get(Measure.PRICE));
-        System.out.println(EniuSummary.H.getSummary(template, "hk09988").get(Measure.PRICE));
-        System.out.println(EniuSummary.H.getSummary(template, "hk00700").get(Measure.PRICE));
-        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PRICE));
-        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PRICE));
+        System.out.println(EniuSummary.AB.getSummary(template, "sh601225").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getSummary(template, "sh600900").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getSummary(template, "sh600031").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getSummary(template, "sh601318").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getSummary(template, "sz000895").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getSummary(template, "sz000651").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getSummary(template, "sz000063").get(Measure.PB));
+        System.out.println(EniuSummary.H.getSummary(template, "hk01810").get(Measure.PB));
+        System.out.println(EniuSummary.H.getSummary(template, "hk09988").get(Measure.PB));
+        System.out.println(EniuSummary.H.getSummary(template, "hk00700").get(Measure.PB));
+        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PB));
+        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PB));
     }
 
 }
