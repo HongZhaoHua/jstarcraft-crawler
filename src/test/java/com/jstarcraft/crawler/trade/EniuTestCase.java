@@ -1,5 +1,7 @@
 package com.jstarcraft.crawler.trade;
 
+import java.time.temporal.ChronoUnit;
+
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +14,8 @@ import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.carwler.trade.Share;
 import com.jstarcraft.carwler.trade.eniu.Eniu;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
+
+import it.unimi.dsi.fastutil.longs.Long2FloatMap;
 
 /**
  * 亿牛单元测试
@@ -49,20 +53,27 @@ public class EniuTestCase {
     // 市净率:https://eniu.com/chart/pba/{code}/t/{all,months}
     // 市销率:https://eniu.com/chart/psa/{code}/t/{all,months}
     // 股息率:https://eniu.com/chart/dva/{code}/t/{all,months}
+    // 派息率:https://eniu.com/chart/pxla/{code}
     // ROE/ROA:https://eniu.com/chart/roea/{code}/q/{0,1,2,3,4}
     // 净利润:https://eniu.com/chart/profita/{code}/q/{0,1,2,3,4}
     // 现金流:https://eniu.com/chart/cashflowa/{code}/q/{0,1,2,3,4}
     // 毛利率:https://eniu.com/chart/grossprofitmargina/{code}/q/{0,1,2,3,4}
-    // 派息率:https://eniu.com/chart/pxla/{code}
     @Test
     public void testAB_History() {
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://eniu.com/chart/pricea/sh600000/t/1", HttpMethod.GET, request, String.class);
+        ResponseEntity<String> response = template.exchange("https://eniu.com/chart/psa/sh600000/t/1", HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(JsonUtility.prettyJson(content));
+//        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.PRICE));
+//        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.PE));
+//        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.PB));
+//        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.PS));
+        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.DY));
+        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.DP));
+//        System.out.println(Eniu.getBefore(Share.SH, "600000", Measure.ROE));
+        
+        System.out.println(Eniu.getBefore(Share.HK, "09988", Measure.ROE));
     }
 
     // H股股票
@@ -82,18 +93,18 @@ public class EniuTestCase {
 
     @Test
     public void testStock() {
-        System.out.println(Eniu.getStock(Share.SH, "601225"));
-        System.out.println(Eniu.getStock(Share.SH, "600900"));
-        System.out.println(Eniu.getStock(Share.SH, "600031"));
-        System.out.println(Eniu.getStock(Share.SH, "601318"));
-        System.out.println(Eniu.getStock(Share.SZ, "000895"));
-        System.out.println(Eniu.getStock(Share.SZ, "000651"));
-        System.out.println(Eniu.getStock(Share.SZ, "000063"));
-        System.out.println(Eniu.getStock(Share.HK, "01810"));
-        System.out.println(Eniu.getStock(Share.HK, "09988"));
-        System.out.println(Eniu.getStock(Share.HK, "00700"));
-        System.out.println(Eniu.getStock(Share.HK, "03333"));
-        System.out.println(Eniu.getStock(Share.HK, "01448"));
+        System.out.println(Eniu.getNow(Share.SH, "601225").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.SH, "600900").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.SH, "600031").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.SH, "601318").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.SZ, "000895").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.SZ, "000651").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.SZ, "000063").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.HK, "01810").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.HK, "09988").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.HK, "00700").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.HK, "03333").get(Measure.PRICE));
+        System.out.println(Eniu.getNow(Share.HK, "01448").get(Measure.PRICE));
     }
 
 }

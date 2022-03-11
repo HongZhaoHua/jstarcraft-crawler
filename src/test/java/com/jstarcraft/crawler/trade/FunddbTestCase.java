@@ -1,5 +1,7 @@
 package com.jstarcraft.crawler.trade;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.noear.snack.ONode;
 import org.springframework.http.HttpEntity;
@@ -47,17 +49,19 @@ public class FunddbTestCase {
         MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
         parameters.add("gu_code", "399441.SZ");
         parameters.add("pe_category", "pb");
-        parameters.add("year", 3);
+        parameters.add("year", -1);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(parameters, headers);
         ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata", HttpMethod.POST, request, String.class);
         String content = response.getBody();
         System.out.println(content);
         ONode root = ONode.load(content);
         ONode average = root.get("data").get("ping_pe");
-        SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市净率')]");
-        for (ONode node : selector.selectContent(root)) {
-            System.out.println(node);
+        SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市净率')].data");
+        List<ONode> nodes = selector.selectContent(root);
+        for (ONode node : nodes) {
+            System.out.println(node.ary().size());
         }
+        System.out.println(nodes.size());
     }
     
     /**
