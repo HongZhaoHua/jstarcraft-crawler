@@ -143,7 +143,7 @@ public class Eniu {
         abMeasure2Names.put(Measure.PS, new String[] { "https://eniu.com/chart/psa/{}/t/1", "date", "ps", "yyyy-MM-dd" });
         abMeasure2Names.put(Measure.DY, new String[] { "https://eniu.com/chart/dva/{}/t/1", "date", "dv", "yyyy-MM-dd" });
         abMeasure2Names.put(Measure.DP, new String[] { "https://eniu.com/chart/pxla/{}", "fhnd", "pxl", "yyyy" });
-        abMeasure2Names.put(Measure.ROE, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roa", "yyyy" });
+        abMeasure2Names.put(Measure.ROA, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roa", "yyyy" });
         abMeasure2Names.put(Measure.ROE, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roe", "yyyy" });
 
         hMeasure2Names.put(Measure.PRICE, new String[] { "https://eniu.com/chart/priceh/{}", "date", "price", "yyyy-MM-dd" });

@@ -20,34 +20,24 @@ import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 亿牛
+ * 亿牛概要
  * 
+ * <pre>
  * https://eniu.com
+ * </pre>
  * 
  * @author Birdy
  *
  */
-public enum EniuNow {
+public enum EniuSummary {
 
-    SH(Share.SH, "sh",
-
-            new String[] { "价 格", "市盈率", "市净率", "股息率", "派息率", "ROE" },
+    AB(new String[] { "价格", "市盈率", "市净率", "股息率", "派息率", "ROE" },
 
             new Measure[] { Measure.PRICE, Measure.PE, Measure.PB, Measure.DY, Measure.DP, Measure.ROE },
 
             new String[] { "div#changyong > p > a[title]", "div#caiwu > p > a[title]" }),
 
-    SZ(Share.SZ, "sz",
-
-            new String[] { "价 格", "市盈率", "市净率", "股息率", "派息率", "ROE" },
-
-            new Measure[] { Measure.PRICE, Measure.PE, Measure.PB, Measure.DY, Measure.DP, Measure.ROE },
-
-            new String[] { "div#changyong > p > a[title]", "div#caiwu > p > a[title]" }),
-
-    HK(Share.HK, "hk",
-
-            new String[] { "前复权股价", "历史市盈率", "历史市净率", "历史股息率", "ROE" },
+    H(new String[] { "前复权股价", "历史市盈率", "历史市净率", "历史股息率", "ROE" },
 
             new Measure[] { Measure.PRICE, Measure.PE, Measure.PB, Measure.DY, Measure.ROE },
 
@@ -57,17 +47,11 @@ public enum EniuNow {
 
     private static final JsoupCssSelector industrySelector = new JsoupCssSelector("div.col-md-6 a");
 
-    private final Share share;
-
-    private final String prefix;
-
     private final Map<String, Measure> name2Measures;
 
     private final JsoupCssSelector[] selectors;
 
-    private EniuNow(Share share, String prefix, String[] names, Measure[] measures, String[] queries) {
-        this.share = share;
-        this.prefix = prefix;
+    private EniuSummary(String[] names, Measure[] measures, String[] queries) {
         if (names.length != measures.length) {
             throw new IllegalArgumentException();
         }
@@ -83,14 +67,14 @@ public enum EniuNow {
     }
 
     /**
-     * 获取指标
+     * 获取摘要
      * 
      * @param template
      * @param code
      * @return
      */
-    public Map<Measure, String> getMeasures(RestTemplate template, String code) {
-        String url = StringUtility.format("https://eniu.com/gu/{}", prefix + code);
+    public Map<Measure, String> getSummary(RestTemplate template, String code) {
+        String url = StringUtility.format("https://eniu.com/gu/{}", code);
         Map<Measure, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -100,7 +84,7 @@ public enum EniuNow {
         // 获取指标
         for (JsoupCssSelector selector : selectors) {
             for (Element element : selector.selectContent(document.root())) {
-                String key = element.attr("title");
+                String key = element.attr("title").replaceAll(StringUtility.SPACE, StringUtility.EMPTY);
                 String value = element.text();
                 Measure measure = name2Measures.get(key);
                 if (measure != null) {
@@ -118,10 +102,6 @@ public enum EniuNow {
             }
         }
         return keyValues;
-    }
-
-    public Share getShare() {
-        return share;
     }
 
 }
