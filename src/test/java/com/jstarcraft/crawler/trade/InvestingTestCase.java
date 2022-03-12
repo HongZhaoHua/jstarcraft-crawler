@@ -31,9 +31,18 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 
 /**
- * 英为单元测试
+ * 英为财情单元测试
  * 
+ * <pre>
  * https://cn.investing.com
+ * https://cn.investing.com/stock-screener/
+ * https://cn.investing.com/equities/{}
+ * 简介:https://cn.investing.com/equities/{}-company-profile
+ * 历史:https://cn.investing.com/equities/{}-historical-data
+ * 现金流:https://cn.investing.com/equities/{}-cash-flow
+ * 比率:https://cn.investing.com/equities/{}-ratios
+ * 股息:https://cn.investing.com/equities/{}-dividends
+ * </pre>
  * 
  * @author Birdy
  *
@@ -94,8 +103,8 @@ public class InvestingTestCase {
             headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
             headers.add("x-requested-with", "XMLHttpRequest");
             MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
-            parameters.add("curr_id", "944220");
-            parameters.add("smlID", "1550189");
+            parameters.add("curr_id", "13994");
+//            parameters.add("smlID", "1550180");
             parameters.add("header", "000651历史数据");
             parameters.add("st_date", "2021/04/15");
             parameters.add("end_date", "2021/04/20");
