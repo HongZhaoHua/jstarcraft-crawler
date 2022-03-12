@@ -74,8 +74,6 @@ public enum EniuHistory {
         String url = StringUtility.format(urlTemplate, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(JsonUtility.prettyJson(content));
         ONode root = ONode.load(content);
         List<ONode> dates = dateSelector.selectContent(root);
         List<ONode> datas = dataSelector.selectContent(root);

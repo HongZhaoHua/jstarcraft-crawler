@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.carwler.trade.Share;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
+import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
 
@@ -105,7 +106,7 @@ public class Eniu {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-//        System.out.println(XmlUtility.prettyHtml(content));
+        System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
 //        System.out.println(document.title());
         // 获取指标

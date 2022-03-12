@@ -8,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.trade.Measure;
+import com.jstarcraft.carwler.trade.Share;
+import com.jstarcraft.carwler.trade.stock.eniu.Eniu;
+import com.jstarcraft.carwler.trade.stock.eniu.EniuStatistic;
 import com.jstarcraft.carwler.trade.stock.eniu.EniuHistory;
-import com.jstarcraft.carwler.trade.stock.eniu.EniuSummary;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 
 /**
@@ -87,19 +88,26 @@ public class EniuTestCase {
 
     @Test
     public void testSummary() {
-        RestTemplate template = new RestTemplate();
-        System.out.println(EniuSummary.AB.getSummary(template, "sh601225").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getSummary(template, "sh600900").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getSummary(template, "sh600031").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getSummary(template, "sh601318").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getSummary(template, "sz000895").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getSummary(template, "sz000651").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getSummary(template, "sz000063").get(Measure.PB));
-        System.out.println(EniuSummary.H.getSummary(template, "hk01810").get(Measure.PB));
-        System.out.println(EniuSummary.H.getSummary(template, "hk09988").get(Measure.PB));
-        System.out.println(EniuSummary.H.getSummary(template, "hk00700").get(Measure.PB));
-        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PB));
-        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PB));
+//        RestTemplate template = new RestTemplate();
+//        System.out.println(EniuSummary.AB.getSummary(template, "sh601225").get(Measure.PB));
+//        System.out.println(EniuSummary.AB.getSummary(template, "sh600900").get(Measure.PB));
+//        System.out.println(EniuSummary.AB.getSummary(template, "sh600031").get(Measure.PB));
+//        System.out.println(EniuSummary.AB.getSummary(template, "sh601318").get(Measure.PB));
+//        System.out.println(EniuSummary.AB.getSummary(template, "sz000895").get(Measure.PB));
+//        System.out.println(EniuSummary.AB.getSummary(template, "sz000651").get(Measure.PB));
+//        System.out.println(EniuSummary.AB.getSummary(template, "sz000063").get(Measure.PB));
+//        System.out.println(EniuSummary.H.getSummary(template, "hk01810").get(Measure.PB));
+//        System.out.println(EniuSummary.H.getSummary(template, "hk09988").get(Measure.PB));
+//        System.out.println(EniuSummary.H.getSummary(template, "hk00700").get(Measure.PB));
+//        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PB));
+//        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PB));
+
+//        Eniu.getNow(Share.SH, "600000");
+//
+//        Eniu.getNow(Share.HK, "00700");
+
+        EniuStatistic statistic = new EniuStatistic("hk00700");
+        statistic.getPb();
     }
 
 }
