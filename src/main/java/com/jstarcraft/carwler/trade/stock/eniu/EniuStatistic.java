@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.trade.Measure;
-import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;

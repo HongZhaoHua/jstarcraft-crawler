@@ -31,7 +31,9 @@ import it.unimi.dsi.fastutil.longs.Long2FloatMap;
 /**
  * 亿牛
  * 
+ * <pre>
  * https://eniu.com
+ * </pre>
  * 
  * @author Birdy
  *
