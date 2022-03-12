@@ -8,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.trade.Share;
-import com.jstarcraft.carwler.trade.stock.eniu.Eniu;
-import com.jstarcraft.carwler.trade.stock.eniu.EniuStatistic;
 import com.jstarcraft.carwler.trade.stock.eniu.EniuHistory;
+import com.jstarcraft.carwler.trade.stock.eniu.EniuStatistic;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 
 /**
@@ -102,12 +100,28 @@ public class EniuTestCase {
 //        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PB));
 //        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PB));
 
-//        Eniu.getNow(Share.SH, "600000");
-//
-//        Eniu.getNow(Share.HK, "00700");
+    }
 
-        EniuStatistic statistic = new EniuStatistic("hk00700");
-        statistic.getPb();
+    @Test
+    public void testStatistic() {
+//        EniuStatistic statistic = new EniuStatistic("sh600000");
+//        EniuStatistic statistic = new EniuStatistic("hk00700");
+//        System.out.println(statistic.getPe());
+//        System.out.println(statistic.getPb());
+//        System.out.println(statistic.getPs());
+
+        System.out.println(new EniuStatistic("sh601225").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("sh600900").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("sh600031").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("sh601318").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("sz000895").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("sz000651").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("sz000063").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("hk01810").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("hk09988").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("hk00700").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("hk03333").getPb().get("历史平均"));
+        System.out.println(new EniuStatistic("hk01448").getPb().get("历史平均"));
     }
 
 }

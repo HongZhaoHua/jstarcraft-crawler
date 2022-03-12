@@ -58,72 +58,75 @@ public class EniuStatistic {
     }
 
     public Map<String, String> getPe() {
-        Map<Measure, String> keyValues = new TreeMap<>();
+        Map<String, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(peUrl, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(XmlUtility.prettyHtml(content));
+//        System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
         for (HtmlElementNode node : peStatisticSelector.selectContent(root)) {
             Element element = (Element) node.getValue();
-            System.out.println(element);
+            keyValues.put(element.getElementsByTag("span").text(), element.getElementsByTag("h3").text());
         }
         for (HtmlElementNode node : perentSelector.selectContent(root)) {
             Element element = (Element) node.getValue();
-            System.out.println(element);
+            String[] text = element.getElementsByTag("p").text().split("：");
+            keyValues.put(text[0], text[1]);
         }
-        return null;
+        return keyValues;
     }
 
     public Map<String, String> getPb() {
-        Map<Measure, String> keyValues = new TreeMap<>();
+        Map<String, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(pbUrl, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(XmlUtility.prettyHtml(content));
+//        System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
         for (HtmlElementNode node : pbStatisticSelector.selectContent(root)) {
             Element element = (Element) node.getValue();
-            System.out.println(element);
+            keyValues.put(element.getElementsByTag("span").text(), element.getElementsByTag("h3").text());
         }
         for (HtmlElementNode node : perentSelector.selectContent(root)) {
             Element element = (Element) node.getValue();
-            System.out.println(element);
+            String[] text = element.getElementsByTag("p").text().split("：");
+            keyValues.put(text[0], text[1]);
         }
-        return null;
+        return keyValues;
     }
 
     public Map<String, String> getPs() {
-        Map<Measure, String> keyValues = new TreeMap<>();
+        Map<String, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(psUrl, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(XmlUtility.prettyHtml(content));
+//        System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
         for (HtmlElementNode node : psStatisticSelector.selectContent(root)) {
             Element element = (Element) node.getValue();
-            System.out.println(element);
+            keyValues.put(element.getElementsByTag("span").text(), element.getElementsByTag("h3").text());
         }
         for (HtmlElementNode node : perentSelector.selectContent(root)) {
             Element element = (Element) node.getValue();
-            System.out.println(element);
+            String[] text = element.getElementsByTag("p").text().split("：");
+            keyValues.put(text[0], text[1]);
         }
-        return null;
+        return keyValues;
     }
 
 }
