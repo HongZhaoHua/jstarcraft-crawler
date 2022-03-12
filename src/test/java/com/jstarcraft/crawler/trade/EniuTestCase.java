@@ -99,7 +99,6 @@ public class EniuTestCase {
 //        System.out.println(EniuSummary.H.getSummary(template, "hk00700").get(Measure.PB));
 //        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PB));
 //        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PB));
-
     }
 
     @Test

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jstarcraft</groupId>
-    <artifactId>jstarcraft-dataset</artifactId>
+    <artifactId>jstarcraft-crawler</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
@@ -49,12 +49,21 @@
             <version>1.0</version>
         </dependency>
 
+        <!-- CSS -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+
+        <!-- JSONPath -->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>snack3</artifactId>
             <version>3.1.7.3</version>
         </dependency>
 
+        <!-- XPath -->
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
@@ -119,7 +128,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.1.6.RELEASE</version>
+            <version>5.2.8.RELEASE</version>
             <scope>test</scope>
         </dependency>
 
