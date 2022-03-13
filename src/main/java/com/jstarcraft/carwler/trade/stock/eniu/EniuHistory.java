@@ -14,7 +14,7 @@ import com.jstarcraft.core.common.selection.jsonpath.SnackJsonPathSelector;
 import com.jstarcraft.core.utility.StringUtility;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatAVLTreeMap;
-import it.unimi.dsi.fastutil.objects.Object2FloatMap;
+import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
 
 /**
  * 亿牛历史
@@ -66,7 +66,7 @@ public enum EniuHistory {
         this.dataSelector = new SnackJsonPathSelector(dataQuery);
     }
 
-    public Object2FloatMap<String> getHistory(RestTemplate template, String code) {
+    public Object2FloatSortedMap<String> getHistory(RestTemplate template, String code) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(urlTemplate, code);
@@ -75,7 +75,7 @@ public enum EniuHistory {
         ONode root = ONode.load(content);
         List<ONode> dates = dateSelector.selectContent(root);
         List<ONode> datas = dataSelector.selectContent(root);
-        Object2FloatMap<String> history = new Object2FloatAVLTreeMap<>();
+        Object2FloatSortedMap<String> history = new Object2FloatAVLTreeMap<>();
         int size = dates.size();
         for (int index = 0; index < size; index++) {
             String date = dates.get(index).getString();

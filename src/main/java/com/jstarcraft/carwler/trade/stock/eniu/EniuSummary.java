@@ -66,13 +66,13 @@ public enum EniuSummary {
     }
 
     /**
-     * 获取摘要
+     * 获取指标
      * 
      * @param template
      * @param code
      * @return
      */
-    public Map<Measure, String> getSummary(RestTemplate template, String code) {
+    public Map<Measure, String> getMeasures(RestTemplate template, String code) {
         String url = StringUtility.format("https://eniu.com/gu/{}", code);
         Map<Measure, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
@@ -92,15 +92,32 @@ public enum EniuSummary {
                 }
             }
         }
+        return keyValues;
+    }
+
+    /**
+     * 获取行业
+     * 
+     * @param template
+     * @param code
+     * @return
+     */
+    public String getIndustry(RestTemplate template, String code) {
+        String url = StringUtility.format("https://eniu.com/gu/{}", code);
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String content = response.getBody();
+        Document document = Jsoup.parse(content);
         // TODO 获取名称
         document.title();
         // TODO 获取行业
         for (Element element : industrySelector.selectContent(document.root())) {
             if (element.id().isEmpty()) {
-                String value = element.text();
+                return element.text();
             }
         }
-        return keyValues;
+        return null;
     }
 
 }

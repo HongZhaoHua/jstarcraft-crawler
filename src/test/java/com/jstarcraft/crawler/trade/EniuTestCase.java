@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.carwler.trade.stock.eniu.EniuHistory;
 import com.jstarcraft.carwler.trade.stock.eniu.EniuStatistic;
+import com.jstarcraft.carwler.trade.stock.eniu.EniuSummary;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 
 /**
@@ -65,20 +67,20 @@ public class EniuTestCase {
     public void testHistory() {
         RestTemplate template = new RestTemplate();
 
-        System.out.println(EniuHistory.AB_PRICE.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_PE.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_PB.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_PS.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_DY.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_DP.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_ROA.getHistory(template, "sh601225"));
-        System.out.println(EniuHistory.AB_ROE.getHistory(template, "sh601225"));
+        System.out.println(EniuHistory.AB_PRICE.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.AB_PE.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.AB_PB.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.AB_PS.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.AB_DY.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.AB_DP.getHistory(template, "sh601225").subMap("2020", "2023"));
+        System.out.println(EniuHistory.AB_ROA.getHistory(template, "sh601225").subMap("2020", "2023"));
+        System.out.println(EniuHistory.AB_ROE.getHistory(template, "sh601225").subMap("2020", "2023"));
 
-        System.out.println(EniuHistory.H_PRICE.getHistory(template, "hk09988"));
-        System.out.println(EniuHistory.H_PE.getHistory(template, "hk09988"));
-        System.out.println(EniuHistory.H_PB.getHistory(template, "hk09988"));
-        System.out.println(EniuHistory.H_DY.getHistory(template, "hk09988"));
-        System.out.println(EniuHistory.H_ROE.getHistory(template, "hk09988"));
+        System.out.println(EniuHistory.H_PRICE.getHistory(template, "hk09988").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.H_PE.getHistory(template, "hk09988").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.H_PB.getHistory(template, "hk09988").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.H_DY.getHistory(template, "hk09988").subMap("2022-01-01", "2022-12-31"));
+        System.out.println(EniuHistory.H_ROE.getHistory(template, "hk09988").subMap("2020", "2023"));
     }
 
     // 列表
@@ -86,19 +88,19 @@ public class EniuTestCase {
 
     @Test
     public void testSummary() {
-//        RestTemplate template = new RestTemplate();
-//        System.out.println(EniuSummary.AB.getSummary(template, "sh601225").get(Measure.PB));
-//        System.out.println(EniuSummary.AB.getSummary(template, "sh600900").get(Measure.PB));
-//        System.out.println(EniuSummary.AB.getSummary(template, "sh600031").get(Measure.PB));
-//        System.out.println(EniuSummary.AB.getSummary(template, "sh601318").get(Measure.PB));
-//        System.out.println(EniuSummary.AB.getSummary(template, "sz000895").get(Measure.PB));
-//        System.out.println(EniuSummary.AB.getSummary(template, "sz000651").get(Measure.PB));
-//        System.out.println(EniuSummary.AB.getSummary(template, "sz000063").get(Measure.PB));
-//        System.out.println(EniuSummary.H.getSummary(template, "hk01810").get(Measure.PB));
-//        System.out.println(EniuSummary.H.getSummary(template, "hk09988").get(Measure.PB));
-//        System.out.println(EniuSummary.H.getSummary(template, "hk00700").get(Measure.PB));
-//        System.out.println(EniuSummary.H.getSummary(template, "hk03333").get(Measure.PB));
-//        System.out.println(EniuSummary.H.getSummary(template, "hk01448").get(Measure.PB));
+        RestTemplate template = new RestTemplate();
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh601225").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh600900").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh600031").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh601318").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sz000895").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sz000651").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sz000063").get(Measure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk01810").get(Measure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk09988").get(Measure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk00700").get(Measure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk03333").get(Measure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk01448").get(Measure.PB));
     }
 
     @Test
