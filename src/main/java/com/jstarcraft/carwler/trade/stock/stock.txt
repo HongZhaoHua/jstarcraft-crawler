@@ -1,2 +1,5 @@
 AKShare 股票数据:
 https://www.akshare.xyz/data/stock/stock.html
+
+ISIN 到股票代码:
+https://zditect.com/article/20080470.html

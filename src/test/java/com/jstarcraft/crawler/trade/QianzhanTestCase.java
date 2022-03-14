@@ -3,16 +3,14 @@ package com.jstarcraft.crawler.trade;
 import org.junit.Test;
 
 /**
- * 富途牛牛单元测试
- * 
- * https://www.futunn.com/
+ * 前瞻单元测试
  * 
  * @author Birdy
  *
  */
-public class FutonnTestCase {
+public class QianzhanTestCase {
 
-    // ISIN:https://www.futunn.com/stock/{code}-HK/company-profile
+    // ISIN:https://xs.qianzhan.com/hs/zhengquan_{code}.{SH/SZ/HK}.html
     @Test
     public void testIsin() {
 
