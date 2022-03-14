@@ -12,6 +12,7 @@ import org.jaxen.Navigator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -49,7 +50,8 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
  */
 public class InvestingTestCase {
 
-    public static void main(String[] arguments) {
+    @Test
+    public void testHistory() {
         // 代理
         final String host = "127.0.0.1";
         final int port = 1080;
