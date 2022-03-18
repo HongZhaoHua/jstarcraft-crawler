@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.stock;
+package com.jstarcraft.crawler.trade.security.stock;
 
 import java.util.Arrays;
 import java.util.List;

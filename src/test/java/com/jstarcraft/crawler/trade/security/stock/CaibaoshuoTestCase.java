@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.stock;
+package com.jstarcraft.crawler.trade.security.stock;
 
 /**
  * 财报说单元测试
