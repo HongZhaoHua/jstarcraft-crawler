@@ -27,14 +27,17 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
+import com.jstarcraft.core.utility.StringUtility;
 
 /**
  * 英为财情单元测试
  * 
  * <pre>
+ * https://api.investing.com/api/search/v2/search?q={isin}
  * https://cn.investing.com
  * https://cn.investing.com/stock-screener/
  * https://cn.investing.com/equities/{}
@@ -135,7 +138,26 @@ public class InvestingTestCase {
             System.err.println(exception.getStatusCode());
             System.err.println(exception.getResponseBodyAsString());
         }
+    }
 
+    @Test
+    public void testSearch() {
+        final String host = "127.0.0.1";
+        final int port = 1080;
+        HttpHost proxy = new HttpHost(host, port);
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        builder.setProxy(proxy);
+        HttpClient client = builder.build();
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setHttpClient(client);
+        RestTemplate template = new RestTemplate(factory);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Domain-ID", "cn");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format("https://api.investing.com/api/search/v2/search?q={}", "KYG875721634");
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String content = response.getBody();
+        System.out.println(JsonUtility.prettyJson(content));
     }
 
 }
