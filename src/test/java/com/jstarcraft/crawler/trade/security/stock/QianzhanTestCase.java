@@ -1,5 +1,9 @@
 package com.jstarcraft.crawler.trade.security.stock;
 
+import org.jaxen.Navigator;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +13,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
+import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
+import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
+import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
@@ -18,6 +25,12 @@ import com.jstarcraft.core.utility.StringUtility;
  *
  */
 public class QianzhanTestCase {
+
+    private static final Navigator navigator = HtmlNavigator.getInstance();
+
+    private static final JaxenXpathSelector<HtmlElementNode> isinSelector = new JaxenXpathSelector<>("//div[@id='div_partion_body']//td[text()='ISIN代码']/following-sibling::td", navigator);
+
+    private static final JaxenXpathSelector<HtmlElementNode> sedolSelector = new JaxenXpathSelector<>("//div[@id='div_partion_body']//td[text()='SEDOL代码']/following-sibling::td", navigator);
 
     // ISIN:https://xs.qianzhan.com/hs/zhengquan_{code}.{SH/SZ/HK}.html
     @Test
@@ -30,6 +43,13 @@ public class QianzhanTestCase {
         String content = response.getBody();
         System.out.println(content.length());
         System.out.println(XmlUtility.prettyHtml(content));
+
+        Document document = Jsoup.parse(content);
+        HtmlElementNode root = new HtmlElementNode(document);
+        Element isin = (Element) isinSelector.selectContent(root).get(0).getValue();
+        Element sedol = (Element) sedolSelector.selectContent(root).get(0).getValue();
+        System.out.println(isin.text());
+        System.out.println(sedol.text());
     }
 
 }
