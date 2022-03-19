@@ -33,7 +33,7 @@ import com.jstarcraft.core.common.conversion.json.JsonUtility;
  * @author Birdy
  *
  */
-public class EniuTestCase {
+public class EniuStockTestCase {
 
     // 行业
     // https://eniu.com/industry/{industry}/market/{share}

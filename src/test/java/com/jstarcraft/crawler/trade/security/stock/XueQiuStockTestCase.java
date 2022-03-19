@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Birdy
  *
  */
-public class XueQiuTestCase {
+public class XueQiuStockTestCase {
 
     public static void main(String[] arguments) {
         RestTemplate template = new RestTemplate();

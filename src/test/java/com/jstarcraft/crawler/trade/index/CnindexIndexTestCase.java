@@ -10,6 +10,6 @@ package com.jstarcraft.crawler.trade.index;
  * @author Birdy
  *
  */
-public class CnindexTestCase {
+public class CnindexIndexTestCase {
 
 }

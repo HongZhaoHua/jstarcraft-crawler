@@ -18,13 +18,14 @@ package com.jstarcraft.carwler.trade.security.stock.inversting;
  * 股息:https://cn.investing.com/equities/{}-dividends
  * POST:https://cn.investing.com/equities/MoreDividendsHistory
  * pairID,last_timestamp
+ * 财报:https://cn.investing.com/equities/{}-earnings
+ * POST:https://cn.investing.com/equities/morehistory
+ * pairID,last_timestamp
  * </pre>
  * 
  * @author Birdy
  *
  */
 public class Investing {
-
-    
 
 }

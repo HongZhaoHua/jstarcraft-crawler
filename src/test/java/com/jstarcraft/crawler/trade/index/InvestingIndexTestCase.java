@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.stock;
+package com.jstarcraft.crawler.trade.index;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +51,7 @@ import com.jstarcraft.core.utility.StringUtility;
  * @author Birdy
  *
  */
-public class InvestingTestCase {
+public class InvestingIndexTestCase {
 
     @Test
     public void testHistory() {

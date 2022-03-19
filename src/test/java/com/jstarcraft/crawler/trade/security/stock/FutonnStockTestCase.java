@@ -26,7 +26,7 @@ import com.jstarcraft.core.utility.StringUtility;
  * @author Birdy
  *
  */
-public class FutonnTestCase {
+public class FutonnStockTestCase {
 
     private static final Navigator navigator = HtmlNavigator.getInstance();
 

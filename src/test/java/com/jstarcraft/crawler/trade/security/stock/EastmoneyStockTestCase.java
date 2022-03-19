@@ -10,6 +10,6 @@ package com.jstarcraft.crawler.trade.security.stock;
  * @author Birdy
  *
  */
-public class EastmoneyTestCase {
+public class EastmoneyStockTestCase {
 
 }

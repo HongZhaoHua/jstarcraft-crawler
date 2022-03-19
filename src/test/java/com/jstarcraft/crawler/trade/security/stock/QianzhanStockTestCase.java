@@ -24,7 +24,7 @@ import com.jstarcraft.core.utility.StringUtility;
  * @author Birdy
  *
  */
-public class QianzhanTestCase {
+public class QianzhanStockTestCase {
 
     private static final Navigator navigator = HtmlNavigator.getInstance();
 

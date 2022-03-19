@@ -26,7 +26,7 @@ import com.jstarcraft.core.common.selection.jsonpath.SnackJsonPathSelector;
  * @author Birdy
  *
  */
-public class FunddbTestCase {
+public class FunddbIndexTestCase {
 
     @Test
     public void testCategory() throws InterruptedException {

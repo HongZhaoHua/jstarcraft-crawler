@@ -8,6 +8,6 @@ package com.jstarcraft.crawler.trade.security.stock;
  * @author Birdy
  *
  */
-public class CaibaoshuoTestCase {
+public class CaibaoshuoStockTestCase {
 
 }
