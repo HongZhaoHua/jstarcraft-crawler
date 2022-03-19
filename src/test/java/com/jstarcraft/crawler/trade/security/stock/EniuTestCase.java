@@ -1,5 +1,12 @@
 package com.jstarcraft.crawler.trade.security.stock;
 
+import java.time.Month;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.IsoFields;
+import java.time.temporal.TemporalAccessor;
+
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -7,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.threeten.extra.YearQuarter;
 
 import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.carwler.trade.security.stock.eniu.EniuHistory;
@@ -44,6 +52,18 @@ public class EniuTestCase {
         System.out.println(JsonUtility.prettyJson(content));
     }
 
+    @Test
+    public void testQuarter() {
+        DateTimeFormatter QUARTER_FORMAT = DateTimeFormatter.ofPattern("yyyy'Q'q");
+        TemporalAccessor accessor = QUARTER_FORMAT.parse("2021Q3");
+        System.out.println(accessor.get(ChronoField.YEAR));
+        System.out.println(accessor.get(IsoFields.QUARTER_OF_YEAR));
+
+        YearQuarter yearQuarter = YearQuarter.parse("2021Q3", QUARTER_FORMAT);
+        Year year = Year.parse("2021Q3", QUARTER_FORMAT);
+        System.out.println(yearQuarter);
+    }
+
     // AB股股票
     // 价格:https://eniu.com/chart/pricea/{code}/t/{all,months}
     // 市盈率:https://eniu.com/chart/pea/{code}/t/{all,months}
@@ -66,7 +86,8 @@ public class EniuTestCase {
     @Test
     public void testHistory() {
         RestTemplate template = new RestTemplate();
-
+        Month month = Month.AUGUST;
+        month.firstMonthOfQuarter();
         System.out.println(EniuHistory.AB_PRICE.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
         System.out.println(EniuHistory.AB_PE.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));
         System.out.println(EniuHistory.AB_PB.getHistory(template, "sh601225").subMap("2022-01-01", "2022-12-31"));

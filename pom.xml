@@ -82,6 +82,13 @@
             <version>5.2.8.RELEASE</version>
         </dependency>
 
+        <!-- 历法 -->
+        <dependency>
+            <groupId>org.threeten</groupId>
+            <artifactId>threeten-extra</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
         <!-- 信息抽取框架依赖 -->
         <dependency>
             <groupId>org.apache.tika</groupId>
