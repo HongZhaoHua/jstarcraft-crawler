@@ -73,8 +73,8 @@ public enum EniuHistory {
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
         ONode root = ONode.load(content);
-        List<ONode> dates = dateSelector.selectContent(root);
-        List<ONode> datas = dataSelector.selectContent(root);
+        List<ONode> dates = dateSelector.selectMultiple(root);
+        List<ONode> datas = dataSelector.selectMultiple(root);
         Object2FloatSortedMap<String> history = new Object2FloatAVLTreeMap<>();
         int size = dates.size();
         for (int index = 0; index < size; index++) {

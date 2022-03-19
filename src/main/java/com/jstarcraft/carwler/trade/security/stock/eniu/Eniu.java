@@ -113,7 +113,7 @@ public class Eniu {
 //        System.out.println(document.title());
         // 获取指标
         for (JsoupCssSelector selector : selectors) {
-            for (Element element : selector.selectContent(document.root())) {
+            for (Element element : selector.selectMultiple(document.root())) {
                 String key = element.attr("title");
                 String value = element.text();
                 Measure measure = measures.get(key);
@@ -124,7 +124,7 @@ public class Eniu {
             }
         }
         // 获取行业
-        for (Element element : industrySelector.selectContent(document.root())) {
+        for (Element element : industrySelector.selectMultiple(document.root())) {
             if (element.id().isEmpty()) {
                 String value = element.text();
 //                System.out.println(value);

@@ -45,7 +45,7 @@ public class FutonnStockTestCase {
         System.out.println(XmlUtility.prettyHtml(content));
         Document document = Jsoup.parse(content);
         HtmlElementNode root = new HtmlElementNode(document);
-        Element isin = (Element) isinSelector.selectContent(root).get(0).getValue();
+        Element isin = (Element) isinSelector.selectSingle(root).getValue();
         System.out.println(isin.text());
     }
 

@@ -37,7 +37,7 @@ public class FunddbIndexTestCase {
         String content = response.getBody();
         ONode root = ONode.load(content);
         SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.right_list");
-        for (ONode node : selector.selectContent(root)) {
+        for (ONode node : selector.selectMultiple(root)) {
             System.out.println(node);
         }
     }
@@ -57,7 +57,7 @@ public class FunddbIndexTestCase {
         ONode root = ONode.load(content);
         ONode average = root.get("data").get("ping_pe");
         SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市净率')].data");
-        List<ONode> nodes = selector.selectContent(root);
+        List<ONode> nodes = selector.selectMultiple(root);
         for (ONode node : nodes) {
             System.out.println(node.ary().size());
         }
@@ -83,7 +83,7 @@ public class FunddbIndexTestCase {
         ONode name = root.get("data").get("gu_name");
         System.out.println(name);
         int index = 0;
-        for (ONode node : selector.selectContent(root)) {
+        for (ONode node : selector.selectMultiple(root)) {
             System.out.println(index++);
             System.out.println(node);
         }

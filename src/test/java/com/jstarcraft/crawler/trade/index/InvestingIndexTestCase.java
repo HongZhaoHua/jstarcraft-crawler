@@ -83,7 +83,7 @@ public class InvestingIndexTestCase {
                 Document document = Jsoup.parse(content);
                 HtmlElementNode root = new HtmlElementNode(document);
                 JaxenXpathSelector<HtmlElementNode> selector = new JaxenXpathSelector<>("//script[contains(string(), 'window.histDataExcessInfo')]", navigator);
-                List<HtmlElementNode> scripts = selector.selectContent(root);
+                List<HtmlElementNode> scripts = selector.selectMultiple(root);
                 Element element = (Element) scripts.get(0).getValue();
                 Pattern pattern = Pattern.compile("\\d+");
                 Matcher matcher = pattern.matcher(element.data());
@@ -124,7 +124,7 @@ public class InvestingIndexTestCase {
             Document document = Jsoup.parse(content);
             HtmlElementNode root = new HtmlElementNode(document);
             JaxenXpathSelector<HtmlElementNode> selector = new JaxenXpathSelector<>("//tr", navigator);
-            List<HtmlElementNode> trs = selector.selectContent(root);
+            List<HtmlElementNode> trs = selector.selectMultiple(root);
             for (HtmlElementNode tr : trs) {
                 Element element = (Element) tr.getValue();
                 for (Element td : element.children()) {

@@ -32,13 +32,13 @@ public class QianzhanStockTestCase {
 
     private static final JaxenXpathSelector<HtmlElementNode> sedolSelector = new JaxenXpathSelector<>("//div[@id='div_partion_body']//td[text()='SEDOL代码']/following-sibling::td", navigator);
 
-    // ISIN:https://xs.qianzhan.com/hs/zhengquan_{code}.{SH/SZ/HK}.html
+    // ISIN:https://xs.qianzhan.com/{hs,hk}/zhengquan_{code}.{SH/SZ/HK}.html
     @Test
     public void testIsin() {
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format("https://xs.qianzhan.com/hs/zhengquan_{}.{}.html", "600000", "SH");
+        String url = StringUtility.format("https://xs.qianzhan.com/{}/zhengquan_{}.{}.html", "hs", "600000", "SH");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
         System.out.println(content.length());
@@ -46,8 +46,8 @@ public class QianzhanStockTestCase {
 
         Document document = Jsoup.parse(content);
         HtmlElementNode root = new HtmlElementNode(document);
-        Element isin = (Element) isinSelector.selectContent(root).get(0).getValue();
-        Element sedol = (Element) sedolSelector.selectContent(root).get(0).getValue();
+        Element isin = (Element) isinSelector.selectSingle(root).getValue();
+        Element sedol = (Element) sedolSelector.selectSingle(root).getValue();
         System.out.println(isin.text());
         System.out.println(sedol.text());
     }

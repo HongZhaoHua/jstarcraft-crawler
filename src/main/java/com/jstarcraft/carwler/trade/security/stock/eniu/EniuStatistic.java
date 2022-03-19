@@ -67,11 +67,11 @@ public class EniuStatistic {
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
-        for (HtmlElementNode node : peStatisticSelector.selectContent(root)) {
+        for (HtmlElementNode node : peStatisticSelector.selectMultiple(root)) {
             Element element = (Element) node.getValue();
             keyValues.put(element.getElementsByTag("span").text(), element.getElementsByTag("h3").text());
         }
-        for (HtmlElementNode node : perentSelector.selectContent(root)) {
+        for (HtmlElementNode node : perentSelector.selectMultiple(root)) {
             Element element = (Element) node.getValue();
             String[] text = element.getElementsByTag("p").text().split("：");
             keyValues.put(text[0], text[1]);
@@ -91,11 +91,11 @@ public class EniuStatistic {
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
-        for (HtmlElementNode node : pbStatisticSelector.selectContent(root)) {
+        for (HtmlElementNode node : pbStatisticSelector.selectMultiple(root)) {
             Element element = (Element) node.getValue();
             keyValues.put(element.getElementsByTag("span").text(), element.getElementsByTag("h3").text());
         }
-        for (HtmlElementNode node : perentSelector.selectContent(root)) {
+        for (HtmlElementNode node : perentSelector.selectMultiple(root)) {
             Element element = (Element) node.getValue();
             String[] text = element.getElementsByTag("p").text().split("：");
             keyValues.put(text[0], text[1]);
@@ -115,11 +115,11 @@ public class EniuStatistic {
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
-        for (HtmlElementNode node : psStatisticSelector.selectContent(root)) {
+        for (HtmlElementNode node : psStatisticSelector.selectMultiple(root)) {
             Element element = (Element) node.getValue();
             keyValues.put(element.getElementsByTag("span").text(), element.getElementsByTag("h3").text());
         }
-        for (HtmlElementNode node : perentSelector.selectContent(root)) {
+        for (HtmlElementNode node : perentSelector.selectMultiple(root)) {
             Element element = (Element) node.getValue();
             String[] text = element.getElementsByTag("p").text().split("：");
             keyValues.put(text[0], text[1]);

@@ -82,7 +82,7 @@ public enum EniuSummary {
         Document document = Jsoup.parse(content);
         // 获取指标
         for (JsoupCssSelector selector : selectors) {
-            for (Element element : selector.selectContent(document.root())) {
+            for (Element element : selector.selectMultiple(document.root())) {
                 String key = element.attr("title").replaceAll(StringUtility.SPACE, StringUtility.EMPTY);
                 String value = element.text();
                 Measure measure = name2Measures.get(key);
@@ -112,7 +112,7 @@ public enum EniuSummary {
         // TODO 获取名称
         document.title();
         // TODO 获取行业
-        for (Element element : industrySelector.selectContent(document.root())) {
+        for (Element element : industrySelector.selectMultiple(document.root())) {
             if (element.id().isEmpty()) {
                 return element.text();
             }
