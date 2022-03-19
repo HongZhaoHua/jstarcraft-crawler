@@ -9,7 +9,7 @@ package com.jstarcraft.carwler.trade;
 public class StockSymbol {
 
     /** 交易所 */
-    private Share share;
+    private Exchange share;
 
     /** 编码 */
     private String code;

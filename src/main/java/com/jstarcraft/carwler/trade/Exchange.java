@@ -6,7 +6,7 @@ package com.jstarcraft.carwler.trade;
  * @author Birdy
  *
  */
-public enum Share {
+public enum Exchange {
 
     /** A股(上海) */
     SH,

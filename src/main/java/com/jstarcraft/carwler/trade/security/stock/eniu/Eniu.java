@@ -19,7 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.carwler.trade.Measure;
-import com.jstarcraft.carwler.trade.Share;
+import com.jstarcraft.carwler.trade.Exchange;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
@@ -69,33 +69,33 @@ public class Eniu {
         hName2Measures.put("前复权股价", Measure.PRICE);
     }
 
-    private static String getId(Share share, String code) {
-        if (share == Share.SH) {
+    private static String getId(Exchange share, String code) {
+        if (share == Exchange.SH) {
             // A股
             return "sh" + code;
         }
-        if (share == Share.SZ) {
+        if (share == Exchange.SZ) {
             // B股
             return "sz" + code;
         }
-        if (share == Share.HK) {
+        if (share == Exchange.HK) {
             // H股
             return "hk" + code;
         }
         throw new IllegalArgumentException();
     }
 
-    public static Map<Measure, String> getNow(Share share, String code) {
+    public static Map<Measure, String> getNow(Exchange share, String code) {
         String url = StringUtility.format("https://eniu.com/gu/{}", getId(share, code));
-        if (share == Share.SH) {
+        if (share == Exchange.SH) {
             // A股
             return getStock(url, abSelectors, abName2Measures);
         }
-        if (share == Share.SZ) {
+        if (share == Exchange.SZ) {
             // B股
             return getStock(url, abSelectors, abName2Measures);
         }
-        if (share == Share.HK) {
+        if (share == Exchange.HK) {
             // H股
             return getStock(url, hSelectors, hName2Measures);
         }
@@ -159,14 +159,14 @@ public class Eniu {
         formatters.put("yyyy-MM-dd", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    public static Long2FloatMap getBefore(Share share, String code, Measure measure) {
+    public static Long2FloatMap getBefore(Exchange share, String code, Measure measure) {
         String[] names = null;
-        if (share == Share.SH || share == Share.SZ) {
+        if (share == Exchange.SH || share == Exchange.SZ) {
             // A股
             // B股
             names = abMeasure2Names.get(measure);
         }
-        if (share == Share.HK) {
+        if (share == Exchange.HK) {
             // H股
             names = hMeasure2Names.get(measure);
         }
