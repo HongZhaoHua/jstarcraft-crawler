@@ -1,0 +1,2 @@
+如何根据书号（ISBN)查询书籍的详细信息？:
+https://zhuanlan.zhihu.com/p/141943491

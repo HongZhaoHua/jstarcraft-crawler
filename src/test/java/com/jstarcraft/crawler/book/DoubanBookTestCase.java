@@ -21,11 +21,11 @@ public class DoubanBookTestCase {
     // ISBN:https://book.douban.com/subject/{}/
     @Test
     public void testIsbn() {
-        RegularSelector tagSelector = new RegularSelector("criteria\\s*=\\s*'([\\S]*)'");
+        RegularSelector tagSelector = new RegularSelector("criteria\\s*=\\s*'([\\S]*)'", 0, 1);
         JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
         JsoupCssSelector isbnSelector = new JsoupCssSelector("meta[property='book:isbn']");
 
-        String bookId = "27117578";
+        String bookId = "27094706";
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
