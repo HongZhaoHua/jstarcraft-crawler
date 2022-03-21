@@ -76,6 +76,7 @@ public enum EniuHistory {
         List<ONode> dates = dateSelector.selectMultiple(root);
         List<ONode> datas = dataSelector.selectMultiple(root);
         Object2FloatSortedMap<String> history = new Object2FloatAVLTreeMap<>();
+        history.defaultReturnValue(Float.NaN);
         int size = dates.size();
         for (int index = 0; index < size; index++) {
             String date = dates.get(index).getString();
