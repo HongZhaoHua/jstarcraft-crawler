@@ -21,9 +21,10 @@ public class DoubanBookTestCase {
     // ISBN:https://book.douban.com/subject/{}/
     @Test
     public void testIsbn() {
-        RegularSelector tagSelector = new RegularSelector("criteria\\s*=\\s*'([\\S]*)'", 0, 1);
         JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
         JsoupCssSelector isbnSelector = new JsoupCssSelector("meta[property='book:isbn']");
+        JsoupCssSelector rateSelector = new JsoupCssSelector("div.rating_self > strong");
+        RegularSelector tagSelector = new RegularSelector("criteria\\s*=\\s*'([\\S]*)'", 0, 1);
 
         String bookId = "26297606";
         RestTemplate template = new RestTemplate();
@@ -48,6 +49,9 @@ public class DoubanBookTestCase {
         // 获取ISBN
         System.out.println(titleSelector.selectSingle(document.root()).attr("content"));
         System.out.println(isbnSelector.selectSingle(document.root()).attr("content"));
+
+        // 获取图书评分
+        System.out.println(rateSelector.selectSingle(document.root()).text());
 
         // 获取图书标签
         System.out.println(tagSelector.selectSingle(content));
