@@ -25,7 +25,7 @@ public class DoubanBookTestCase {
         JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
         JsoupCssSelector isbnSelector = new JsoupCssSelector("meta[property='book:isbn']");
 
-        String bookId = "27094706";
+        String bookId = "26297606";
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
@@ -35,8 +35,6 @@ public class DoubanBookTestCase {
         String content = response.getBody();
         System.out.println(content.length());
         System.out.println(XmlUtility.prettyHtml(content));
-        // 获取图书标签
-        System.out.println(tagSelector.selectSingle(content));
 
         Document document = Jsoup.parse(content);
 
@@ -50,6 +48,9 @@ public class DoubanBookTestCase {
         // 获取ISBN
         System.out.println(titleSelector.selectSingle(document.root()).attr("content"));
         System.out.println(isbnSelector.selectSingle(document.root()).attr("content"));
+
+        // 获取图书标签
+        System.out.println(tagSelector.selectSingle(content));
     }
 
     // 标签:https:// book.douban.com/tag/{}?start={}&type={T,R,S}
