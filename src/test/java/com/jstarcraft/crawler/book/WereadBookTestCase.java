@@ -44,8 +44,8 @@ public class WereadBookTestCase {
             ScriptEngine engine = factory.getEngineByName(ENGINE_NAME);
             engine.eval(script);
             Invocable invocable = (Invocable) engine;
-            Object object = invocable.invokeFunction("getHref", "34261011");
-            System.out.println(object);
+            System.out.println(invocable.invokeFunction("getHref", "34261011"));
+            System.out.println(invocable.invokeFunction("hex_md5", "34261011"));
         } catch (Exception exception) {
             exception.printStackTrace();
         }
