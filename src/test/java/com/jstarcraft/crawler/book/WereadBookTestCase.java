@@ -1,5 +1,12 @@
 package com.jstarcraft.crawler.book;
 
+import java.io.File;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +32,23 @@ public class WereadBookTestCase {
         String content = response.getBody();
         System.out.println(content.length());
         System.out.println(JsonUtility.prettyJson(content));
+    }
+
+    @Test
+    public void testMd5() {
+        try {
+            File file = new File(WereadBookTestCase.class.getResource("md5.js").toURI());
+            String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
+            String ENGINE_NAME = "nashorn";
+            ScriptEngineManager factory = new ScriptEngineManager();
+            ScriptEngine engine = factory.getEngineByName(ENGINE_NAME);
+            engine.eval(script);
+            Invocable invocable = (Invocable) engine;
+            Object object = invocable.invokeFunction("getHref", "34261011");
+            System.out.println(object);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     @Test
