@@ -1,0 +1,5 @@
+扫描“微信读书”已购图书并下载本地PDF的爬虫:
+https://github.com/Algebra-FUN/WeReadScan
+
+一个功能全面的微信读书爬虫 wereader:
+https://github.com/arry-lee/wereader
