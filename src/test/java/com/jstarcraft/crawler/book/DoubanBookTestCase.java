@@ -11,12 +11,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.utility.StringUtility;
 
 public class DoubanBookTestCase {
+
+    @Test
+    public void testSearch() {
+        RestTemplate template = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format("https://book.douban.com/j/subject_suggest?q={}", "9787545540444");
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String content = response.getBody();
+        System.out.println(content.length());
+        System.out.println(JsonUtility.prettyJson(content));
+    }
 
     // ISBN:https://book.douban.com/subject/{}/
     @Test
