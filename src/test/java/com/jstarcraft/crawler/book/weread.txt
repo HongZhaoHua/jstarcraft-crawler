@@ -1,3 +1,6 @@
+微信读书API分析:
+https://blog.csdn.net/mighty13/article/details/119257353
+
 扫描“微信读书”已购图书并下载本地PDF的爬虫:
 https://github.com/Algebra-FUN/WeReadScan
 

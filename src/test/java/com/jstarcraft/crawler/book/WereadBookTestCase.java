@@ -1,6 +1,8 @@
 package com.jstarcraft.crawler.book;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -20,6 +22,29 @@ import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
 public class WereadBookTestCase {
+
+    @Test
+    public void testSelf() {
+        try {
+            RestTemplate template = new RestTemplate();
+            File file = new File(WereadBookTestCase.class.getResource("cookie.txt").toURI());
+            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+            if (cookie.isEmpty()) {
+                throw new RuntimeException("必须填写Cookie才能获取信息");
+            }
+            List<String> cookies = Arrays.asList(cookie);
+            HttpHeaders headers = new HttpHeaders();
+            headers.put(HttpHeaders.COOKIE, cookies);
+            HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
+            String url = StringUtility.format("https://weread.qq.com/web/shelf");
+            ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+            String content = response.getBody();
+            System.out.println(content.length());
+            System.out.println(XmlUtility.prettyHtml(content));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
 
     @Test
     public void testSearch() {
