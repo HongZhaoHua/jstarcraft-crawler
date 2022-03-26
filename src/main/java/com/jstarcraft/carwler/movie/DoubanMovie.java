@@ -8,6 +8,7 @@ import java.util.List;
 import org.jaxen.Navigator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.noear.snack.ONode;
 import org.springframework.http.HttpEntity;
@@ -17,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
@@ -37,12 +37,10 @@ public class DoubanMovie {
     private static final String searchUrl = "https://movie.douban.com/j/subject_suggest?q={}";
 
     /** 标签路径模板 */
+    // U:最热,T:最多,S:最高,R:最新
+    // https://movie.douban.com/j/new_search_subjects?sort={U,T,S,R}&range=0,10&tags={}&start={}
     // https://movie.douban.com/tag/#/?sort={U,T,S,R}&range=0,10&tags={}&start={}
-    private static final String tagUrl = "https://movie.douban.com/tag/#/?sort={}&range=0,10&tags={}&start={}";
-
-    private static final JsoupCssSelector itemSelector = new JsoupCssSelector("li.subject-item a[title]");
-
-    private static final RegularSelector idSelector = new RegularSelector("https://book.douban.com/subject/(\\d+)/", 0, 1);
+    private static final String tagUrl = "https://movie.douban.com/j/new_search_subjects?sort={}&range=0,10&tags={}&start={}";
 
     /** 电影路径模板 */
     private static final String bookUrl = "https://movie.douban.com/subject/{}/";
@@ -54,6 +52,8 @@ public class DoubanMovie {
     private static final JaxenXpathSelector<HtmlElementNode> imdbSelector = new JaxenXpathSelector<>("//span[text()='IMDb:']/following-sibling::text()[1]", navigator);
 
     private static final JsoupCssSelector scoreSelector = new JsoupCssSelector("div.rating_self > strong");
+
+    private static final JsoupCssSelector genreSelector = new JsoupCssSelector("span[property='v:genre']");
 
     private static final RegularSelector tagSelector = new RegularSelector("criteria\\s*=\\s*'([\\S]*)'", 0, 1);
 
@@ -70,6 +70,9 @@ public class DoubanMovie {
 
     /** 得分 */
     private String score;
+
+    /** 体裁 */
+    private List<String> genres;
 
     /** 标签 */
     private List<String> tags;
@@ -116,18 +119,15 @@ public class DoubanMovie {
         String url = StringUtility.format(tagUrl, "T", tag, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        System.out.println(XmlUtility.prettyHtml(content));
-//        Document document = Jsoup.parse(content);
-//        List<Element> elements = itemSelector.selectMultiple(document.root());
-//        System.out.println(elements.size());
-//        List<DoubanMovie> movies = new ArrayList<>(elements.size());
-//        for (Element element : elements) {
-//            String id = idSelector.selectSingle(element.attr("href"));
-//            DoubanMovie movie = new DoubanMovie(template, id);
-//            movies.add(movie);
-//        }
-//        return movies;
-        return null;
+        ONode root = ONode.load(content);
+        List<ONode> nodes = root.get("data").ary();
+        List<DoubanMovie> movies = new ArrayList<>(nodes.size());
+        for (ONode node : nodes) {
+            String id = node.get("id").getString();
+            DoubanMovie movie = new DoubanMovie(template, id);
+            movies.add(movie);
+        }
+        return movies;
     }
 
     public DoubanMovie(RestTemplate template, String id) {
@@ -149,6 +149,12 @@ public class DoubanMovie {
         this.imdb = ((TextNode) (imdbSelector.selectSingle(root).getValue())).text().trim();
         // 获取评分
         this.score = scoreSelector.selectSingle(document.root()).text();
+        // 获取体裁
+        List<Element> genres = genreSelector.selectMultiple(document.root());
+        this.genres = new ArrayList<>(genres.size());
+        for (Element element : genres) {
+            this.genres.add(element.text());
+        }
         // 获取标签
         String[] tags = tagSelector.selectSingle(content).split("\\|");
         // 剔除最后一个标签
@@ -174,6 +180,10 @@ public class DoubanMovie {
 
     public String getScore() {
         return score;
+    }
+
+    public List<String> getGenres() {
+        return genres;
     }
 
     public List<String> getTags() {

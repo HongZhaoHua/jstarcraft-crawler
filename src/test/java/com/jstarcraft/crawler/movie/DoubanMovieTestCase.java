@@ -3,10 +3,10 @@ package com.jstarcraft.crawler.movie;
 import java.time.Instant;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.book.DoubanBook;
 import com.jstarcraft.carwler.movie.DoubanMovie;
 
 public class DoubanMovieTestCase {
@@ -14,31 +14,30 @@ public class DoubanMovieTestCase {
     @Test
     public void testMovie() {
         RestTemplate template = new RestTemplate();
-        String id = "35352389";
+        String id = "1889243";
         DoubanMovie movie = new DoubanMovie(template, id);
         movie.update(Instant.now());
-        System.out.println(movie.getTitle());
-        System.out.println(movie.getImdb());
-        System.out.println(movie.getScore());
-        for (String tag : movie.getTags()) {
-            System.out.println(tag);
-        }
+        Assert.assertEquals("星际穿越 Interstellar", movie.getTitle());
+        Assert.assertEquals("tt0816692", movie.getImdb());
+        Assert.assertEquals("9.4", movie.getScore());
+        Assert.assertEquals(3, movie.getGenres().size());
+        Assert.assertEquals(31, movie.getTags().size());
     }
 
     @Test
     public void testSearch() {
-        String imdb = "tt17023860";
+        String imdb = "tt0816692";
         RestTemplate template = new RestTemplate();
         List<DoubanMovie> movies = DoubanMovie.searchMoviesByKey(template, imdb);
-        System.out.println(movies.size());
+        Assert.assertEquals(1, movies.size());
     }
 
     @Test
     public void testTag() {
-        String tag = "文艺";
+        String tag = "科幻";
         RestTemplate template = new RestTemplate();
         List<DoubanMovie> movies = DoubanMovie.getMoviesByTag(template, tag, 0);
-//        System.out.println(movies.size());
+        Assert.assertEquals(20, movies.size());
     }
 
 }

@@ -32,6 +32,8 @@ public class DoubanBook {
     private static final String searchUrl = "https://book.douban.com/j/subject_suggest?q={}";
 
     /** 标签路径模板 */
+    // T:综合,R:日期,S:评价
+    // https://book.douban.com/tag/{}?start={}&type={T,R,S}
     private static final String tagUrl = "https://book.douban.com/tag/{}?start={}&type={}";
 
     private static final JsoupCssSelector itemSelector = new JsoupCssSelector("li.subject-item a[title]");
