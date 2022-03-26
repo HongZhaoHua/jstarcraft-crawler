@@ -30,7 +30,6 @@ public class WereadBookTestCase {
 
     @Test
     public void testSearch() {
-
         RestTemplate template = new RestTemplate();
         WereadBook.searchBooksByKey(template, "9787521721331");
 //        HttpHeaders headers = new HttpHeaders();
@@ -185,8 +184,8 @@ public class WereadBookTestCase {
             String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1", "35177944");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
-            System.out.println(content.length());
-            System.out.println(JsonUtility.prettyJson(content));
+//            System.out.println(content.length());
+//            System.out.println(JsonUtility.prettyJson(content));
             ONode root = ONode.load(content);
             Int2ObjectSortedMap<TreeMap<String, KeyValue<String, String>>> reviews = new Int2ObjectAVLTreeMap<>();
             for (ONode node : root.get("reviews").ary()) {
