@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.trade.security.stock.eniu;
+package com.jstarcraft.crawler.trade.security.stock.eniu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.trade.Measure;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.trade.Measure;
 
 /**
  * 亿牛概要

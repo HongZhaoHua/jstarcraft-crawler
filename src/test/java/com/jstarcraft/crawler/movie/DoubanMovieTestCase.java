@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.movie.DoubanMovie;
+import com.jstarcraft.crawler.movie.DoubanMovie;
 
 public class DoubanMovieTestCase {
 

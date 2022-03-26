@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.trade;
+package com.jstarcraft.crawler.trade;
 
 /**
  * 股票代号

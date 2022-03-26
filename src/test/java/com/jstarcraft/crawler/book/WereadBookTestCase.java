@@ -1,14 +1,12 @@
 package com.jstarcraft.crawler.book;
 
 import java.io.File;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +20,25 @@ import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
 public class WereadBookTestCase {
+
+    @Test
+    public void testGetHerf() {
+        String id = "630480";
+        Assert.assertEquals("13f329c0599ed013ff80b18", WereadBook.getHerf(id));
+    }
+
+    @Test
+    public void testBook() {
+        RestTemplate template = new RestTemplate();
+        String id = "630480";
+        WereadBook book = new WereadBook(template, id);
+        book.update(Instant.now());
+        Assert.assertEquals("星际穿越", book.getTitle());
+        Assert.assertEquals("9787213066856", book.getIsbn());
+        Assert.assertEquals("86.0", book.getScore());
+        Assert.assertEquals(51, book.getChapters().size());
+        Assert.assertEquals(5, book.getTags().size());
+    }
 
     @Test
     public void testSelf() {
@@ -85,36 +102,6 @@ public class WereadBookTestCase {
         String content = response.getBody();
         System.out.println(content.length());
         System.out.println(JsonUtility.prettyJson(content));
-    }
-
-    @Test
-    public void testMd5() {
-        try {
-            File file = new File(WereadBookTestCase.class.getResource("md5.js").toURI());
-            String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            String ENGINE_NAME = "nashorn";
-            ScriptEngineManager factory = new ScriptEngineManager();
-            ScriptEngine engine = factory.getEngineByName(ENGINE_NAME);
-            engine.eval(script);
-            Invocable invocable = (Invocable) engine;
-            System.out.println(invocable.invokeFunction("getHref", "34261011"));
-            System.out.println(invocable.invokeFunction("hex_md5", "34261011"));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testBook() {
-        RestTemplate template = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format("https://weread.qq.com/web/reader/3973284058a49f39706f0c0");
-        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(XmlUtility.prettyHtml(content));
     }
 
 }

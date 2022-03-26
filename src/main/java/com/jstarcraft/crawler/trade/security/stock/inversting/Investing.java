@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.trade.security.stock.inversting;
+package com.jstarcraft.crawler.trade.security.stock.inversting;
 
 /**
  * 英为财情

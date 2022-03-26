@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler;
+package com.jstarcraft.crawler;
 
 /**
  * 爬虫
@@ -6,7 +6,7 @@ package com.jstarcraft.carwler;
  * @author Birdy
  *
  */
-public interface Carwler<T> {
+public interface Crawler<T> {
 
     /**
      * 爬取数据

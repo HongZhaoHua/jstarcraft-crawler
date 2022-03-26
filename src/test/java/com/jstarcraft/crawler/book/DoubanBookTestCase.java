@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.carwler.book.DoubanBook;
+import com.jstarcraft.crawler.book.DoubanBook;
 
 public class DoubanBookTestCase {
 

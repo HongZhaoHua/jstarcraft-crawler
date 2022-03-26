@@ -1,6 +1,6 @@
-package com.jstarcraft.carwler.trade.security.stock;
+package com.jstarcraft.crawler.trade.security.stock;
 
-import com.jstarcraft.carwler.trade.security.Security;
+import com.jstarcraft.crawler.trade.security.Security;
 
 public interface Stock extends Security {
 

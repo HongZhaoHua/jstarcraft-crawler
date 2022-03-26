@@ -1,15 +1,13 @@
-package com.jstarcraft.carwler.movie;
+package com.jstarcraft.crawler.book;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jaxen.Navigator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
 import org.noear.snack.ONode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,40 +18,37 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
-import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
-import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
-import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 豆瓣电影
+ * 豆瓣图书
  * 
  * @author Birdy
  *
  */
-public class DoubanMovie {
+public class DoubanBook {
 
     /** 搜索路径模板 */
-    private static final String searchUrl = "https://movie.douban.com/j/subject_suggest?q={}";
+    // https://search.douban.com/book/subject_search?search_text={}&start={}
+    private static final String searchUrl = "https://book.douban.com/j/subject_suggest?q={}";
 
     /** 标签路径模板 */
-    // U:最热,T:最多,S:最高,R:最新
-    // https://movie.douban.com/j/new_search_subjects?sort={U,T,S,R}&range=0,10&tags={}&start={}
-    // https://movie.douban.com/tag/#/?sort={U,T,S,R}&range=0,10&tags={}&start={}
-    private static final String tagUrl = "https://movie.douban.com/j/new_search_subjects?sort={}&range=0,10&tags={}&start={}";
+    // T:综合,R:日期,S:评价
+    // https://book.douban.com/tag/{}?start={}&type={T,R,S}
+    private static final String tagUrl = "https://book.douban.com/tag/{}?start={}&type={}";
 
-    /** 电影路径模板 */
-    private static final String bookUrl = "https://movie.douban.com/subject/{}/";
+    private static final JsoupCssSelector itemSelector = new JsoupCssSelector("li.subject-item a[title]");
+
+    private static final RegularSelector idSelector = new RegularSelector("https://book.douban.com/subject/(\\d+)/", 0, 1);
+
+    /** 图书路径模板 */
+    private static final String bookUrl = "https://book.douban.com/subject/{}/";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
 
-    private static final Navigator navigator = HtmlNavigator.getInstance();
-
-    private static final JaxenXpathSelector<HtmlElementNode> imdbSelector = new JaxenXpathSelector<>("//span[text()='IMDb:']/following-sibling::text()[1]", navigator);
+    private static final JsoupCssSelector isbnSelector = new JsoupCssSelector("meta[property='book:isbn']");
 
     private static final JsoupCssSelector scoreSelector = new JsoupCssSelector("div.rating_self > strong");
-
-    private static final JsoupCssSelector genreSelector = new JsoupCssSelector("span[property='v:genre']");
 
     private static final RegularSelector tagSelector = new RegularSelector("criteria\\s*=\\s*'([\\S]*)'", 0, 1);
 
@@ -65,14 +60,14 @@ public class DoubanMovie {
     /** 标题 */
     private String title;
 
-    /** IMDb */
-    private String imdb;
+    /** 章节 */
+    private List<String> chapters;
+
+    /** ISBN */
+    private String isbn;
 
     /** 得分 */
     private String score;
-
-    /** 体裁 */
-    private List<String> genres;
 
     /** 标签 */
     private List<String> tags;
@@ -80,13 +75,13 @@ public class DoubanMovie {
     private Instant instant;
 
     /**
-     * 按关键字搜索电影
+     * 按关键字搜索图书
      * 
      * @param template
      * @param key
      * @return
      */
-    public static List<DoubanMovie> searchMoviesByKey(RestTemplate template, String key) {
+    public static List<DoubanBook> searchBooksByKey(RestTemplate template, String key) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -95,42 +90,43 @@ public class DoubanMovie {
         String content = response.getBody();
         ONode root = ONode.load(content);
         List<ONode> nodes = root.ary();
-        List<DoubanMovie> movies = new ArrayList<>(nodes.size());
+        List<DoubanBook> books = new ArrayList<>(nodes.size());
         for (ONode node : nodes) {
             String id = node.get("id").getString();
-            DoubanMovie movie = new DoubanMovie(template, id);
-            movies.add(movie);
+            DoubanBook book = new DoubanBook(template, id);
+            books.add(book);
         }
-        return movies;
+        return books;
     }
 
     /**
-     * 按标签获取电影
+     * 按标签获取图书
      * 
      * @param template
      * @param tag
      * @param offset
      * @return
      */
-    public static List<DoubanMovie> getMoviesByTag(RestTemplate template, String tag, int offset) {
+    // https:// book.douban.com/tag/{}?start={}&type={T,R,S}
+    public static List<DoubanBook> getBooksByTag(RestTemplate template, String tag, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(tagUrl, "T", tag, offset);
+        String url = StringUtility.format(tagUrl, tag, offset, "T");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
-        ONode root = ONode.load(content);
-        List<ONode> nodes = root.get("data").ary();
-        List<DoubanMovie> movies = new ArrayList<>(nodes.size());
-        for (ONode node : nodes) {
-            String id = node.get("id").getString();
-            DoubanMovie movie = new DoubanMovie(template, id);
-            movies.add(movie);
+        Document document = Jsoup.parse(content);
+        List<Element> elements = itemSelector.selectMultiple(document.root());
+        List<DoubanBook> books = new ArrayList<>(elements.size());
+        for (Element element : elements) {
+            String id = idSelector.selectSingle(element.attr("href"));
+            DoubanBook book = new DoubanBook(template, id);
+            books.add(book);
         }
-        return movies;
+        return books;
     }
 
-    public DoubanMovie(RestTemplate template, String id) {
+    public DoubanBook(RestTemplate template, String id) {
         this.template = template;
         this.id = id;
     }
@@ -143,24 +139,24 @@ public class DoubanMovie {
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
         Document document = Jsoup.parse(content);
+        // 获取标题
         this.title = titleSelector.selectSingle(document.root()).attr("content");
-        HtmlElementNode root = new HtmlElementNode(document);
-        // 获取IMDb
-        this.imdb = ((TextNode) (imdbSelector.selectSingle(root).getValue())).text().trim();
+        // 获取章节
+        Element catalogue = document.getElementById(StringUtility.format("dir_{}_full", id));
+        String[] chapters = catalogue.html().split("[\\s]*<br>[\\s]*");
+        chapters = Arrays.copyOf(chapters, chapters.length - 1);
+        // 剔除最后一个章节
+        this.chapters = Arrays.asList(chapters);
+        // 获取ISBN
+        this.isbn = isbnSelector.selectSingle(document.root()).attr("content");
         // 获取评分
         this.score = scoreSelector.selectSingle(document.root()).text();
-        // 获取体裁
-        List<Element> genres = genreSelector.selectMultiple(document.root());
-        this.genres = new ArrayList<>(genres.size());
-        for (Element element : genres) {
-            this.genres.add(element.text());
-        }
         // 获取标签
         String[] tags = tagSelector.selectSingle(content).split("\\|");
         // 剔除最后一个标签
         tags = Arrays.copyOf(tags, tags.length - 1);
         for (int index = 0, size = tags.length; index < size; index++) {
-            tags[index] = tags[index].split(":")[1];
+            tags[index] = tags[index].replaceAll("7:([\\s\\S]*)", "$1");
         }
         this.tags = Arrays.asList(tags);
         this.instant = instant;
@@ -174,16 +170,16 @@ public class DoubanMovie {
         return title;
     }
 
-    public String getImdb() {
-        return imdb;
+    public List<String> getChapters() {
+        return chapters;
+    }
+
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getScore() {
         return score;
-    }
-
-    public List<String> getGenres() {
-        return genres;
     }
 
     public List<String> getTags() {

@@ -1,4 +1,4 @@
-package com.jstarcraft.carwler.trade.security;
+package com.jstarcraft.crawler.trade.security;
 
 public interface Security {
 
