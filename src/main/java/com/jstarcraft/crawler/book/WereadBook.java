@@ -151,7 +151,6 @@ public class WereadBook {
         }
         String script = scriptSelector.selectSingle(document.root()).html();
         script = script.replaceAll("window.__INITIAL_STATE__=([\\s\\S]*);\\(function[\\s\\S]*\\(\\)\\);", "$1");
-        System.out.println(JsonUtility.prettyJson(script));
         ONode root = ONode.load(script);
         ONode book = root.get("reader");
         // 获取标识
