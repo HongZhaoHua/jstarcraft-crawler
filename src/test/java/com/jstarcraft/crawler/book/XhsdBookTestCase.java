@@ -25,5 +25,13 @@ public class XhsdBookTestCase {
         System.out.println(content.length());
         System.out.println(XmlUtility.prettyHtml(content));
     }
+    
+    /**
+     * https://item.xhsd.com/api/item/comment/paging?pageNo=1&pageSize=20&parentId=-1&itemId={}
+     */
+    @Test
+    public void testScore() {
+        
+    }
 
 }

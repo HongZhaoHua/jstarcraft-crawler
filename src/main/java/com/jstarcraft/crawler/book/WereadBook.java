@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
@@ -30,7 +29,7 @@ import com.jstarcraft.core.utility.StringUtility;
  * @author Birdy
  *
  */
-public class WereadBook {
+public class WereadBook implements Book {
 
     private static final JsFunction function;
 
@@ -88,28 +87,6 @@ public class WereadBook {
         return function.doWith(String.class, id);
     }
 
-//    public static String getId(RestTemplate template, String herf) {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-//        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-//        String url = StringUtility.format(bookUrl, herf);
-//        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-//        String content = response.getBody();
-//        Document document = Jsoup.parse(content);
-//        // 获取ISBN
-//        String script = scriptSelector.selectSingle(document.root()).html();
-//        script = script.replaceAll("window.__INITIAL_STATE__=([\\s\\S]*);\\(function[\\s\\S]*\\(\\)\\);", "$1");
-//        ONode root = ONode.load(script);
-//        ONode book = root.get("reader");
-//        return book.get("bookId").getString();
-//        // 获取评分
-//        this.score = scoreSelector.selectSingle(document.root()).text().replaceAll("([\\S]*)%", "$1");
-//        // 获取标签
-//        String[] tags = tagSelector.selectSingle(document.root()).attr("content").split(",");
-//        this.tags = Arrays.asList(tags);
-//        this.instant = instant;
-//    }
-
     public static List<WereadBook> searchBooksByKey(RestTemplate template, String key) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
@@ -165,26 +142,32 @@ public class WereadBook {
         this.instant = instant;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public List<String> getChapters() {
         return chapters;
     }
 
+    @Override
     public String getIsbn() {
         return isbn;
     }
 
+    @Override
     public String getScore() {
         return score;
     }
 
+    @Override
     public List<String> getTags() {
         return tags;
     }

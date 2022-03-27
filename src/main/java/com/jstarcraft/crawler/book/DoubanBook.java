@@ -26,7 +26,7 @@ import com.jstarcraft.core.utility.StringUtility;
  * @author Birdy
  *
  */
-public class DoubanBook {
+public class DoubanBook implements Book {
 
     /** 搜索路径模板 */
     // https://search.douban.com/book/subject_search?search_text={}&start={}
@@ -162,26 +162,32 @@ public class DoubanBook {
         this.instant = instant;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public List<String> getChapters() {
         return chapters;
     }
 
+    @Override
     public String getIsbn() {
         return isbn;
     }
 
+    @Override
     public String getScore() {
         return score;
     }
 
+    @Override
     public List<String> getTags() {
         return tags;
     }

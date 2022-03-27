@@ -1,0 +1,49 @@
+package com.jstarcraft.crawler.book;
+
+import java.util.List;
+
+public interface Book {
+
+    /**
+     * 获取标识
+     * 
+     * @return
+     */
+    public String getId();
+
+    /**
+     * 获取标题
+     * 
+     * @return
+     */
+    public String getTitle();
+
+    /**
+     * 获取章节
+     * 
+     * @return
+     */
+    public List<String> getChapters();
+
+    /**
+     * 获取ISBN
+     * 
+     * @return
+     */
+    public String getIsbn();
+
+    /**
+     * 获取得分
+     * 
+     * @return
+     */
+    public String getScore();
+
+    /**
+     * 获取标签
+     * 
+     * @return
+     */
+    public List<String> getTags();
+
+}
