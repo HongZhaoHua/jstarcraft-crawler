@@ -1,2 +1,5 @@
 Selenium Java
-http://www.testclass.net/selenium_java/
+http://class.itest.info/selenium_java
+
+selenium 使用教程详解-java版本
+https://www.cnblogs.com/tester-ggf/p/12602211.html
