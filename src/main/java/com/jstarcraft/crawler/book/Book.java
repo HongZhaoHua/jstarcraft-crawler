@@ -3,7 +3,7 @@ package com.jstarcraft.crawler.book;
 import java.util.List;
 
 /**
- * 图书
+ * 书籍
  * 
  * @author Birdy
  *

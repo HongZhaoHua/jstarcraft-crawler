@@ -12,7 +12,7 @@ import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 新华书店图书单元测试
+ * 新华书店书籍单元测试
  * 
  * @author Birdy
  *

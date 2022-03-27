@@ -1,69 +1,3 @@
-***** 生命日 *****
-
-各国节日时间:
-http://www.shijian.cc/jieri
-
-***** 天气 *****
-
-干货！世界各国地区法定节假日和实时天气详解（附免费查询工具）:
-https://kknews.cc/news/2ye5kly.html
-https://www.timeanddate.com/
-
-***** 食物 *****
-
-专业全面的食物数据库:
-https://food.hiyd.com
-
-食物营养成分查询平台:
-https://fq.chinafcd.org
-
-食物营养成分表查询:
-http://yingyang.00cha.com
-
-美食杰:
-https://www.meishij.net
-
-美食天下:
-https://www.meishichina.com
-
-心食谱:
-https://www.xinshipu.com
-
-下厨房:
-https://www.xiachufang.com
-
-饭菜网:
-https://www.fancai.com
-
-***** 宠物 *****
-
-宠物品种:
-https://www.ixiupet.com/pinzhong
-
-***** 图书 *****
-
-中国图书出版数据库:
-http://www.cnpub.com.cn/soushu.html
-
-新华书店:
-https://www.xhsd.com
-
-风之动漫:
-https://www.fzdm.com
-
-***** 电影 *****
-
-互联网电影数据库:
-https://www.imdb.com
-
-***** 音乐 *****
-
-音乐数据集汇总:
-https://www.jianshu.com/p/55142af10e29
-
-网易云音乐:
-https://music.163.com
-
 ***** 课程表 *****
 
 超级课程表API:
@@ -75,11 +9,8 @@ https://blog.csdn.net/u010858238/article/details/9029653
 android 项目实战——打造超级课程表一键提取课表功能:
 https://blog.csdn.net/sbsujjbcy/article/details/44004595
 
-***** 搭配 *****
-
-服饰搭配
-https://dress.pclady.com.cn/zxzq
-https://www.pclady.com.cn/wiki
+WeiFur:
+https://github.com/luojie1024/WeiFur
 
 ***** 资讯 *****
 
@@ -96,54 +27,6 @@ http://todayonhistory.com
 
 全国开户行/联行号查询网:
 https://www.icvio.cn/bank
-
-***** 证券 *****
-
-A curated list of insanely awesome libraries, packages and resources for Quants (Quantitative Finance):
-https://github.com/wilsonfreitas/awesome-quant
-
-提供超過 50 個金融資料(台股為主)，每天更新:
-https://github.com/FinMind/FinMind
-
-量化投资者是如何获取实时行情数据的呢？:
-https://www.zhihu.com/question/27980657/answer/38966946
-
-AKShare开源财经数据接口库:
-https://github.com/jindaxiang/akshare
-
-AKShare 数据字典:
-https://www.akshare.xyz/data/index.html
-
-Tushare大数据开放社区:
-https://tushare.pro/
-
-Tushare 数据字典:
-http://tushare.org/index.html
-
-腾讯股票接口、和讯网股票接口、新浪股票接口、雪球股票数据、网易股票数据:
-https://my.oschina.net/u/2332532/blog/1933482
-
-老虎证券开放API:
-https://www.tigersecurities.com/openapi
-
-Choice数据量化接口:
-http://quantapi.eastmoney.com/
-
-同花顺数据接口:
-http://quantapi.10jqka.com.cn/
-
-腾讯股票接口API:
-https://blog.csdn.net/geofferysun/article/details/114386084
-https://blog.csdn.net/geofferysun/article/details/114752182
-https://blog.csdn.net/geofferysun/article/details/114752182
-https://blog.csdn.net/geofferysun/article/details/114939961
-https://blog.csdn.net/geofferysun/article/details/115521954
-
-雪球超级爬虫:
-https://github.com/decaywood/XueQiuSuperSpider
-
-一个基于spring boot 实现的java股票爬虫(仅支持A股):
-https://github.com/kingschan1204/istock
 
 ***** 统计 *****
 

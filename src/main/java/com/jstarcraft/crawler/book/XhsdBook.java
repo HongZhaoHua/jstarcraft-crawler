@@ -3,7 +3,7 @@ package com.jstarcraft.crawler.book;
 import java.util.List;
 
 /**
- * 新华书店图书
+ * 新华书店书籍
  * 
  * @author Birdy
  *

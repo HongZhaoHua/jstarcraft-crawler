@@ -21,7 +21,7 @@ import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 豆瓣图书
+ * 豆瓣书籍
  * 
  * @author Birdy
  *

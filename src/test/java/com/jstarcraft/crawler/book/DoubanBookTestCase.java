@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * 豆瓣图书单元测试
+ * 豆瓣书籍单元测试
  * 
  * @author Birdy
  *

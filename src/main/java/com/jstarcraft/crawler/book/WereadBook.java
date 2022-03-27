@@ -24,7 +24,7 @@ import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 微信图书
+ * 微信书籍
  * 
  * @author Birdy
  *

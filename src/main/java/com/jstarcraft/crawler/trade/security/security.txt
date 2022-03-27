@@ -1,3 +1,33 @@
 金融品种代码命名规范:(交易所识别码)
 https://www.hs.net/wiki/doc/doc/%E6%81%92%E7%94%9F%E9%87%91%E8%9E%8D%E4%BA%91%E5%B9%B3%E5%8F%B0_%E9%87%91%E8%9E%8D%E5%93%81%E7%A7%8D%E4%BB%A3%E7%A0%81%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83.pdf
 
+***** 证券 *****
+
+提供超過 50 個金融資料(台股為主)，每天更新:
+https://github.com/FinMind/FinMind
+
+腾讯股票接口、和讯网股票接口、新浪股票接口、雪球股票数据、网易股票数据:
+https://my.oschina.net/u/2332532/blog/1933482
+
+老虎证券开放API:
+https://www.tigersecurities.com/openapi
+
+Choice数据量化接口:
+http://quantapi.eastmoney.com/
+
+同花顺数据接口:
+http://quantapi.10jqka.com.cn/
+
+腾讯股票接口API:
+https://blog.csdn.net/geofferysun/article/details/114386084
+https://blog.csdn.net/geofferysun/article/details/114752182
+https://blog.csdn.net/geofferysun/article/details/114752182
+https://blog.csdn.net/geofferysun/article/details/114939961
+https://blog.csdn.net/geofferysun/article/details/115521954
+
+雪球超级爬虫:
+https://github.com/decaywood/XueQiuSuperSpider
+
+一个基于spring boot 实现的java股票爬虫(仅支持A股):
+https://github.com/kingschan1204/istock
+
