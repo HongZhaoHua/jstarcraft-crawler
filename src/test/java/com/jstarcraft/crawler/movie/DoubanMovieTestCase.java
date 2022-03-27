@@ -7,8 +7,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.crawler.movie.DoubanMovie;
-
+/**
+ * 豆瓣电影单元测试
+ * 
+ * @author Birdy
+ *
+ */
 public class DoubanMovieTestCase {
 
     @Test

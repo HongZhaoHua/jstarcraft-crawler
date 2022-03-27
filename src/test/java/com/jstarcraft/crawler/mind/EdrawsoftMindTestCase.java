@@ -15,11 +15,17 @@ import org.springframework.web.client.RestTemplate;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
+/**
+ * 亿图脑图单元测试
+ * 
+ * @author Birdy
+ *
+ */
 public class EdrawsoftMindTestCase {
 
     private void show(Topic topic) {
         System.out.println(topic.getText());
-        List<Topic> children = topic.getChild();
+        List<Topic> children = topic.getChildren();
         if (children != null) {
             for (Topic child : children) {
                 show(child);

@@ -12,4 +12,16 @@ package com.jstarcraft.crawler.mind;
  */
 public class EdrawsoftMind {
 
+    /** 标识 */
+    private String id;
+
+    /** 标题 */
+    private String title;
+
+    /** 路径 */
+    private String url;
+
+    /** 内容 */
+    private Topic content;
+
 }

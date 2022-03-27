@@ -34,7 +34,7 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 英为财情单元测试
+ * 英为财情指数单元测试
  * 
  * <pre>
  * https://api.investing.com/api/search/v2/search?q={isin}

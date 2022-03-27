@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * 雪球单元测试
+ * 雪球股票单元测试
  * 
  * https://xueqiu.com/
  * 

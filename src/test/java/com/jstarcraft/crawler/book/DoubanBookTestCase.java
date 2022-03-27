@@ -7,6 +7,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * 豆瓣图书单元测试
+ * 
+ * @author Birdy
+ *
+ */
 public class DoubanBookTestCase {
 
     @Test

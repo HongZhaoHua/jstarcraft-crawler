@@ -11,6 +11,12 @@ import org.springframework.web.client.RestTemplate;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
+/**
+ * 新华书店图书单元测试
+ * 
+ * @author Birdy
+ *
+ */
 public class XhsdBookTestCase {
 
     @Test
@@ -25,13 +31,13 @@ public class XhsdBookTestCase {
         System.out.println(content.length());
         System.out.println(XmlUtility.prettyHtml(content));
     }
-    
+
     /**
      * https://item.xhsd.com/api/item/comment/paging?pageNo=1&pageSize=20&parentId=-1&itemId={}
      */
     @Test
     public void testScore() {
-        
+
     }
 
 }

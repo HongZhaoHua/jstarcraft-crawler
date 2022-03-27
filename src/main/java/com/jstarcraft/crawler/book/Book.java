@@ -2,6 +2,12 @@ package com.jstarcraft.crawler.book;
 
 import java.util.List;
 
+/**
+ * 图书
+ * 
+ * @author Birdy
+ *
+ */
 public interface Book {
 
     /**
@@ -26,7 +32,7 @@ public interface Book {
     public List<String> getChapters();
 
     /**
-     * 获取ISBN
+     * 获取国际标准书号(International Standard Book Number/ISBN)
      * 
      * @return
      */

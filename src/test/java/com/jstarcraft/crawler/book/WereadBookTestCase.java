@@ -26,6 +26,12 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectSortedMap;
 
+/**
+ * 微信图书单元测试
+ * 
+ * @author Birdy
+ *
+ */
 public class WereadBookTestCase {
 
     @Test

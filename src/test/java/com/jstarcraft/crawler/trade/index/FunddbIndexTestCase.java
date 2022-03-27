@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.jstarcraft.core.common.selection.jsonpath.SnackJsonPathSelector;
 
 /**
- * 韭圈儿单元测试
+ * 韭圈儿指数单元测试
  * 
  * <pre>
  * 数据源 https://funddb.cn/site/index

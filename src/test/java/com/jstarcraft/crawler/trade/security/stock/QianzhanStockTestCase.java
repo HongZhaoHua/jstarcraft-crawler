@@ -19,7 +19,7 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 前瞻单元测试
+ * 前瞻股票单元测试
  * 
  * @author Birdy
  *

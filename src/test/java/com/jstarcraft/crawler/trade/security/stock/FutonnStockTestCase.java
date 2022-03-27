@@ -19,7 +19,7 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
- * 富途牛牛单元测试
+ * 富途牛牛股票单元测试
  * 
  * https://www.futunn.com/
  * 

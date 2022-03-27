@@ -23,7 +23,7 @@ import com.jstarcraft.crawler.trade.security.stock.eniu.EniuStatistic;
 import com.jstarcraft.crawler.trade.security.stock.eniu.EniuSummary;
 
 /**
- * 亿牛单元测试
+ * 亿牛股票单元测试
  * 
  * <pre>
  * 数据源 https://eniu.com
