@@ -19,7 +19,7 @@ public class XhsdBookTestCase {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format("https://search.xhsd.com/search?keyword={}", "9787545540444");
+        String url = StringUtility.format("https://search.xhsd.com/search?keyword={}", "9787213066856");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
         System.out.println(content.length());

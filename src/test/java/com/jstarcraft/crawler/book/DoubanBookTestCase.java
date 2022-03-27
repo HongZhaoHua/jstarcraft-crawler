@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.crawler.book.DoubanBook;
-
 public class DoubanBookTestCase {
 
     @Test
@@ -26,18 +24,18 @@ public class DoubanBookTestCase {
 
     @Test
     public void testSearch() {
-        String isbn = "9787213066856";
         RestTemplate template = new RestTemplate();
+        String isbn = "9787213066856";
         List<DoubanBook> books = DoubanBook.searchBooksByKey(template, isbn);
         Assert.assertEquals(1, books.size());
     }
 
     @Test
     public void testTag() {
-        String tag = "科普";
         RestTemplate template = new RestTemplate();
+        String tag = "科普";
         List<DoubanBook> books = DoubanBook.getBooksByTag(template, tag, 0);
-        Assert.assertEquals(1, books.size());
+        Assert.assertEquals(20, books.size());
     }
 
 }
