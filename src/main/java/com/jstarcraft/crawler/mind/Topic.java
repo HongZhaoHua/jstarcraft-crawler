@@ -1,6 +1,6 @@
 package com.jstarcraft.crawler.mind;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Topic {
 
@@ -8,7 +8,7 @@ public class Topic {
 
     private int type;
 
-    private ArrayList<Topic> child;
+    private List<Topic> child;
 
     public String getText() {
         return text;
@@ -18,7 +18,7 @@ public class Topic {
         return type;
     }
 
-    public ArrayList<Topic> getChild() {
+    public List<Topic> getChild() {
         return child;
     }
 

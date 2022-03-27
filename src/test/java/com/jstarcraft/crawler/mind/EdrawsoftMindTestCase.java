@@ -17,6 +17,16 @@ import com.jstarcraft.core.utility.StringUtility;
 
 public class EdrawsoftMindTestCase {
 
+    private void show(Topic topic) {
+        System.out.println(topic.getText());
+        List<Topic> children = topic.getChild();
+        if (children != null) {
+            for (Topic child : children) {
+                show(child);
+            }
+        }
+    }
+
     @Test
     public void testGetSummary() {
         RestTemplate template = new RestTemplate();
@@ -51,7 +61,8 @@ public class EdrawsoftMindTestCase {
         System.out.println(content.length());
         System.out.println(JsonUtility.prettyJson(content));
         Topic topic = JsonUtility.string2Object(content, Topic.class);
-        System.out.println(topic.getChild().size());
+//        System.out.println(topic.getChild().size());
+        show(topic);
     }
 
 }
