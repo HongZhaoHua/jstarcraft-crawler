@@ -167,6 +167,7 @@ public class WereadBookTestCase {
 
     /**
      * 获取个人想法:https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1&synckey=0&listMode=0
+     * 获取他人想法:https://i.weread.qq.com/review/list?bookId={}&listType=8&chapterUid={}&synckey=0&listMode=3
      */
     @Test
     public void testGetThought() {
