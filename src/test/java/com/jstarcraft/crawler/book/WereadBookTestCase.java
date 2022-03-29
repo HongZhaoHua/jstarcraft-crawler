@@ -182,12 +182,14 @@ public class WereadBookTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1", "35177944");
+            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1&synckey=0&listMode=0", "855812");
+//            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=8&chapterUid={}&synckey=0&listMode=3", "855812", "5");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
 //            System.out.println(content.length());
-//            System.out.println(JsonUtility.prettyJson(content));
+            System.out.println(JsonUtility.prettyJson(content));
             ONode root = ONode.load(content);
+            int size = 0;
             Int2ObjectSortedMap<TreeMap<String, KeyValue<String, String>>> reviews = new Int2ObjectAVLTreeMap<>();
             for (ONode node : root.get("reviews").ary()) {
                 ONode review = node.get("review");
@@ -201,7 +203,9 @@ public class WereadBookTestCase {
                 String key = review.get("abstract").getString();
                 String value = review.get("content").getString();
                 chapters.put(reviewId, new KeyValue<>(key, value));
+                size++;
             }
+            System.out.println(size);
             System.out.println(reviews.size());
         } catch (Exception exception) {
             exception.printStackTrace();
