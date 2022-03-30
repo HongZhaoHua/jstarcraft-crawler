@@ -264,4 +264,23 @@ public class WereadBookTestCase {
         }
     }
 
+    /**
+     * 搜索书籍内容:https://weread.qq.com/web/book/search?bookId={}&keyword={}&maxIdx={}&count={}&fragmentSize=150&onlyCount=0
+     */
+    @Test
+    public void testSearchContent() {
+        try {
+            RestTemplate template = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
+            String url = StringUtility.format("https://weread.qq.com/web/book/search?bookId={}&keyword={}&maxIdx={}&count={}&fragmentSize=150&onlyCount=0", "35177944", "人类", "0", "10");
+            ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+            String content = response.getBody();
+            System.out.println(content.length());
+            System.out.println(JsonUtility.prettyJson(content));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
 }
