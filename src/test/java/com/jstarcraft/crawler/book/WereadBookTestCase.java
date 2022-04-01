@@ -201,7 +201,7 @@ public class WereadBookTestCase {
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
 //            System.out.println(content.length());
-            System.out.println(JsonUtility.prettyJson(content));
+//            System.out.println(JsonUtility.prettyJson(content));
             ONode root = ONode.load(content);
             int size = 0;
             Int2ObjectSortedMap<TreeMap<String, KeyValue<String, String>>> reviews = new Int2ObjectAVLTreeMap<>();
@@ -217,6 +217,11 @@ public class WereadBookTestCase {
                 String key = review.get("abstract").getString();
                 String value = review.get("content").getString();
                 chapters.put(reviewId, new KeyValue<>(key, value));
+                System.out.println("**********");
+                System.out.println(key);
+                System.out.println("----------");
+                System.out.println(value);
+                System.out.println();
                 size++;
             }
             System.out.println(size);
