@@ -70,8 +70,8 @@ public class WereadBookTestCase {
         book.update(Instant.now());
         System.out.println(book.getId());
         System.out.println(book.getTitle());
-        for (String chapter : book.getChapters()) {
-            System.out.println(chapter + "-" + book.getChapterId(chapter));
+        for (WereadChapter chapter : book.getChapters()) {
+            System.out.println(chapter.getId() + "=" + chapter.getTitle());
         }
     }
 

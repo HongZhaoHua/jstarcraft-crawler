@@ -4,12 +4,14 @@ import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.noear.snack.ONode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,19 +25,13 @@ import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectSortedMap;
-import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-
 /**
  * 微信书籍
  * 
  * @author Birdy
  *
  */
-public class WereadBook implements Book {
+public class WereadBook implements Book<WereadChapter> {
 
     private static final JsFunction function;
 
@@ -76,7 +72,7 @@ public class WereadBook implements Book {
     private String title;
 
     /** 章节 */
-    private Object2IntMap<String> chapters;
+    private List<WereadChapter> chapters;
 
     /** ISBN */
     private String isbn;
@@ -133,20 +129,23 @@ public class WereadBook implements Book {
         // 获取标识
         this.id = book.get("bookId").getString();
         // 获取章节
-//        List<Element> elements = chapterSelector.selectMultiple(document.root());
-//        this.chapters = new ArrayList<>(elements.size());
-//        for (Element element : elements) {
-//            this.chapters.add(element.text());
-//        }
-        Int2ObjectSortedMap<String> chapters = new Int2ObjectAVLTreeMap<>();
-        this.chapters = new Object2IntLinkedOpenHashMap<>();
-        for (ONode node : book.get("chapterInfos").ary()) {
-            int id = node.get("chapterUid").getInt();
-            String title = node.get("title").getString();
-            chapters.put(id, title);
+        Map<String, WereadChapter> chapters = new HashMap<>();
+        for (ONode chapter : book.get("chapterInfos").ary()) {
+            int id = chapter.get("chapterUid").getInt();
+            String title = chapter.get("title").getString();
+            int level = chapter.get("level").getInt();
+            chapters.put(title, new WereadChapter(title, id, level));
+            for (ONode anchor : chapter.get("anchors").ary()) {
+                title = anchor.get("title").getString();
+                level = anchor.get("level").getInt();
+                chapters.put(title, new WereadChapter(title, id, level));
+            }
         }
-        for(Int2ObjectMap.Entry<String> keyValue : chapters.int2ObjectEntrySet()) {
-            this.chapters.put(keyValue.getValue(), keyValue.getIntKey());
+        List<Element> elements = chapterSelector.selectMultiple(document.root());
+        this.chapters = new ArrayList<>(elements.size());
+        for (Element element : elements) {
+            String title = element.text();
+            this.chapters.add(chapters.get(title));
         }
         // 获取ISBN
         this.isbn = book.get("bookInfo").get("isbn").getString();
@@ -169,8 +168,8 @@ public class WereadBook implements Book {
     }
 
     @Override
-    public Collection<String> getChapters() {
-        return chapters.keySet();
+    public List<WereadChapter> getChapters() {
+        return chapters;
     }
 
     @Override
@@ -190,10 +189,6 @@ public class WereadBook implements Book {
 
     public Instant getInstant() {
         return instant;
-    }
-
-    public int getChapterId(String chapter) {
-        return chapters.getOrDefault(chapter, -1);
     }
 
 }

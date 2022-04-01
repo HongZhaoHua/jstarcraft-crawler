@@ -26,7 +26,7 @@ import com.jstarcraft.core.utility.StringUtility;
  * @author Birdy
  *
  */
-public class DoubanBook implements Book {
+public class DoubanBook implements Book<Chapter> {
 
     /** 搜索路径模板 */
     // https://search.douban.com/book/subject_search?search_text={}&start={}
@@ -61,7 +61,7 @@ public class DoubanBook implements Book {
     private String title;
 
     /** 章节 */
-    private List<String> chapters;
+    private List<Chapter> chapters;
 
     /** ISBN */
     private String isbn;
@@ -151,7 +151,10 @@ public class DoubanBook implements Book {
             chapters = Arrays.copyOf(chapters, chapters.length - 1);
         }
         // 剔除最后一个章节
-        this.chapters = Arrays.asList(chapters);
+        this.chapters = new ArrayList<Chapter>(chapters.length);
+        for (String chapter : chapters) {
+            this.chapters.add(new Chapter(chapter));
+        }
         // 获取ISBN
         this.isbn = isbnSelector.selectSingle(document.root()).attr("content");
         // 获取评分
@@ -178,7 +181,7 @@ public class DoubanBook implements Book {
     }
 
     @Override
-    public List<String> getChapters() {
+    public List<Chapter> getChapters() {
         return chapters;
     }
 

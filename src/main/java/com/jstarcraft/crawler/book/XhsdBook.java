@@ -8,7 +8,7 @@ import java.util.List;
  * @author Birdy
  *
  */
-public class XhsdBook implements Book {
+public class XhsdBook implements Book<Chapter> {
 
     @Override
     public String getId() {
@@ -23,7 +23,7 @@ public class XhsdBook implements Book {
     }
 
     @Override
-    public List<String> getChapters() {
+    public List<Chapter> getChapters() {
         // TODO Auto-generated method stub
         return null;
     }
