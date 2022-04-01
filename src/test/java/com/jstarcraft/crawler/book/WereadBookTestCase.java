@@ -62,19 +62,6 @@ public class WereadBookTestCase {
         Assert.assertEquals(5, book.getTags().size());
     }
 
-    @Test
-    public void testGetId() {
-        RestTemplate template = new RestTemplate();
-        String href = "d4a322a05d0f04d4a01f0d6";
-        WereadBook book = new WereadBook(template, href);
-        book.update(Instant.now());
-        System.out.println(book.getId());
-        System.out.println(book.getTitle());
-        for (WereadChapter chapter : book.getChapters()) {
-            System.out.println(chapter.getId() + "=" + chapter.getTitle());
-        }
-    }
-
     /**
      * 获取个人书架:https://weread.qq.com/web/shelf
      */
