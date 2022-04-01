@@ -1,5 +1,6 @@
 package com.jstarcraft.crawler.book;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public interface Book {
      * 
      * @return
      */
-    public List<String> getChapters();
+    public Collection<String> getChapters();
 
     /**
      * 获取国际标准书号(International Standard Book Number/ISBN)

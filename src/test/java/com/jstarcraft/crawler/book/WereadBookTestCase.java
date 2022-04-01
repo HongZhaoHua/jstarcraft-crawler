@@ -57,9 +57,22 @@ public class WereadBookTestCase {
         Assert.assertEquals("630480", book.getId());
         Assert.assertEquals("星际穿越", book.getTitle());
         Assert.assertEquals("9787213066856", book.getIsbn());
-        Assert.assertEquals("86.0", book.getScore());
+        Assert.assertEquals("85.9", book.getScore());
         Assert.assertEquals(51, book.getChapters().size());
         Assert.assertEquals(5, book.getTags().size());
+    }
+
+    @Test
+    public void testGetId() {
+        RestTemplate template = new RestTemplate();
+        String href = "d4a322a05d0f04d4a01f0d6";
+        WereadBook book = new WereadBook(template, href);
+        book.update(Instant.now());
+        System.out.println(book.getId());
+        System.out.println(book.getTitle());
+        for (String chapter : book.getChapters()) {
+            System.out.println(chapter + "-" + book.getChapterId(chapter));
+        }
     }
 
     /**
@@ -89,7 +102,7 @@ public class WereadBookTestCase {
     }
 
     /**
-     * 获取个笔记:https://i.weread.qq.com/user/notebooks
+     * 获取个人笔记:https://i.weread.qq.com/user/notebooks
      */
     @Test
     public void testGetNotes() {
@@ -131,7 +144,7 @@ public class WereadBookTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/book/bookmarklist?bookId={}", "35177944");
+            String url = StringUtility.format("https://i.weread.qq.com/book/bookmarklist?bookId={}", "855812");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
 //            System.out.println(content.length());
@@ -144,6 +157,7 @@ public class WereadBookTestCase {
                 String value = chapter.get("title").getString();
                 chapters.put(key, value);
                 marks.put(key, new TreeMap<>());
+                System.out.println(key + "-" + value);
             }
             System.out.println(chapters.size());
             for (ONode mark : root.get("updated").ary()) {
@@ -182,8 +196,8 @@ public class WereadBookTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1&synckey=0&listMode=0", "855812");
-//            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=8&chapterUid={}&synckey=0&listMode=3", "855812", "5");
+//            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1&synckey=0&listMode=0", "855812");
+            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=8&chapterUid={}&synckey=0&listMode=3", "855812", "0");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
 //            System.out.println(content.length());
@@ -228,7 +242,7 @@ public class WereadBookTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/book/bestbookmarks?bookId={}", "35177944");
+            String url = StringUtility.format("https://i.weread.qq.com/book/bestbookmarks?bookId={}", "855812");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
             System.out.println(content.length());
@@ -273,7 +287,7 @@ public class WereadBookTestCase {
             RestTemplate template = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://weread.qq.com/web/book/search?bookId={}&keyword={}&maxIdx={}&count={}&fragmentSize=150&onlyCount=0", "35177944", "人类", "0", "10");
+            String url = StringUtility.format("https://weread.qq.com/web/book/search?bookId={}&keyword={}&maxIdx={}&count={}&fragmentSize=150&onlyCount=0", "855812", "人类", "0", "10");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
             System.out.println(content.length());
