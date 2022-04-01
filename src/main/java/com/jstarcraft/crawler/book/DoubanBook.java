@@ -143,8 +143,13 @@ public class DoubanBook implements Book {
         this.title = titleSelector.selectSingle(document.root()).attr("content");
         // 获取章节
         Element catalogue = document.getElementById(StringUtility.format("dir_{}_full", id));
-        String[] chapters = catalogue.html().split("[\\s]*<br>[\\s]*");
-        chapters = Arrays.copyOf(chapters, chapters.length - 1);
+        String[] chapters;
+        if (catalogue == null) {
+            chapters = new String[] {};
+        } else {
+            chapters = catalogue.html().split("[\\s]*<br>[\\s]*");
+            chapters = Arrays.copyOf(chapters, chapters.length - 1);
+        }
         // 剔除最后一个章节
         this.chapters = Arrays.asList(chapters);
         // 获取ISBN
