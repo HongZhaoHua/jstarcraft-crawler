@@ -75,13 +75,13 @@ public class DoubanBook implements Book<Chapter> {
     private Instant instant;
 
     /**
-     * 按关键字搜索图书
+     * 按关键字获取图书
      * 
      * @param template
      * @param key
      * @return
      */
-    public static List<DoubanBook> searchBooksByKey(RestTemplate template, String key) {
+    public static List<DoubanBook> getBooksByKey(RestTemplate template, String key) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);

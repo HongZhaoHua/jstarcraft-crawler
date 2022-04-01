@@ -89,7 +89,14 @@ public class WereadBook implements Book<WereadChapter> {
         return function.doWith(String.class, id);
     }
 
-    public static List<WereadBook> searchBooksByKey(RestTemplate template, String key) {
+    /**
+     * 按关键字获取图书
+     * 
+     * @param template
+     * @param key
+     * @return
+     */
+    public static List<WereadBook> getBooksByKey(RestTemplate template, String key) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);

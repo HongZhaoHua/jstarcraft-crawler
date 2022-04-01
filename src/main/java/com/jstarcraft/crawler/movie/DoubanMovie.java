@@ -81,13 +81,13 @@ public class DoubanMovie {
     private Instant instant;
 
     /**
-     * 按关键字搜索电影
+     * 按关键字获取电影
      * 
      * @param template
      * @param key
      * @return
      */
-    public static List<DoubanMovie> searchMoviesByKey(RestTemplate template, String key) {
+    public static List<DoubanMovie> getMoviesByKey(RestTemplate template, String key) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);

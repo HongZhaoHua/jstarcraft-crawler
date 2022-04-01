@@ -38,7 +38,7 @@ public class WereadBookTestCase {
     public void testSearch() {
         RestTemplate template = new RestTemplate();
         String isbn = "9787213066856";
-        List<WereadBook> books = WereadBook.searchBooksByKey(template, isbn);
+        List<WereadBook> books = WereadBook.getBooksByKey(template, isbn);
         Assert.assertEquals(1, books.size());
     }
 

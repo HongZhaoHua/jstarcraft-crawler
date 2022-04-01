@@ -32,7 +32,7 @@ public class DoubanMovieTestCase {
     public void testSearch() {
         String imdb = "tt0816692";
         RestTemplate template = new RestTemplate();
-        List<DoubanMovie> movies = DoubanMovie.searchMoviesByKey(template, imdb);
+        List<DoubanMovie> movies = DoubanMovie.getMoviesByKey(template, imdb);
         Assert.assertEquals(1, movies.size());
     }
 

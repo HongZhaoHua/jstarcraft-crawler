@@ -32,7 +32,7 @@ public class DoubanBookTestCase {
     public void testSearch() {
         RestTemplate template = new RestTemplate();
         String isbn = "9787213066856";
-        List<DoubanBook> books = DoubanBook.searchBooksByKey(template, isbn);
+        List<DoubanBook> books = DoubanBook.getBooksByKey(template, isbn);
         Assert.assertEquals(1, books.size());
     }
 
