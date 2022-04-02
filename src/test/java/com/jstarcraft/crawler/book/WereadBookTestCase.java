@@ -260,7 +260,7 @@ public class WereadBookTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/book/info?bookId={}", "35177944");
+            String url = StringUtility.format("https://i.weread.qq.com/book/info?bookId={}", "855812");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
             System.out.println(content.length());

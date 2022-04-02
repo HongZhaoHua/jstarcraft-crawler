@@ -1,5 +1,7 @@
 package com.jstarcraft.crawler.book;
 
+import java.util.Map;
+
 /**
  * 微信书架
  * 
@@ -8,6 +10,13 @@ package com.jstarcraft.crawler.book;
  */
 public class WereadShelf {
 
-    private String cookie;
+    /**
+     * 获取笔记
+     * 
+     * @return
+     */
+    public Map<String, WereadNote> getNodes() {
+        return null;
+    }
 
 }
