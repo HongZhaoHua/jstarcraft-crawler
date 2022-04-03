@@ -38,8 +38,8 @@ public class XueQiuStockTestCase {
         request = new HttpEntity<>((Void) null, headers);
         // 通过雪球股票接口获取实时股价
         response = template.exchange("https://stock.xueqiu.com/v5/stock/quote.json?symbol=SZ000651&extend=detail", HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content);
+        String data = response.getBody();
+        System.out.println(data);
     }
 
 }

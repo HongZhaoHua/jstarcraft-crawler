@@ -28,9 +28,9 @@ import com.jstarcraft.core.utility.StringUtility;
  */
 public class DoubanBook implements Book<Chapter> {
 
-    /** 搜索路径模板 */
+    /** 查找路径模板 */
     // https://search.douban.com/book/subject_search?search_text={}&start={}
-    private static final String searchUrl = "https://book.douban.com/j/subject_suggest?q={}";
+    private static final String findUrl = "https://book.douban.com/j/subject_suggest?q={}";
 
     /** 标签路径模板 */
     // T:综合,R:日期,S:评价
@@ -41,7 +41,7 @@ public class DoubanBook implements Book<Chapter> {
 
     private static final RegularSelector idSelector = new RegularSelector("https://book.douban.com/subject/(\\d+)/", 0, 1);
 
-    /** 图书路径模板 */
+    /** 书籍路径模板 */
     private static final String bookUrl = "https://book.douban.com/subject/{}/";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
@@ -85,7 +85,7 @@ public class DoubanBook implements Book<Chapter> {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(searchUrl, key);
+        String url = StringUtility.format(findUrl, key);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String content = response.getBody();
         ONode root = ONode.load(content);
@@ -137,8 +137,8 @@ public class DoubanBook implements Book<Chapter> {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(bookUrl, id);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        Document document = Jsoup.parse(data);
         // 获取标题
         this.title = titleSelector.selectSingle(document.root()).attr("content");
         // 获取章节
@@ -160,7 +160,7 @@ public class DoubanBook implements Book<Chapter> {
         // 获取评分
         this.score = scoreSelector.selectSingle(document.root()).text();
         // 获取标签
-        String[] tags = tagSelector.selectSingle(content).split("\\|");
+        String[] tags = tagSelector.selectSingle(data).split("\\|");
         // 剔除最后一个标签
         tags = Arrays.copyOf(tags, tags.length - 1);
         for (int index = 0, size = tags.length; index < size; index++) {

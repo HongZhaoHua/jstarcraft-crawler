@@ -33,9 +33,9 @@ import com.jstarcraft.core.utility.StringUtility;
  */
 public class DoubanMovie {
 
-    /** 搜索路径模板 */
+    /** 查找路径模板 */
     // https://search.douban.com/movie/subject_search?search_text={}&start={}
-    private static final String searchUrl = "https://movie.douban.com/j/subject_suggest?q={}";
+    private static final String findUrl = "https://movie.douban.com/j/subject_suggest?q={}";
 
     /** 标签路径模板 */
     // U:最热,T:最多,S:最高,R:最新
@@ -91,10 +91,10 @@ public class DoubanMovie {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(searchUrl, key);
+        String url = StringUtility.format(findUrl, key);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        ONode root = ONode.load(data);
         List<ONode> nodes = root.ary();
         List<DoubanMovie> movies = new ArrayList<>(nodes.size());
         for (ONode node : nodes) {
@@ -119,8 +119,8 @@ public class DoubanMovie {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(tagUrl, "T", tag, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        ONode root = ONode.load(data);
         List<ONode> nodes = root.get("data").ary();
         List<DoubanMovie> movies = new ArrayList<>(nodes.size());
         for (ONode node : nodes) {
@@ -142,8 +142,8 @@ public class DoubanMovie {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(bookUrl, id);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        Document document = Jsoup.parse(data);
         this.title = titleSelector.selectSingle(document.root()).attr("content");
         HtmlElementNode root = new HtmlElementNode(document);
         // 获取IMDb
@@ -157,7 +157,7 @@ public class DoubanMovie {
             this.genres.add(element.text());
         }
         // 获取标签
-        String[] tags = tagSelector.selectSingle(content).split("\\|");
+        String[] tags = tagSelector.selectSingle(data).split("\\|");
         // 剔除最后一个标签
         tags = Arrays.copyOf(tags, tags.length - 1);
         for (int index = 0, size = tags.length; index < size; index++) {

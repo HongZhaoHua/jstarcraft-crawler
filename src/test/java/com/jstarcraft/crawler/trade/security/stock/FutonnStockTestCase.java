@@ -40,10 +40,10 @@ public class FutonnStockTestCase {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format("https://www.futunn.com/stock/{}-HK/company-profile", "00700");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(XmlUtility.prettyHtml(data));
+        Document document = Jsoup.parse(data);
         HtmlElementNode root = new HtmlElementNode(document);
         Element isin = (Element) isinSelector.selectSingle(root).getValue();
         System.out.println(isin.text());

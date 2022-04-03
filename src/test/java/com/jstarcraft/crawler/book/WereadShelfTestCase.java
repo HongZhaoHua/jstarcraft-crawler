@@ -9,6 +9,8 @@ import java.util.TreeMap;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.noear.snack.ONode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +27,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectSortedMap;
 
 public class WereadShelfTestCase {
+
+    protected static final Logger logger = LoggerFactory.getLogger(WereadShelfTestCase.class);
 
     /**
      * 获取个人书架:https://weread.qq.com/web/shelf
@@ -63,9 +67,9 @@ public class WereadShelfTestCase {
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
             String url = StringUtility.format("https://i.weread.qq.com/user/notebooks");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-            String content = response.getBody();
-            System.out.println(JsonUtility.prettyJson(content));
-            ONode root = ONode.load(content);
+            String data = response.getBody();
+            System.out.println(JsonUtility.prettyJson(data));
+            ONode root = ONode.load(data);
             List<ONode> books = root.get("books").ary();
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -150,7 +154,7 @@ public class WereadShelfTestCase {
     }
 
     /**
-     * 获取个人想法:https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1&synckey=0&listMode=0
+     * 获取个人想法:https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=11&mine=1&synckey=0&listMode=0
      */
     @Test
     public void testGetOwnThoughts() {
@@ -165,11 +169,11 @@ public class WereadShelfTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=11&mine=1&synckey=0&listMode=0", "855812");
+            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=11&mine=1&synckey=0&listMode=0", "855812", "0");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
 //            System.out.println(content.length());
-//            System.out.println(JsonUtility.prettyJson(content));
+            System.out.println(JsonUtility.prettyJson(content));
             ONode root = ONode.load(content);
             int size = 0;
             Int2ObjectSortedMap<TreeMap<String, KeyValue<String, String>>> reviews = new Int2ObjectAVLTreeMap<>();
@@ -200,7 +204,7 @@ public class WereadShelfTestCase {
     }
 
     /**
-     * 获取他人想法:https://i.weread.qq.com/review/list?bookId={}&listType=8&chapterUid={}&synckey=0&listMode=3
+     * 获取他人想法:https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=8&synckey=0&listMode=3
      */
     @Test
     public void testGetOtherThoughts() {
@@ -215,7 +219,7 @@ public class WereadShelfTestCase {
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.COOKIE, cookies);
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&listType=8&chapterUid={}&synckey=0&listMode=3", "855812", "0");
+            String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=8&synckey=0&listMode=3", "855812", "0");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
             String content = response.getBody();
 //            System.out.println(content.length());
@@ -267,9 +271,9 @@ public class WereadShelfTestCase {
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
             String url = StringUtility.format("https://i.weread.qq.com/book/info?bookId={}", "855812");
             ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-            String content = response.getBody();
-            System.out.println(content.length());
-            System.out.println(JsonUtility.prettyJson(content));
+            String data = response.getBody();
+            System.out.println(data.length());
+            System.out.println(JsonUtility.prettyJson(data));
         } catch (Exception exception) {
             exception.printStackTrace();
         }

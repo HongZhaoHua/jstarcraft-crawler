@@ -47,9 +47,9 @@ public class EniuStockTestCase {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange("https://eniu.com/industry/银行/market/sh/json/true", HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(JsonUtility.prettyJson(content));
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(JsonUtility.prettyJson(data));
     }
 
     @Test

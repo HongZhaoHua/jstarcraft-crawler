@@ -27,9 +27,9 @@ public class XhsdBookTestCase {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format("https://search.xhsd.com/search?keyword={}", "9787213066856");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(XmlUtility.prettyHtml(content));
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(XmlUtility.prettyHtml(data));
     }
 
     /**

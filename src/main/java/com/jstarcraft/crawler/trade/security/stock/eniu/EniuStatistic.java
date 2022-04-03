@@ -61,9 +61,9 @@ public class EniuStatistic {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(peUrl, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
+        String data = response.getBody();
 //        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
+        Document document = Jsoup.parse(data);
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
@@ -85,9 +85,9 @@ public class EniuStatistic {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(pbUrl, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
+        String data = response.getBody();
 //        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
+        Document document = Jsoup.parse(data);
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标
@@ -109,9 +109,9 @@ public class EniuStatistic {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(psUrl, code);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
+        String data = response.getBody();
 //        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
+        Document document = Jsoup.parse(data);
         HtmlElementNode root = new HtmlElementNode(document);
 //        System.out.println(document.title());
         // 获取指标

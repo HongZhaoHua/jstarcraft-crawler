@@ -78,8 +78,8 @@ public enum EniuSummary {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        Document document = Jsoup.parse(data);
         // 获取指标
         for (JsoupCssSelector selector : selectors) {
             for (Element element : selector.selectMultiple(document.root())) {
@@ -107,8 +107,8 @@ public enum EniuSummary {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        Document document = Jsoup.parse(data);
         // TODO 获取名称
         document.title();
         // TODO 获取行业

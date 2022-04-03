@@ -42,9 +42,9 @@ public class EdrawsoftMindTestCase {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format("https://masterapi.edrawsoft.cn/api/user/0/work/info?work_id={}", id);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(JsonUtility.prettyJson(content));
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(JsonUtility.prettyJson(data));
     }
 
     @Test
@@ -63,10 +63,10 @@ public class EdrawsoftMindTestCase {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format("https://edrawcloudpubliccn.oss-cn-shenzhen.aliyuncs.com/work/16066015/2021-6-28/1624880100/outline.json");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(JsonUtility.prettyJson(content));
-        Topic topic = JsonUtility.string2Object(content, Topic.class);
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(JsonUtility.prettyJson(data));
+        Topic topic = JsonUtility.string2Object(data, Topic.class);
 //        System.out.println(topic.getChild().size());
         show(topic);
     }

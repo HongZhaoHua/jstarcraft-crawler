@@ -34,8 +34,8 @@ public class FunddbIndexTestCase {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/showcategory", HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        ONode root = ONode.load(data);
         SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.right_list");
         for (ONode node : selector.selectMultiple(root)) {
             System.out.println(node);
@@ -52,9 +52,9 @@ public class FunddbIndexTestCase {
         parameters.add("year", -1);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(parameters, headers);
         ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata", HttpMethod.POST, request, String.class);
-        String content = response.getBody();
-        System.out.println(content);
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        System.out.println(data);
+        ONode root = ONode.load(data);
         ONode average = root.get("data").get("ping_pe");
         SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市净率')].data");
         List<ONode> nodes = selector.selectMultiple(root);
@@ -76,9 +76,9 @@ public class FunddbIndexTestCase {
         parameters.add("gu_code", "000009.SH");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(parameters, headers);
         ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/newtubiaodata", HttpMethod.POST, request, String.class);
-        String content = response.getBody();
+        String data = response.getBody();
 //        System.out.println(content);
-        ONode root = ONode.load(content);
+        ONode root = ONode.load(data);
         SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.cl_many_info");
         ONode name = root.get("data").get("gu_name");
         System.out.println(name);

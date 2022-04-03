@@ -68,11 +68,11 @@ public class WereadShelf {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
         String url = StringUtility.format(shelfUrl);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        Document document = Jsoup.parse(data);
         String script = scriptSelector.selectSingle(document.root()).html();
         script = script.replaceAll("window.__INITIAL_STATE__=([\\s\\S]*);\\(function[\\s\\S]*\\(\\)\\);", "$1");
-        System.out.println(content.length());
+        System.out.println(data.length());
         System.out.println(JsonUtility.prettyJson(script));
         ONode root = ONode.load(script);
         List<ONode> archives = root.get("shelf").get("archive").ary();

@@ -13,6 +13,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.noear.snack.ONode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
+import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
@@ -33,6 +37,8 @@ import com.jstarcraft.core.utility.StringUtility;
  */
 public class WereadBook implements Book<WereadChapter> {
 
+    protected static final Logger logger = LoggerFactory.getLogger(WereadBook.class);
+
     private static final JsFunction function;
 
     static {
@@ -45,10 +51,10 @@ public class WereadBook implements Book<WereadChapter> {
         }
     }
 
-    /** 搜索路径模板 */
-    private static final String searchUrl = "https://weread.qq.com/web/search/global?keyword={}&maxIdx={}&fragmentSize=120&count=20";
+    /** 查找路径模板 */
+    private static final String findUrl = "https://weread.qq.com/web/search/global?keyword={}&maxIdx={}&fragmentSize=120&count=20";
 
-    /** 图书路径模板 */
+    /** 书籍路径模板 */
     private static final String bookUrl = "https://weread.qq.com/web/reader/{}";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("div.bookInfo_right_header_title");
@@ -61,12 +67,14 @@ public class WereadBook implements Book<WereadChapter> {
 
     private static final JsoupCssSelector tagSelector = new JsoupCssSelector("meta[name='keywords']");
 
+    /** 搜索路径模板 */
+    private static final String searchUrl = "https://weread.qq.com/web/book/search?bookId={}&keyword={}&maxIdx={}&count={}&fragmentSize=150&onlyCount=0";
+
     private final RestTemplate template;
 
     private final String herf;
 
-    /** 标识 */
-    private String id;
+    private final String id;
 
     /** 标题 */
     private String title;
@@ -100,23 +108,27 @@ public class WereadBook implements Book<WereadChapter> {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(searchUrl, key, 0);
+        String url = StringUtility.format(findUrl, key, 0);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
+        ONode root = ONode.load(data);
         List<ONode> nodes = root.get("books").ary();
         List<WereadBook> books = new ArrayList<>(nodes.size());
         for (ONode node : nodes) {
             String id = node.get("bookInfo").get("bookId").getString();
-            WereadBook book = new WereadBook(template, getHerf(id));
+            WereadBook book = new WereadBook(template, id);
             books.add(book);
         }
         return books;
     }
 
-    public WereadBook(RestTemplate template, String href) {
+    public WereadBook(RestTemplate template, String id) {
         this.template = template;
-        this.herf = href;
+        this.id = id;
+        this.herf = getHerf(id);
     }
 
     public void update(Instant instant) {
@@ -125,16 +137,20 @@ public class WereadBook implements Book<WereadChapter> {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(bookUrl, herf);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
+        Document document = Jsoup.parse(data);
         // 获取标题
         this.title = titleSelector.selectSingle(document.root()).text();
         String script = scriptSelector.selectSingle(document.root()).html();
         script = script.replaceAll("window.__INITIAL_STATE__=([\\s\\S]*);\\(function[\\s\\S]*\\(\\)\\);", "$1");
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(script));
+        }
         ONode root = ONode.load(script);
         ONode book = root.get("reader");
-        // 获取标识
-        this.id = book.get("bookId").getString();
         // 获取章节
         Map<String, WereadChapter> chapters = new HashMap<>();
         for (ONode chapter : book.get("chapterInfos").ary()) {
@@ -196,6 +212,35 @@ public class WereadBook implements Book<WereadChapter> {
 
     public Instant getInstant() {
         return instant;
+    }
+
+    /**
+     * 搜索内容
+     * 
+     * @param key
+     * @param offset
+     * @param size
+     * @return
+     */
+    public List<WereadSummary> search(String key, int offset, int size) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
+        String url = StringUtility.format(searchUrl, id, key, offset, size);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
+        ONode root = ONode.load(data);
+        List<ONode> nodes = root.get("result").ary();
+        List<WereadSummary> summaries = new ArrayList<>(nodes.size());
+        for (ONode node : nodes) {
+            int chapter = node.get("chapterUid").getInt();
+            String content = node.get("abstract").getString();
+            WereadSummary summary = new WereadSummary(id, chapter, content);
+            summaries.add(summary);
+        }
+        return summaries;
     }
 
 }

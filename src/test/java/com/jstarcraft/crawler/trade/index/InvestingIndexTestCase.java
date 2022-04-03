@@ -77,10 +77,10 @@ public class InvestingIndexTestCase {
             headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
             ResponseEntity<String> response = template.exchange("https://cn.investing.com/equities/gree-electric-a-historical-data", HttpMethod.GET, request, String.class);
-            String content = response.getBody();
+            String data = response.getBody();
             {
                 Navigator navigator = HtmlNavigator.getInstance();
-                Document document = Jsoup.parse(content);
+                Document document = Jsoup.parse(data);
                 HtmlElementNode root = new HtmlElementNode(document);
                 JaxenXpathSelector<HtmlElementNode> selector = new JaxenXpathSelector<>("//script[contains(string(), 'window.histDataExcessInfo')]", navigator);
                 List<HtmlElementNode> scripts = selector.selectMultiple(root);
@@ -117,11 +117,11 @@ public class InvestingIndexTestCase {
             request = new HttpEntity<>(parameters, headers);
             // 通过英为股票接口获取历史股价
             response = template.exchange("https://cn.investing.com/instruments/HistoricalDataAjax", HttpMethod.POST, request, String.class);
-            content = response.getBody();
+            data = response.getBody();
 //            System.out.println(content);
 
             Navigator navigator = HtmlNavigator.getInstance();
-            Document document = Jsoup.parse(content);
+            Document document = Jsoup.parse(data);
             HtmlElementNode root = new HtmlElementNode(document);
             JaxenXpathSelector<HtmlElementNode> selector = new JaxenXpathSelector<>("//tr", navigator);
             List<HtmlElementNode> trs = selector.selectMultiple(root);
@@ -153,8 +153,8 @@ public class InvestingIndexTestCase {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format("https://api.investing.com/api/search/v2/search?q={}", "KYG875721634");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(JsonUtility.prettyJson(content));
+        String data = response.getBody();
+        System.out.println(JsonUtility.prettyJson(data));
     }
 
 }

@@ -40,11 +40,11 @@ public class QianzhanStockTestCase {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format("https://xs.qianzhan.com/{}/zhengquan_{}.{}.html", "hs", "600000", "SH");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(XmlUtility.prettyHtml(content));
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(XmlUtility.prettyHtml(data));
 
-        Document document = Jsoup.parse(content);
+        Document document = Jsoup.parse(data);
         HtmlElementNode root = new HtmlElementNode(document);
         Element isin = (Element) isinSelector.selectSingle(root).getValue();
         Element sedol = (Element) sedolSelector.selectSingle(root).getValue();

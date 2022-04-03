@@ -107,9 +107,9 @@ public class Eniu {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(XmlUtility.prettyHtml(content));
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        System.out.println(XmlUtility.prettyHtml(data));
+        Document document = Jsoup.parse(data);
 //        System.out.println(document.title());
         // 获取指标
         for (JsoupCssSelector selector : selectors) {
@@ -175,10 +175,10 @@ public class Eniu {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(names[0], getId(share, code));
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        System.out.println(content.length());
-        System.out.println(JsonUtility.prettyJson(content));
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(JsonUtility.prettyJson(data));
+        ONode root = ONode.load(data);
         List<ONode> dates = root.get(names[1]).ary();
         List<ONode> values = root.get(names[2]).ary();
         Long2FloatMap map = new Long2FloatAVLTreeMap();
