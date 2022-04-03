@@ -1,9 +1,9 @@
 package com.jstarcraft.crawler.book;
 
 import java.io.File;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -37,8 +37,8 @@ public class WereadShelfTestCase {
             if (cookie.isEmpty()) {
                 throw new RuntimeException("必须填写Cookie才能获取信息");
             }
-            WereadShelf shelf = new WereadShelf(template);
-            shelf.update(cookie, Instant.now());
+            Map<String, WereadArchive> archives = WereadArchive.getArchivesByShelf(template, cookie);
+            Assert.assertEquals(500, archives.size());
         } catch (Exception exception) {
             exception.printStackTrace();
         }

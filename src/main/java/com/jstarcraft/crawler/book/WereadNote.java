@@ -1,6 +1,5 @@
 package com.jstarcraft.crawler.book;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,11 +36,7 @@ public class WereadNote {
         this.id = id;
     }
 
-    public void update(Instant instant) {
-
-    }
-
-    private List<WereadSummary> getMarks(List<ONode> nodes) {
+    private static List<WereadSummary> getMarks(String id, List<ONode> nodes) {
         List<WereadSummary> summaries = new ArrayList<>(nodes.size());
         for (ONode mark : nodes) {
             int chapter = mark.get("chapterUid").getInt();
@@ -54,6 +49,9 @@ public class WereadNote {
 
     /**
      * 获取自己的划线
+     * 
+     * @param cookie
+     * @return
      */
     public List<WereadSummary> getOwnMarks(String cookie) {
         List<String> cookies = Arrays.asList(cookie);
@@ -68,11 +66,14 @@ public class WereadNote {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("updated").ary();
-        return getMarks(nodes);
+        return getMarks(id, nodes);
     }
 
     /**
      * 获取别人的划线
+     * 
+     * @param cookie
+     * @return
      */
     public List<WereadSummary> getOtherMarks(String cookie) {
         List<String> cookies = Arrays.asList(cookie);
@@ -87,10 +88,10 @@ public class WereadNote {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("items").ary();
-        return getMarks(nodes);
+        return getMarks(id, nodes);
     }
 
-    private List<WereadSummary> getThoughts(List<ONode> nodes) {
+    private static List<WereadSummary> getThoughts(String id, List<ONode> nodes) {
         List<WereadSummary> summaries = new ArrayList<>(nodes.size());
         for (ONode node : nodes) {
             ONode review = node.get("review");
@@ -105,6 +106,10 @@ public class WereadNote {
 
     /**
      * 获取自己的想法
+     * 
+     * @param cookie
+     * @param chapter
+     * @return
      */
     public List<WereadSummary> getOwnThoughts(String cookie, int chapter) {
         List<String> cookies = Arrays.asList(cookie);
@@ -119,11 +124,15 @@ public class WereadNote {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("reviews").ary();
-        return getThoughts(nodes);
+        return getThoughts(id, nodes);
     }
 
     /**
      * 获取别人的想法
+     * 
+     * @param cookie
+     * @param chapter
+     * @return
      */
     public List<WereadSummary> getOtherThoughts(String cookie, int chapter) {
         List<String> cookies = Arrays.asList(cookie);
@@ -138,7 +147,7 @@ public class WereadNote {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("reviews").ary();
-        return getThoughts(nodes);
+        return getThoughts(id, nodes);
     }
 
 }
