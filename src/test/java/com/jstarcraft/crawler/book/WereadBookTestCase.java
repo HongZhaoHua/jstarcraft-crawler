@@ -1,15 +1,10 @@
 package com.jstarcraft.crawler.book;
 
-import java.io.File;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.noear.snack.ONode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,13 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
-import com.jstarcraft.core.common.conversion.xml.XmlUtility;
-import com.jstarcraft.core.utility.KeyValue;
 import com.jstarcraft.core.utility.StringUtility;
-
-import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectSortedMap;
 
 /**
  * 微信书籍单元测试
