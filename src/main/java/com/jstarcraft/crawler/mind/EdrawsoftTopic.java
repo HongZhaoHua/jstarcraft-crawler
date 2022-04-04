@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EdrawsoftTopic {
+public class EdrawsoftTopic implements Topic<EdrawsoftTopic> {
 
     private String text;
 
@@ -25,10 +25,12 @@ public class EdrawsoftTopic {
         this.child = child;
     }
 
+    @Override
     public String getTitle() {
         return text;
     }
 
+    @Override
     public List<EdrawsoftTopic> getChildren() {
         return child;
     }
