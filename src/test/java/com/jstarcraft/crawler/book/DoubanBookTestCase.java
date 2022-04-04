@@ -1,7 +1,6 @@
 package com.jstarcraft.crawler.book;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
