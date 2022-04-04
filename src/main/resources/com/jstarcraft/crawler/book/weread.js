@@ -1,5 +1,7 @@
-var hexcase = 0;  /* hex output format. 0 - lowercase; 1 - uppercase        */
-var chrsz = 8;  /* bits per input character. 8 - ASCII; 16 - Unicode      */
+var hexcase = 0;
+/* hex output format. 0 - lowercase; 1 - uppercase        */
+var chrsz = 8;
+/* bits per input character. 8 - ASCII; 16 - Unicode      */
 
 /*
  * These are the functions you'll usually want to call
@@ -125,7 +127,6 @@ function md5_ii(a, b, c, d, x, s, t) {
     return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
 }
 
-
 /*
  * Add integers, wrapping at 2^32. This uses 16-bit operations internally
  * to work around bugs in some JS interpreters.
@@ -150,54 +151,47 @@ function bit_rol(num, cnt) {
 function str2binl(str) {
     var bin = Array();
     var mask = (1 << chrsz) - 1;
-    for (var i = 0; i < str.length * chrsz; i += chrsz)
-        bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
+    for (var i = 0; i < str.length * chrsz; i += chrsz) bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
     return bin;
 }
-
 
 /*
  * Convert an array of little-endian words to a hex string.
  */
 function binl2hex(binarray) {
-    var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+    var hex_tab = hexcase ? "0123456789ABCDEF": "0123456789abcdef";
     var str = "";
     for (var i = 0; i < binarray.length * 4; i++) {
-        str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +
-            hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF);
+        str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF);
     }
     return str;
 }
 
 function hh(_0xc86cf3) {
     // 检测是否为纯数字
-    if (/^\d*$/['test'](_0xc86cf3)) {
+    if (/^\d*$/ ['test'](_0xc86cf3)) {
         for (var _0x53ba72 = _0xc86cf3['length'], _0x30927c = [], _0x41a5a0 = 0x0; _0x41a5a0 < _0x53ba72; _0x41a5a0 += 0x9) {
             var _0x2a244f = _0xc86cf3['slice'](_0x41a5a0, Math['min'](_0x41a5a0 + 0x9, _0x53ba72));
             _0x30927c['push'](parseInt(_0x2a244f)["toString"](0x10));
         }
         return ['3', _0x30927c];
     }
-    for (var _0x34a646 = '', _0x9eed2c = 0x0; _0x9eed2c < _0xc86cf3['length']; _0x9eed2c++)
-        _0x34a646 += _0xc86cf3['charCodeAt'](_0x9eed2c)['toString'](0x10);
+    for (var _0x34a646 = '',
+    _0x9eed2c = 0x0; _0x9eed2c < _0xc86cf3['length']; _0x9eed2c++) _0x34a646 += _0xc86cf3['charCodeAt'](_0x9eed2c)['toString'](0x10);
     return ['4', [_0x34a646]];
 }
 
 function getHref(bookID) {
     var _0x52d076 = bookID
     var _0x1bd4be = hex_md5(_0x52d076);
-    var _0x289f7d = _0x1bd4be["substr"](0x0, 0x3)
-    var _0x5b4c6f = hh(_0x52d076)
-    _0x289f7d += _0x5b4c6f[0x0]
-    _0x289f7d += 0x2 + _0x1bd4be['substr'](_0x1bd4be['length'] - 0x2, 0x2);
+    var _0x289f7d = _0x1bd4be["substr"](0x0, 0x3) var _0x5b4c6f = hh(_0x52d076) _0x289f7d += _0x5b4c6f[0x0] _0x289f7d += 0x2 + _0x1bd4be['substr'](_0x1bd4be['length'] - 0x2, 0x2);
     for (var _0x3ed475 = _0x5b4c6f[0x1], _0x245f8a = 0x0; _0x245f8a < _0x3ed475["length"]; _0x245f8a++) {
-                var _0x40cfb0 = _0x3ed475[_0x245f8a]['length']['toString'](0x10);
-                0x1 === _0x40cfb0['length'] && (_0x40cfb0 = '0' + _0x40cfb0),
-                _0x289f7d += _0x40cfb0,
-                _0x289f7d += _0x3ed475[_0x245f8a],
-                _0x245f8a < _0x3ed475['length'] - 0x1 && (_0x289f7d += 'g');
-            }
+        var _0x40cfb0 = _0x3ed475[_0x245f8a]['length']['toString'](0x10);
+        0x1 === _0x40cfb0['length'] && (_0x40cfb0 = '0' + _0x40cfb0),
+        _0x289f7d += _0x40cfb0,
+        _0x289f7d += _0x3ed475[_0x245f8a],
+        _0x245f8a < _0x3ed475['length'] - 0x1 && (_0x289f7d += 'g');
+    }
     return _0x289f7d['length'] < 0x14 && (_0x289f7d += _0x1bd4be['substr'](0x0, 0x14 - _0x289f7d["length"])),
     _0x289f7d += hex_md5(_0x289f7d)['substr'](0x0, 0x3);
 }
-
