@@ -59,7 +59,7 @@ public class DoubanBook implements Book<Chapter> {
     /** 查找路径模板 */
     // https://search.douban.com/book/subject_search?search_text={key}&start={offset}
     // https://book.douban.com/j/subject_suggest?q={key}
-    private static final String findUrl = "https://book.douban.com/j/subject_suggest?q={}";
+    private static final String findUrl = "https://search.douban.com/book/subject_search?search_text={}&start={}";
 
     private static final RegularSelector scriptSelector = new RegularSelector("window\\.__DATA__\\s+=\\s+\"([\\s\\S]*)\";", 0, 1);
 
