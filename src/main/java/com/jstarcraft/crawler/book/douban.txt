@@ -1,0 +1,5 @@
+Scrapy 豆瓣搜索页爬虫:
+https://blog.csdn.net/qq_32815807/article/details/110003875
+
+【每周一爆】豆瓣读书搜索页的window.__DATA__的解密:
+https://mp.weixin.qq.com/s?__biz=MzkyNzE4Mjc1NQ==&mid=2247485293&idx=1&sn=0673ea07cec81e2a51af8e12bbd0645d

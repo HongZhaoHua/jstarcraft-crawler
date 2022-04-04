@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.noear.snack.ONode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -22,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
@@ -56,6 +58,7 @@ public class DoubanBook implements Book<Chapter> {
 
     /** 查找路径模板 */
     // https://search.douban.com/book/subject_search?search_text={key}&start={offset}
+    // https://book.douban.com/j/subject_suggest?q={key}
     private static final String findUrl = "https://book.douban.com/j/subject_suggest?q={}";
 
     private static final RegularSelector scriptSelector = new RegularSelector("window\\.__DATA__\\s+=\\s+\"([\\s\\S]*)\";", 0, 1);
@@ -122,15 +125,18 @@ public class DoubanBook implements Book<Chapter> {
         data = scriptSelector.selectSingle(data);
 
 //        data = new String(SecurityUtility.decodeBase64(data), Charset.forName("GBK"));
-        System.out.println(function.doWith(Object.class, data));
-//        ONode root = ONode.load(data);
-//        List<ONode> nodes = root.ary();
+        data = function.doWith(String.class, data);
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
+        ONode root = ONode.load(data);
+        List<ONode> nodes = root.get("payload").get("items").ary();
         Map<String, String> items = new HashMap<>();
-//        for (ONode node : nodes) {
-//            String id = node.get("id").getString();
-//            String title = node.get("title").getString();
-//            items.put(id, title);
-//        }
+        for (ONode node : nodes) {
+            String id = node.get("id").getString();
+            String title = node.get("title").getString();
+            items.put(id, title);
+        }
         return items;
     }
 
