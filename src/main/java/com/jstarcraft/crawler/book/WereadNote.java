@@ -2,7 +2,9 @@ package com.jstarcraft.crawler.book;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.noear.snack.ONode;
 import org.slf4j.Logger;
@@ -36,6 +38,30 @@ public class WereadNote {
         this.id = id;
     }
 
+    /** 笔记路径模板 */
+    private static final String noteUrl = "https://i.weread.qq.com/user/notebooks";
+
+    public static Map<String, String> getItems(RestTemplate template, String cookie) {
+        List<String> cookies = Arrays.asList(cookie);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put(HttpHeaders.COOKIE, cookies);
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
+        String url = StringUtility.format(noteUrl);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        System.out.println(JsonUtility.prettyJson(data));
+        ONode root = ONode.load(data);
+        List<ONode> nodes = root.get("books").ary();
+        Map<String, String> items = new HashMap<>(nodes.size());
+        for (ONode book : nodes) {
+            // TODO 统一为KeyValue,保留code和title
+            String id = book.get("bookId").getString();
+            String title = book.get("title").getString();
+            items.put(id, title);
+        }
+        return items;
+    }
+
     private static List<WereadSummary> getMarks(String id, List<ONode> nodes) {
         List<WereadSummary> summaries = new ArrayList<>(nodes.size());
         for (ONode mark : nodes) {
@@ -46,6 +72,10 @@ public class WereadNote {
         }
         return summaries;
     }
+
+    /** 自己的划线路径模板 */
+    // https://i.weread.qq.com/book/bookmarklist?bookId={id}
+    private static final String ownMarkUrl = "https://i.weread.qq.com/book/bookmarklist?bookId={}";
 
     /**
      * 获取自己的划线
@@ -58,7 +88,7 @@ public class WereadNote {
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-        String url = StringUtility.format("https://i.weread.qq.com/book/bookmarklist?bookId={}", id);
+        String url = StringUtility.format(ownMarkUrl, id);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -68,6 +98,10 @@ public class WereadNote {
         List<ONode> nodes = root.get("updated").ary();
         return getMarks(id, nodes);
     }
+
+    /** 别人的划线路径模板 */
+    // https://i.weread.qq.com/book/bestbookmarks?bookId={id}
+    private static final String otherMarkUrl = "https://i.weread.qq.com/book/bestbookmarks?bookId={}";
 
     /**
      * 获取别人的划线
@@ -80,7 +114,7 @@ public class WereadNote {
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-        String url = StringUtility.format("https://i.weread.qq.com/book/bestbookmarks?bookId={}", id);
+        String url = StringUtility.format(otherMarkUrl, id);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -104,6 +138,10 @@ public class WereadNote {
         return summaries;
     }
 
+    /** 自己的想法路径模板 */
+    // https://i.weread.qq.com/review/list?bookId={id}&chapterUid={chapter}&listType=11&mine=1&synckey=0&listMode=0
+    private static final String ownThoughtUrl = "https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=11&mine=1&synckey=0&listMode=0";
+
     /**
      * 获取自己的想法
      * 
@@ -116,7 +154,7 @@ public class WereadNote {
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-        String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=11&mine=1&synckey=0&listMode=0", id, chapter);
+        String url = StringUtility.format(ownThoughtUrl, id, chapter);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -126,6 +164,10 @@ public class WereadNote {
         List<ONode> nodes = root.get("reviews").ary();
         return getThoughts(id, nodes);
     }
+
+    /** 别人的想法路径模板 */
+    // https://i.weread.qq.com/review/list?bookId={id}&chapterUid={chapter}&listType=8&synckey=0&listMode=0
+    private static final String otherThoughtUrl = "https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=8&synckey=0&listMode=0";
 
     /**
      * 获取别人的想法
@@ -139,7 +181,7 @@ public class WereadNote {
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-        String url = StringUtility.format("https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=8&synckey=0&listMode=0", id, chapter);
+        String url = StringUtility.format(otherThoughtUrl, id, chapter);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {

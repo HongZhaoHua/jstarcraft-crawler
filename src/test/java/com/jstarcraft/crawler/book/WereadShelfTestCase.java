@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.noear.snack.ONode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -29,7 +28,7 @@ public class WereadShelfTestCase {
      * 获取个人书架:https://weread.qq.com/web/shelf
      */
     @Test
-    public void testUpdateShelf() {
+    public void testGetArchives() {
         try {
             RestTemplate template = new RestTemplate();
             File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
@@ -38,7 +37,7 @@ public class WereadShelfTestCase {
                 throw new RuntimeException("必须填写Cookie才能获取信息");
             }
             Map<String, WereadArchive> archives = WereadArchive.getArchivesByShelf(template, cookie);
-            Assert.assertEquals(500, archives.size());
+            Assert.assertEquals(35, archives.size());
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -56,16 +55,8 @@ public class WereadShelfTestCase {
             if (cookie.isEmpty()) {
                 throw new RuntimeException("必须填写Cookie才能获取信息");
             }
-            List<String> cookies = Arrays.asList(cookie);
-            HttpHeaders headers = new HttpHeaders();
-            headers.put(HttpHeaders.COOKIE, cookies);
-            HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/user/notebooks");
-            ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-            String data = response.getBody();
-            System.out.println(JsonUtility.prettyJson(data));
-            ONode root = ONode.load(data);
-            List<ONode> books = root.get("books").ary();
+            Map<String, String> items = WereadNote.getItems(template, cookie);
+            Assert.assertEquals(32, items.size());
         } catch (Exception exception) {
             exception.printStackTrace();
         }

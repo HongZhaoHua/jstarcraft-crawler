@@ -43,15 +43,16 @@ public class WereadArchive {
     private String name;
 
     /** 笔记 */
-    private Map<String, WereadProgress> progresses;
+    private Map<String, String> items;
 
-    private static Map<String, WereadProgress> getProgresses(List<ONode> nodes) {
-        Map<String, WereadProgress> progresses = new HashMap<>(nodes.size());
+    private static Map<String, String> getItems(List<ONode> nodes) {
+        Map<String, String> progresses = new HashMap<>(nodes.size());
         for (ONode book : nodes) {
+            // TODO 统一为KeyValue,保留code和title
             String id = book.get("bookId").getString();
             String title = book.get("title").getString();
             int progress = book.get("progress").getInt();
-            progresses.put(id, new WereadProgress(id, title, progress));
+            progresses.put(id, title);
         }
         return progresses;
     }
@@ -83,20 +84,20 @@ public class WereadArchive {
         for (ONode node : nodes) {
             String id = node.get("archiveId").getString();
             String name = node.get("name").getString();
-            Map<String, WereadProgress> progresses = getProgresses(node.get("bookInfos").ary());
+            Map<String, String> progresses = getItems(node.get("bookInfos").ary());
             WereadArchive archive = new WereadArchive(id, name, progresses);
             archives.put(id, archive);
         }
-        Map<String, WereadProgress> progresses = getProgresses(root.get("shelf").get("books").ary());
-        WereadArchive archive = new WereadArchive(StringUtility.EMPTY, StringUtility.EMPTY, progresses);
+        Map<String, String> items = getItems(root.get("shelf").get("books").ary());
+        WereadArchive archive = new WereadArchive(StringUtility.EMPTY, StringUtility.EMPTY, items);
         archives.put(StringUtility.EMPTY, archive);
         return archives;
     }
 
-    public WereadArchive(String id, String name, Map<String, WereadProgress> progresses) {
+    public WereadArchive(String id, String name, Map<String, String> items) {
         this.id = id;
         this.name = name;
-        this.progresses = progresses;
+        this.items = items;
     }
 
     public String getId() {
@@ -107,8 +108,8 @@ public class WereadArchive {
         return name;
     }
 
-    public Map<String, WereadProgress> getProgresses() {
-        return progresses;
+    public Map<String, String> getItems() {
+        return items;
     }
 
 }

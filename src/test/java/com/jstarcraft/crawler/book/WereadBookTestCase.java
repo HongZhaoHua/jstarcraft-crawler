@@ -2,6 +2,7 @@ package com.jstarcraft.crawler.book;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,8 +24,8 @@ public class WereadBookTestCase {
     public void testGetBooks() {
         RestTemplate template = new RestTemplate();
         String isbn = "9787213066856";
-        List<WereadBook> books = WereadBook.getBooksByKey(template, isbn);
-        Assert.assertEquals(1, books.size());
+        Map<String, String> items = WereadBook.getItemsByKey(template, isbn, 0);
+        Assert.assertEquals(1, items.size());
     }
 
     @Test

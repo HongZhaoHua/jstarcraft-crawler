@@ -2,6 +2,7 @@ package com.jstarcraft.crawler.book;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,16 +33,16 @@ public class DoubanBookTestCase {
     public void testSearch() {
         RestTemplate template = new RestTemplate();
         String isbn = "9787213066856";
-        List<DoubanBook> books = DoubanBook.getBooksByKey(template, isbn);
-        Assert.assertEquals(1, books.size());
+        Map<String, String> items = DoubanBook.getItemsByKey(template, isbn, 0);
+        Assert.assertEquals(1, items.size());
     }
 
     @Test
     public void testTag() {
         RestTemplate template = new RestTemplate();
         String tag = "科普";
-        List<DoubanBook> books = DoubanBook.getBooksByTag(template, tag, 0);
-        Assert.assertEquals(20, books.size());
+        Map<String, String> items = DoubanBook.getItemsByTag(template, tag, 0);
+        Assert.assertEquals(20, items.size());
     }
 
 }

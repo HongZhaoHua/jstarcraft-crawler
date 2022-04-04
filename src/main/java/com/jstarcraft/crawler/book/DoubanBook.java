@@ -3,12 +3,16 @@ package com.jstarcraft.crawler.book;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.noear.snack.ONode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
+import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.utility.StringUtility;
@@ -28,13 +34,14 @@ import com.jstarcraft.core.utility.StringUtility;
  */
 public class DoubanBook implements Book<Chapter> {
 
+    protected static final Logger logger = LoggerFactory.getLogger(DoubanBook.class);
+
     /** 查找路径模板 */
-    // https://search.douban.com/book/subject_search?search_text={}&start={}
+    // https://search.douban.com/book/subject_search?search_text={key}&start={offset}
     private static final String findUrl = "https://book.douban.com/j/subject_suggest?q={}";
 
     /** 标签路径模板 */
-    // T:综合,R:日期,S:评价
-    // https://book.douban.com/tag/{}?start={}&type={T,R,S}
+    // https://book.douban.com/tag/{tag}?start={offset}&type={T:综合,R:日期,S:评价}
     private static final String tagUrl = "https://book.douban.com/tag/{}?start={}&type={}";
 
     private static final JsoupCssSelector itemSelector = new JsoupCssSelector("li.subject-item a[title]");
@@ -42,6 +49,7 @@ public class DoubanBook implements Book<Chapter> {
     private static final RegularSelector idSelector = new RegularSelector("https://book.douban.com/subject/(\\d+)/", 0, 1);
 
     /** 书籍路径模板 */
+    // https://book.douban.com/subject/{id}/
     private static final String bookUrl = "https://book.douban.com/subject/{}/";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
@@ -81,22 +89,26 @@ public class DoubanBook implements Book<Chapter> {
      * @param key
      * @return
      */
-    public static List<DoubanBook> getBooksByKey(RestTemplate template, String key) {
+    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(findUrl, key);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        ONode root = ONode.load(content);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
+        ONode root = ONode.load(data);
         List<ONode> nodes = root.ary();
-        List<DoubanBook> books = new ArrayList<>(nodes.size());
+        Map<String, String> items = new HashMap<>(nodes.size());
         for (ONode node : nodes) {
             String id = node.get("id").getString();
-            DoubanBook book = new DoubanBook(template, id);
-            books.add(book);
+            String title = node.get("title").getString();
+            ;
+            items.put(id, title);
         }
-        return books;
+        return items;
     }
 
     /**
@@ -107,23 +119,25 @@ public class DoubanBook implements Book<Chapter> {
      * @param offset
      * @return
      */
-    // https:// book.douban.com/tag/{}?start={}&type={T,R,S}
-    public static List<DoubanBook> getBooksByTag(RestTemplate template, String tag, int offset) {
+    public static Map<String, String> getItemsByTag(RestTemplate template, String tag, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(tagUrl, tag, offset, "T");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String content = response.getBody();
-        Document document = Jsoup.parse(content);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
+        Document document = Jsoup.parse(data);
         List<Element> elements = itemSelector.selectMultiple(document.root());
-        List<DoubanBook> books = new ArrayList<>(elements.size());
+        Map<String, String> items = new HashMap<>(elements.size());
         for (Element element : elements) {
             String id = idSelector.selectSingle(element.attr("href"));
-            DoubanBook book = new DoubanBook(template, id);
-            books.add(book);
+            String title = element.attr("title");
+            items.put(id, title);
         }
-        return books;
+        return items;
     }
 
     public DoubanBook(RestTemplate template, String id) {

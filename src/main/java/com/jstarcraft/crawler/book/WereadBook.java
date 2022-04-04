@@ -104,11 +104,11 @@ public class WereadBook implements Book<WereadChapter> {
      * @param key
      * @return
      */
-    public static List<WereadBook> getBooksByKey(RestTemplate template, String key) {
+    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(findUrl, key, 0);
+        String url = StringUtility.format(findUrl, key, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -116,13 +116,14 @@ public class WereadBook implements Book<WereadChapter> {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("books").ary();
-        List<WereadBook> books = new ArrayList<>(nodes.size());
+        Map<String, String> items = new HashMap<>(nodes.size());
         for (ONode node : nodes) {
+            // TODO 统一为KeyValue,保留code和title
             String id = node.get("bookInfo").get("bookId").getString();
-            WereadBook book = new WereadBook(template, id);
-            books.add(book);
+            String title = node.get("bookInfo").get("title").getString();
+            items.put(id, title);
         }
-        return books;
+        return items;
     }
 
     public WereadBook(RestTemplate template, String id) {
