@@ -2,8 +2,8 @@ package com.jstarcraft.crawler.trade;
 
 import java.io.File;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +30,7 @@ public class EastmoneyFieldTestCase {
     public void testGetEastmoneyField() throws Exception {
         File file = new File(EastmoneyBondTestCase.class.getClassLoader().getResource("gridlist.txt").toURI());
         String text = FileUtils.readFileToString(file, StringUtility.CHARSET);
-        Pattern pattern = Pattern.compile("\\s+title:\\s*\"(\\S+)\",\\s+key:\\s*\"(f\\S+)\",", Pattern.DOTALL | Pattern.MULTILINE);
+        Pattern pattern = Pattern.compile("\\s+title:\\s*\"(\\S+)\",\\s+key:\\s*\"(f\\S+)\",", Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(text);
         Map<String, String> keyValues = new TreeMap<>((left, right) -> {
             left = left.replace("f", "");
