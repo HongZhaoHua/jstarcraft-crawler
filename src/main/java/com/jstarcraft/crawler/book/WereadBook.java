@@ -43,7 +43,7 @@ public class WereadBook implements Book<WereadChapter> {
 
     static {
         try {
-            File file = new File(WereadBook.class.getResource("weread.js").toURI());
+            File file = new File(WereadBook.class.getClassLoader().getResource("weread.js").toURI());
             String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
             ScriptContext context = new ScriptContext();
             function = new JsFunction(context, script, "getHref");

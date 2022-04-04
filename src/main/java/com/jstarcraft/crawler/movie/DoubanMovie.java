@@ -34,7 +34,6 @@ import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
 import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
-import com.jstarcraft.crawler.book.WereadBook;
 
 /**
  * 豆瓣电影
@@ -50,7 +49,7 @@ public class DoubanMovie {
 
     static {
         try {
-            File file = new File(WereadBook.class.getResource("douban.js").toURI());
+            File file = new File(DoubanMovie.class.getClassLoader().getResource("douban.js").toURI());
             String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
             ScriptContext context = new ScriptContext();
             function = new JsFunction(context, script, "decrypt");

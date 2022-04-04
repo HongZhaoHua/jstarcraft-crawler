@@ -44,7 +44,7 @@ public class DoubanBook implements Book<Chapter> {
 
     static {
         try {
-            File file = new File(WereadBook.class.getResource("douban.js").toURI());
+            File file = new File(DoubanBook.class.getClassLoader().getResource("douban.js").toURI());
             String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
             ScriptContext context = new ScriptContext();
             function = new JsFunction(context, script, "decrypt");
