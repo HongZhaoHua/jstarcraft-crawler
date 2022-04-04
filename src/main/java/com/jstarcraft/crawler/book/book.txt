@@ -1,11 +1,22 @@
+***** 书籍 *****
+
+豆瓣读书:
+https://book.douban.com/
+
+掌阅书城:
+https://www.ireader.com.cn/index.php?ca=channel.index&pca=channel.index
+
+微信读书:
+https://weread.qq.com/
+
+新华书店:
+https://www.xhsd.com
+
 如何根据书号（ISBN)查询书籍的详细信息？:
 https://zhuanlan.zhihu.com/p/141943491
 
 中国图书出版数据库:
 http://www.cnpub.com.cn/soushu.html
-
-新华书店:
-https://www.xhsd.com
 
 风之动漫:
 https://www.fzdm.com

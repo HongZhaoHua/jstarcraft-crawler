@@ -1,5 +1,8 @@
 ***** 电影 *****
 
+豆瓣电影:
+https://movie.douban.com/
+
 互联网电影数据库:
 https://www.imdb.com
 

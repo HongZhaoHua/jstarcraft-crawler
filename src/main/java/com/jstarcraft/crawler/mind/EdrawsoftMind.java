@@ -21,6 +21,8 @@ import com.jstarcraft.crawler.book.WereadBook;
 /**
  * 亿图脑图
  * 
+ * https://mm.edrawsoft.cn/store
+ * 
  * @author Birdy
  *
  */
