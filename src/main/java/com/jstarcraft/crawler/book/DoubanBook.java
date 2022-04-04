@@ -1,5 +1,7 @@
 package com.jstarcraft.crawler.book;
 
+import java.io.File;
+import java.nio.charset.Charset;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.noear.snack.ONode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -20,10 +22,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
+import com.jstarcraft.core.script.ScriptContext;
+import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
@@ -36,9 +39,26 @@ public class DoubanBook implements Book<Chapter> {
 
     protected static final Logger logger = LoggerFactory.getLogger(DoubanBook.class);
 
+    private static final JsFunction function;
+
+    static {
+        try {
+            File file = new File(WereadBook.class.getResource("douban.js").toURI());
+            String script = FileUtils.readFileToString(file, Charset.forName("GBK"));
+            ScriptContext context = new ScriptContext();
+            System.out.println();
+            context.useClass("log", System.class);
+            function = new JsFunction(context, script, "decrypt");
+        } catch (Exception exception) {
+            throw new IllegalStateException(exception);
+        }
+    }
+
     /** 查找路径模板 */
     // https://search.douban.com/book/subject_search?search_text={key}&start={offset}
     private static final String findUrl = "https://book.douban.com/j/subject_suggest?q={}";
+
+    private static final RegularSelector scriptSelector = new RegularSelector("window\\.__DATA__\\s+=\\s+\"([\\s\\S]*)\";", 0, 1);
 
     /** 标签路径模板 */
     // https://book.douban.com/tag/{tag}?start={offset}&type={T:综合,R:日期,S:评价}
@@ -93,21 +113,24 @@ public class DoubanBook implements Book<Chapter> {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(findUrl, key);
+        String url = StringUtility.format("https://search.douban.com/book/subject_search?search_text={}&start={}", key, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
-            logger.debug(JsonUtility.prettyJson(data));
+            logger.debug(XmlUtility.prettyHtml(data));
         }
-        ONode root = ONode.load(data);
-        List<ONode> nodes = root.ary();
-        Map<String, String> items = new HashMap<>(nodes.size());
-        for (ONode node : nodes) {
-            String id = node.get("id").getString();
-            String title = node.get("title").getString();
-            ;
-            items.put(id, title);
-        }
+        data = scriptSelector.selectSingle(data);
+
+//        data = new String(SecurityUtility.decodeBase64(data), Charset.forName("GBK"));
+        System.out.println(function.doWith(Object.class, data));
+//        ONode root = ONode.load(data);
+//        List<ONode> nodes = root.ary();
+        Map<String, String> items = new HashMap<>();
+//        for (ONode node : nodes) {
+//            String id = node.get("id").getString();
+//            String title = node.get("title").getString();
+//            items.put(id, title);
+//        }
         return items;
     }
 
