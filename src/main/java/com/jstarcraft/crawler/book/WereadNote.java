@@ -49,12 +49,13 @@ public class WereadNote {
         String url = StringUtility.format(noteUrl);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
-        System.out.println(JsonUtility.prettyJson(data));
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("books").ary();
         Map<String, String> items = new HashMap<>(nodes.size());
         for (ONode book : nodes) {
-            // TODO 统一为KeyValue,保留code和title
             String id = book.get("bookId").getString();
             String title = book.get("title").getString();
             items.put(id, title);

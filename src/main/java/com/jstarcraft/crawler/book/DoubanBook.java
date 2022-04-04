@@ -1,7 +1,6 @@
 package com.jstarcraft.crawler.book;
 
 import java.io.File;
-import java.nio.charset.Charset;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,10 +45,8 @@ public class DoubanBook implements Book<Chapter> {
     static {
         try {
             File file = new File(WereadBook.class.getResource("douban.js").toURI());
-            String script = FileUtils.readFileToString(file, Charset.forName("GBK"));
+            String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
             ScriptContext context = new ScriptContext();
-            System.out.println();
-            context.useClass("log", System.class);
             function = new JsFunction(context, script, "decrypt");
         } catch (Exception exception) {
             throw new IllegalStateException(exception);

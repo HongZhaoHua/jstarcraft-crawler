@@ -45,16 +45,19 @@ public class WereadBook implements Book<WereadChapter> {
         try {
             File file = new File(WereadBook.class.getResource("weread.js").toURI());
             String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            function = new JsFunction(new ScriptContext(), script, "getHref");
+            ScriptContext context = new ScriptContext();
+            function = new JsFunction(context, script, "getHref");
         } catch (Exception exception) {
             throw new IllegalStateException(exception);
         }
     }
 
     /** 查找路径模板 */
+    // https://weread.qq.com/web/search/global?keyword={key}&maxIdx={offset}&fragmentSize=120&count=20
     private static final String findUrl = "https://weread.qq.com/web/search/global?keyword={}&maxIdx={}&fragmentSize=120&count=20";
 
     /** 书籍路径模板 */
+    // https://weread.qq.com/web/reader/{href}
     private static final String bookUrl = "https://weread.qq.com/web/reader/{}";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("div.bookInfo_right_header_title");
@@ -118,7 +121,6 @@ public class WereadBook implements Book<WereadChapter> {
         List<ONode> nodes = root.get("books").ary();
         Map<String, String> items = new HashMap<>(nodes.size());
         for (ONode node : nodes) {
-            // TODO 统一为KeyValue,保留code和title
             String id = node.get("bookInfo").get("bookId").getString();
             String title = node.get("bookInfo").get("title").getString();
             items.put(id, title);

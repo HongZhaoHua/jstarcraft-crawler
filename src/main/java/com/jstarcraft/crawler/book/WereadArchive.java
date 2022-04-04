@@ -48,10 +48,8 @@ public class WereadArchive {
     private static Map<String, String> getItems(List<ONode> nodes) {
         Map<String, String> progresses = new HashMap<>(nodes.size());
         for (ONode book : nodes) {
-            // TODO 统一为KeyValue,保留code和title
             String id = book.get("bookId").getString();
             String title = book.get("title").getString();
-            int progress = book.get("progress").getInt();
             progresses.put(id, title);
         }
         return progresses;
