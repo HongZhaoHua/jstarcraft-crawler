@@ -28,144 +28,116 @@ public class WereadShelfTestCase {
      * 获取个人书架:https://weread.qq.com/web/shelf
      */
     @Test
-    public void testGetArchives() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            Map<String, WereadArchive> archives = WereadArchive.getArchivesByShelf(template, cookie);
-            Assert.assertEquals(35, archives.size());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+    public void testGetArchives() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        Map<String, WereadArchive> archives = WereadArchive.getArchivesByShelf(template, cookie);
+        Assert.assertEquals(35, archives.size());
     }
 
     /**
      * 获取个人笔记:https://i.weread.qq.com/user/notebooks
      */
     @Test
-    public void testGetNotes() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            Map<String, String> items = WereadNote.getItems(template, cookie);
-            Assert.assertEquals(32, items.size());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+    public void testGetNotes() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        Map<String, String> items = WereadNote.getItems(template, cookie);
+        Assert.assertEquals(32, items.size());
     }
 
     /**
      * 获取个人划线:https://i.weread.qq.com/book/bookmarklist?bookId={}
      */
     @Test
-    public void testGetOwnMarks() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            WereadNote note = new WereadNote(template, "855812");
-            List<WereadSummary> summaries = note.getOwnMarks(cookie);
-            Assert.assertEquals(860, summaries.size());
-        } catch (Exception exception) {
-            Assert.fail();
+    public void testGetOwnMarks() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        WereadNote note = new WereadNote(template, "855812");
+        List<WereadSummary> summaries = note.getOwnMarks(cookie);
+        Assert.assertEquals(860, summaries.size());
     }
 
     /**
      * 获取热门划线:https://i.weread.qq.com/book/bestbookmarks?bookId={}
      */
     @Test
-    public void testGetOtherMarks() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            WereadNote note = new WereadNote(template, "855812");
-            List<WereadSummary> summaries = note.getOtherMarks(cookie);
-            Assert.assertEquals(366, summaries.size());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+    public void testGetOtherMarks() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        WereadNote note = new WereadNote(template, "855812");
+        List<WereadSummary> summaries = note.getOtherMarks(cookie);
+        Assert.assertEquals(366, summaries.size());
     }
 
     /**
      * 获取个人想法:https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=11&mine=1&synckey=0&listMode=0
      */
     @Test
-    public void testGetOwnThoughts() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            WereadNote note = new WereadNote(template, "855812");
-            List<WereadSummary> summaries = note.getOwnThoughts(cookie, 0);
-            Assert.assertEquals(8, summaries.size());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+    public void testGetOwnThoughts() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        WereadNote note = new WereadNote(template, "855812");
+        List<WereadSummary> summaries = note.getOwnThoughts(cookie, 0);
+        Assert.assertEquals(8, summaries.size());
     }
 
     /**
      * 获取他人想法:https://i.weread.qq.com/review/list?bookId={}&chapterUid={}&listType=8&synckey=0&listMode=3
      */
     @Test
-    public void testGetOtherThoughts() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            WereadNote note = new WereadNote(template, "855812");
-            List<WereadSummary> summaries = note.getOtherThoughts(cookie, 0);
-            Assert.assertEquals(500, summaries.size());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+    public void testGetOtherThoughts() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        WereadNote note = new WereadNote(template, "855812");
+        List<WereadSummary> summaries = note.getOtherThoughts(cookie, 0);
+        Assert.assertEquals(500, summaries.size());
     }
 
     /**
      * 获取书籍详情:https://i.weread.qq.com/book/info?bookId={}
      */
     @Test
-    public void testGetDetail() {
-        try {
-            RestTemplate template = new RestTemplate();
-            File file = new File(WereadShelfTestCase.class.getResource("cookie.txt").toURI());
-            String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
-            if (cookie.isEmpty()) {
-                throw new RuntimeException("必须填写Cookie才能获取信息");
-            }
-            List<String> cookies = Arrays.asList(cookie);
-            HttpHeaders headers = new HttpHeaders();
-            headers.put(HttpHeaders.COOKIE, cookies);
-            HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
-            String url = StringUtility.format("https://i.weread.qq.com/book/info?bookId={}", "855812");
-            ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-            String data = response.getBody();
-            System.out.println(data.length());
-            System.out.println(JsonUtility.prettyJson(data));
-        } catch (Exception exception) {
-            exception.printStackTrace();
+    public void testGetDetail() throws Exception {
+        RestTemplate template = new RestTemplate();
+        File file = new File(WereadShelfTestCase.class.getClassLoader().getResource("cookie.txt").toURI());
+        String cookie = FileUtils.readFileToString(file, StringUtility.CHARSET);
+        if (cookie.isEmpty()) {
+            throw new RuntimeException("必须填写Cookie才能获取信息");
         }
+        List<String> cookies = Arrays.asList(cookie);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put(HttpHeaders.COOKIE, cookies);
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
+        String url = StringUtility.format("https://i.weread.qq.com/book/info?bookId={}", "855812");
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        System.out.println(data.length());
+        System.out.println(JsonUtility.prettyJson(data));
     }
 
 }
