@@ -116,7 +116,7 @@ public class DoubanBook implements Book<Chapter> {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format("https://search.douban.com/book/subject_search?search_text={}&start={}", key, offset);
+        String url = StringUtility.format(findUrl, key, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
