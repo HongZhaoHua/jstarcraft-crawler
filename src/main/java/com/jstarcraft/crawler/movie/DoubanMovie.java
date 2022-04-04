@@ -25,6 +25,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
+import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
@@ -59,8 +60,11 @@ public class DoubanMovie {
     }
 
     /** 查找路径模板 */
-    // https://search.douban.com/movie/subject_search?search_text={}&start={}
-    private static final String findUrl = "https://movie.douban.com/j/subject_suggest?q={}";
+    // https://search.douban.com/movie/subject_search?search_text={key}&start={offset}
+    // https://movie.douban.com/j/subject_suggest?q={key}
+    private static final String findUrl = "https://search.douban.com/movie/subject_search?search_text={}&start={}";
+
+    private static final RegularSelector scriptSelector = new RegularSelector("window\\.__DATA__\\s+=\\s+\"([\\s\\S]*)\";", 0, 1);
 
     /** 标签路径模板 */
     // U:最热,T:最多,S:最高,R:最新
@@ -112,18 +116,23 @@ public class DoubanMovie {
      * @param key
      * @return
      */
-    public static Map<String, String> getItemsByKey(RestTemplate template, String key) {
+    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(findUrl, key);
+        String url = StringUtility.format(findUrl, key, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
+        data = scriptSelector.selectSingle(data);
+        data = function.doWith(String.class, data);
         if (logger.isDebugEnabled()) {
             logger.debug(JsonUtility.prettyJson(data));
         }
         ONode root = ONode.load(data);
-        List<ONode> nodes = root.ary();
+        List<ONode> nodes = root.get("payload").get("items").ary();
         Map<String, String> items = new HashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
