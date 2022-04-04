@@ -751,7 +751,7 @@ function update(kkk, t) {  // 88
 
 
 function digest(kkk) {  // 90
-    var a = i_i  // 杩欎簺鍔犲瘑鏁版嵁鏈夌敤
+    var a = i_i  // 这些加密数据有用
         , s = a("11400714785074694791")
         , u = a("14029467366897019727")
         , c = a("1609587929392839161")
@@ -1558,6 +1558,12 @@ function e_playload(r) {
     return r
 }
 
+// 在Java的JS引擎中Uint8Array类型没有slice方法,使用subarray方法替代
+if(!Uint8Array.prototype.slice){
+    Uint8Array.prototype.slice = function(){
+        return Uint8Array.prototype.subarray.apply(this, arguments);
+    }
+};
 
 function decrypt(r){
     var a = encry2arr_from(r, "base64")  // 0
@@ -1568,5 +1574,5 @@ function decrypt(r){
     var l = {}
     l[c_data] = a
     var data = n_n((l = {},l[c_data] = a,l))
-    return data
+    return JSON.stringify(data) 
 }
