@@ -1,16 +1,22 @@
 package com.jstarcraft.crawler.movie;
 
+import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.jaxen.Navigator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.noear.snack.ONode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,12 +24,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
 import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
+import com.jstarcraft.core.script.ScriptContext;
+import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.book.WereadBook;
 
 /**
  * 豆瓣电影
@@ -32,6 +42,21 @@ import com.jstarcraft.core.utility.StringUtility;
  *
  */
 public class DoubanMovie {
+
+    protected static final Logger logger = LoggerFactory.getLogger(DoubanMovie.class);
+
+    private static final JsFunction function;
+
+    static {
+        try {
+            File file = new File(WereadBook.class.getResource("douban.js").toURI());
+            String script = FileUtils.readFileToString(file, StringUtility.CHARSET);
+            ScriptContext context = new ScriptContext();
+            function = new JsFunction(context, script, "decrypt");
+        } catch (Exception exception) {
+            throw new IllegalStateException(exception);
+        }
+    }
 
     /** 查找路径模板 */
     // https://search.douban.com/movie/subject_search?search_text={}&start={}
@@ -87,22 +112,25 @@ public class DoubanMovie {
      * @param key
      * @return
      */
-    public static List<DoubanMovie> getMoviesByKey(RestTemplate template, String key) {
+    public static Map<String, String> getItemsByKey(RestTemplate template, String key) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(findUrl, key);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.ary();
-        List<DoubanMovie> movies = new ArrayList<>(nodes.size());
+        Map<String, String> items = new HashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
-            DoubanMovie movie = new DoubanMovie(template, id);
-            movies.add(movie);
+            String title = node.get("title").getString();
+            items.put(id, title);
         }
-        return movies;
+        return items;
     }
 
     /**
@@ -113,22 +141,25 @@ public class DoubanMovie {
      * @param offset
      * @return
      */
-    public static List<DoubanMovie> getMoviesByTag(RestTemplate template, String tag, int offset) {
+    public static Map<String, String> getItemsByTag(RestTemplate template, String tag, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(tagUrl, "T", tag, offset);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("data").ary();
-        List<DoubanMovie> movies = new ArrayList<>(nodes.size());
+        Map<String, String> items = new HashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
-            DoubanMovie movie = new DoubanMovie(template, id);
-            movies.add(movie);
+            String title = node.get("title").getString();
+            items.put(id, title);
         }
-        return movies;
+        return items;
     }
 
     public DoubanMovie(RestTemplate template, String id) {
@@ -136,6 +167,7 @@ public class DoubanMovie {
         this.id = id;
     }
 
+    @Deprecated
     public void update(Instant instant) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");

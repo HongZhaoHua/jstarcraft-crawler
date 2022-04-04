@@ -134,6 +134,7 @@ public class WereadBook implements Book<WereadChapter> {
         this.herf = getHerf(id);
     }
 
+    @Deprecated
     public void update(Instant instant) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");

@@ -120,8 +120,6 @@ public class DoubanBook implements Book<Chapter> {
             logger.debug(XmlUtility.prettyHtml(data));
         }
         data = scriptSelector.selectSingle(data);
-
-//        data = new String(SecurityUtility.decodeBase64(data), Charset.forName("GBK"));
         data = function.doWith(String.class, data);
         if (logger.isDebugEnabled()) {
             logger.debug(JsonUtility.prettyJson(data));
@@ -171,6 +169,7 @@ public class DoubanBook implements Book<Chapter> {
         this.id = id;
     }
 
+    @Deprecated
     public void update(Instant instant) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");

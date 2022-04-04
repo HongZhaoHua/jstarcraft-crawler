@@ -1,7 +1,7 @@
 package com.jstarcraft.crawler.movie;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,16 +32,16 @@ public class DoubanMovieTestCase {
     public void testSearch() {
         String imdb = "tt0816692";
         RestTemplate template = new RestTemplate();
-        List<DoubanMovie> movies = DoubanMovie.getMoviesByKey(template, imdb);
-        Assert.assertEquals(1, movies.size());
+        Map<String, String> items = DoubanMovie.getItemsByKey(template, imdb);
+        Assert.assertEquals(1, items.size());
     }
 
     @Test
     public void testTag() {
         String tag = "科幻";
         RestTemplate template = new RestTemplate();
-        List<DoubanMovie> movies = DoubanMovie.getMoviesByTag(template, tag, 0);
-        Assert.assertEquals(20, movies.size());
+        Map<String, String> items = DoubanMovie.getItemsByTag(template, tag, 0);
+        Assert.assertEquals(20, items.size());
     }
 
 }
