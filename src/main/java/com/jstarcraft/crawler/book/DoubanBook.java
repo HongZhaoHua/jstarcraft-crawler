@@ -4,7 +4,7 @@ import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -126,7 +126,7 @@ public class DoubanBook implements Book<Chapter> {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("payload").get("items").ary();
-        Map<String, String> items = new HashMap<>();
+        Map<String, String> items = new LinkedHashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
             String title = node.get("title").getString();
@@ -155,7 +155,7 @@ public class DoubanBook implements Book<Chapter> {
         }
         Document document = Jsoup.parse(data);
         List<Element> elements = itemSelector.selectMultiple(document.root());
-        Map<String, String> items = new HashMap<>(elements.size());
+        Map<String, String> items = new LinkedHashMap<>(elements.size());
         for (Element element : elements) {
             String id = idSelector.selectSingle(element.attr("href"));
             String title = element.attr("title");

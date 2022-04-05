@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,7 +120,7 @@ public class WereadBook implements Book<WereadChapter> {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("books").ary();
-        Map<String, String> items = new HashMap<>(nodes.size());
+        Map<String, String> items = new LinkedHashMap<>(nodes.size());
         for (ONode node : nodes) {
             String id = node.get("bookInfo").get("bookId").getString();
             String title = node.get("bookInfo").get("title").getString();
