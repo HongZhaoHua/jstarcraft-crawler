@@ -10,6 +10,9 @@ https://github.com/jindaxiang/akshare
 AKShare 数据字典:
 https://www.akshare.xyz/data/index.html
 
+efinance 是一个可以快速获取基金、股票、债券、期货数据的 Python 库，回测以及量化交易的好帮手！:
+https://github.com/Micro-sheep/efinance
+
 Tushare大数据开放社区:
 https://tushare.pro/
 

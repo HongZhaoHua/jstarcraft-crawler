@@ -1,8 +1,24 @@
+一个简单的股票爬虫程序，爬的是东方财富的数据:
+https://github.com/xxuzhengg/eastmoney
+
 【东方财富网】抓取 沪深A股 的全部 股票代码:
 http://php-note.com/2095.html
 
 爬取东方财富网当日股票交易情况:
 https://blog.csdn.net/weixin_45352617/article/details/104374871
+
+【量化投资】04.使用python爬取股票基础数据:
+https://unclevicky.github.io/rabbitBear/2021/02/01/%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%844/
+
+**** 历史 ****
+
+股票行情数据下载:
+https://blog.jiahonzheng.com/post/stock-data-download/
+
+Python 获取股票K线数据:
+https://zhuanlan.zhihu.com/p/350578719
+
+**** 字段 ****
 
 http://quote.eastmoney.com/center/js/gridlist.js
 http://quote.eastmoney.com/center/js/gridlist3.js
