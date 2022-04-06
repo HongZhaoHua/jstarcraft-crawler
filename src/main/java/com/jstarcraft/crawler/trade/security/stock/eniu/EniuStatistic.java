@@ -15,8 +15,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.selection.xpath.JaxenXpathSelector;
-import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlElementNode;
-import com.jstarcraft.core.common.selection.xpath.jsoup.HtmlNavigator;
+import com.jstarcraft.core.common.selection.xpath.html.HtmlElementNode;
+import com.jstarcraft.core.common.selection.xpath.html.HtmlNavigator;
 import com.jstarcraft.core.utility.StringUtility;
 
 /**
