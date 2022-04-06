@@ -22,9 +22,12 @@ import jodd.net.URLDecoder;
 /**
  * 东方财富转债
  * 
- * 转债列表页面: https://data.eastmoney.com/kzz/default.html
- * 转债列表字段: https://data.eastmoney.com/kzz/default.html
+ * 转债列表页面:https://data.eastmoney.com/kzz/default.html
+ * 转债列表字段:https://data.eastmoney.com/kzz/default.html
  * 转债列表接口:https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize=50&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
+ * 
+ * 转债比较页面:https://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
+ * 转债比较字段/公式:https://quote.eastmoney.com/center/js/fullscreenlist.js
  * 
  * 转债详情页面: https://data.eastmoney.com/kzz/detail/{code}.html
  * 转债详情字段:https://data.eastmoney.com/newstatic/js/kzz/detail.js
@@ -106,5 +109,7 @@ public class EastmoneyConvertibleBond {
         Map<String, String> items = new LinkedHashMap<>();
         return items;
     }
+    
+   
 
 }
