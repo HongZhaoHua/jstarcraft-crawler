@@ -61,6 +61,7 @@ public class DoubanBook implements Book<Chapter> {
     private static final RegularSelector scriptSelector = new RegularSelector("window\\.__DATA__\\s+=\\s+\"([\\s\\S]*)\";", 0, 1);
 
     /** 标签路径模板 */
+    // https://book.douban.com/tag/?view=type&icn=index-sorttags-all
     // https://book.douban.com/tag/{tag}?start={offset}&type={T:综合,R:日期,S:评价}
     private static final String tagUrl = "https://book.douban.com/tag/{}?start={}&type={}";
 
