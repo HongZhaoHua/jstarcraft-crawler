@@ -16,7 +16,7 @@ public class Chapter {
     }
 
     /**
-     * 获取标题
+     * 获取章节标题
      * 
      * @return
      */

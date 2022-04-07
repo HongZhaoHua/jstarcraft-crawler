@@ -21,7 +21,7 @@ public class WereadChapter extends Chapter {
     }
 
     /**
-     * 获取标识
+     * 获取章节标识
      * 
      * @return
      */
@@ -30,7 +30,7 @@ public class WereadChapter extends Chapter {
     }
 
     /**
-     * 获取层级
+     * 获取章节层级
      * 
      * @return
      */

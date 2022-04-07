@@ -1,5 +1,11 @@
 package com.jstarcraft.crawler.trade.security;
 
+/**
+ * 证券
+ * 
+ * @author Birdy
+ *
+ */
 public interface Security {
 
     /**
@@ -7,13 +13,13 @@ public interface Security {
      * 
      * @return
      */
-    public String getIsin();
+    public String getSecurityIsin();
 
     /**
      * 获取国际市场识别码(Market Identifier Code/MIC)
      * 
      * @return
      */
-    public String getMic();
+    public String getSecurityMic();
 
 }

@@ -11,21 +11,21 @@ import java.util.List;
 public interface Book<C extends Chapter> {
 
     /**
-     * 获取标识
+     * 获取书籍标识
      * 
      * @return
      */
     public String getBookId();
 
     /**
-     * 获取标题
+     * 获取书籍标题
      * 
      * @return
      */
     public String getBookTitle();
 
     /**
-     * 获取章节
+     * 获取书籍章节
      * 
      * @return
      */
@@ -39,14 +39,14 @@ public interface Book<C extends Chapter> {
     public String getBookIsbn();
 
     /**
-     * 获取得分
+     * 获取书籍得分
      * 
      * @return
      */
     public String getBookScore();
 
     /**
-     * 获取标签
+     * 获取书籍标签
      * 
      * @return
      */
