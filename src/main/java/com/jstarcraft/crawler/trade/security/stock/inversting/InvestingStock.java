@@ -1,7 +1,7 @@
 package com.jstarcraft.crawler.trade.security.stock.inversting;
 
 /**
- * 英为财情
+ * 英为财情股票
  * 
  * <pre>
  * https://cn.investing.com
@@ -26,6 +26,6 @@ package com.jstarcraft.crawler.trade.security.stock.inversting;
  * @author Birdy
  *
  */
-public class Investing {
+public class InvestingStock {
 
 }
