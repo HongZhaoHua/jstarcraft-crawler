@@ -10,4 +10,8 @@ package com.jstarcraft.crawler.trade.security.bond;
  */
 public class ReutersBond {
 
+    public String getBondCode() {
+        return null;
+    }
+
 }
