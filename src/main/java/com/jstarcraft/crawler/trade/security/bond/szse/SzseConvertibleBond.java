@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond;
+package com.jstarcraft.crawler.trade.security.bond.szse;
 
 /**
  * 深圳证券交易所转债

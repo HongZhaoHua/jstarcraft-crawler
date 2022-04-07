@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond;
+package com.jstarcraft.crawler.trade.security.bond.investing;
 
 /**
  * 英为财情债券

@@ -19,6 +19,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.book.weread.WereadArchive;
+import com.jstarcraft.crawler.book.weread.WereadNote;
+import com.jstarcraft.crawler.book.weread.WereadSummary;
 
 public class WereadShelfTestCase {
 

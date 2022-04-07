@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.book;
+package com.jstarcraft.crawler.book.weread;
 
 import java.io.File;
 import java.time.Instant;
@@ -29,6 +29,7 @@ import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.book.Book;
 
 /**
  * 微信书籍

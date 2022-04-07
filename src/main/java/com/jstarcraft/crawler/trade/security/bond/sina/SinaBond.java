@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond;
+package com.jstarcraft.crawler.trade.security.bond.sina;
 
 /**
  * 新浪债券

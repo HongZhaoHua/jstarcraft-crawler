@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.crawler.book.douban.DoubanBook;
+
 /**
  * 豆瓣书籍单元测试
  * 

@@ -1,6 +1,9 @@
-package com.jstarcraft.crawler.book;
+package com.jstarcraft.crawler.book.xhsd;
 
 import java.util.List;
+
+import com.jstarcraft.crawler.book.Book;
+import com.jstarcraft.crawler.book.Chapter;
 
 /**
  * 新华书店书籍

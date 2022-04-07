@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
-import com.jstarcraft.crawler.book.WereadBook;
+import com.jstarcraft.crawler.book.weread.WereadBook;
 
 /**
  * 亿图脑图

@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond;
+package com.jstarcraft.crawler.trade.security.bond.tjqka;
 
 /**
  * 同花顺转债
@@ -10,6 +10,6 @@ package com.jstarcraft.crawler.trade.security.bond;
  * @author Birdy
  *
  */
-public class TenjqkaConvertibleBond {
+public class TjqkaConvertibleBond {
 
 }

@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond;
+package com.jstarcraft.crawler.trade.security.bond.eastmoney;
 
 import java.util.LinkedHashMap;
 import java.util.List;

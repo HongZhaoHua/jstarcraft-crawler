@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond;
+package com.jstarcraft.crawler.trade.security.bond.wallstreetcn;
 
 /**
  * 华尔街见闻债券

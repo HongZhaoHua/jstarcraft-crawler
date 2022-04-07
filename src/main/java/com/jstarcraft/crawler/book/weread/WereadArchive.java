@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.book;
+package com.jstarcraft.crawler.book.weread;
 
 import java.util.Arrays;
 import java.util.HashMap;

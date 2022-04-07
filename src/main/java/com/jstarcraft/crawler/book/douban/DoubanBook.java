@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.book;
+package com.jstarcraft.crawler.book.douban;
 
 import java.io.File;
 import java.time.Instant;
@@ -29,6 +29,8 @@ import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.book.Book;
+import com.jstarcraft.crawler.book.Chapter;
 
 /**
  * 豆瓣书籍

@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.book;
+package com.jstarcraft.crawler.book.ireader;
 
 /**
  * 掌阅书籍

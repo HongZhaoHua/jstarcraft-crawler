@@ -1,4 +1,6 @@
-package com.jstarcraft.crawler.book;
+package com.jstarcraft.crawler.book.weread;
+
+import com.jstarcraft.crawler.book.Chapter;
 
 /**
  * 微信章节

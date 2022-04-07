@@ -10,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.crawler.book.weread.WereadBook;
+import com.jstarcraft.crawler.book.weread.WereadSummary;
+
 /**
  * 微信书籍单元测试
  * 
