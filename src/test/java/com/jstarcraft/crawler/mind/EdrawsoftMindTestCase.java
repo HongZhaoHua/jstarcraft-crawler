@@ -10,6 +10,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.mind.edrawsoft.EdrawsoftMind;
+import com.jstarcraft.crawler.mind.edrawsoft.EdrawsoftTopic;
 
 /**
  * 亿图脑图单元测试

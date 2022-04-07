@@ -1,8 +1,9 @@
-package com.jstarcraft.crawler.mind;
+package com.jstarcraft.crawler.mind.edrawsoft;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jstarcraft.crawler.mind.Topic;
 
 /**
  * 亿图主题

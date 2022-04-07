@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.mind;
+package com.jstarcraft.crawler.mind.processon;
 
 /**
  * ProcessOn脑图

@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.mind;
+package com.jstarcraft.crawler.mind.edrawsoft;
 
 import java.time.Instant;
 import java.util.List;
