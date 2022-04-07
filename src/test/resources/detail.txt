@@ -1,0 +1,1342 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./jssrc/kzz/detail.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./config/web.js":
+/*!***********************!*\
+  !*** ./config/web.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  development: {
+    dataurl: function(){
+      return '//reportapi.uat.emapd.com/'
+    },
+    quoteurl: function(){
+      return '//push2.eastmoney.com/'
+    },
+    quotehisurl: function(){
+      return '//push2his.eastmoney.com/'
+    },    
+    dcfmurl: function(){
+      return '//dcfm.eastmoney.com/'
+    }, 
+    anoticeurl: function(){
+      return '//np-anotice-stock.eastmoney.com/'
+    },
+    cnoticeurl: function(){
+      return '//np-cnotice-stock.eastmoney.com/'
+    },
+    datacenter: function(){
+      return '//testdatacenter.eastmoney.com/'
+    },
+    datainterface: function(){
+      return '//datainterface.eastmoney.com/'
+    },
+    soapi: function(){
+      return '//searchapi.eastmoney.com/'
+    },
+    newsinfo: function(){
+      return '//newsinfo.eastmoney.com/'
+    },
+    url: function(){
+      return ''
+    }
+  },
+  zptest: {
+    dataurl: function(){
+      return '//reportapi.uat.emapd.com/'
+    },
+    quoteurl: function(){
+      return '//push2.eastmoney.com/'
+    },
+    quotehisurl: function(){
+      return '//push2his.eastmoney.com/'
+    }, 
+    dcfmurl: function(){
+      return '//dcfm.eastmoney.com/'
+    },
+    anoticeurl: function(){
+      return '//np-anotice-stock-test.emapd.com/'
+    },
+    cnoticeurl: function(){
+      return '//np-cnotice-stock-test.emapd.com/'
+    },
+    datacenter: function(){
+      return '//testdatacenter.eastmoney.com/'
+    },
+    datainterface: function(){
+      return '//datainterface.eastmoney.com/'
+    },
+    soapi: function(){
+      return '//searchapi.eastmoney.com/'
+    },    
+    cmsdataapi: function(){
+      return '//cmsdataapi.eastmoney.com/'
+    },
+    newsinfo: function(){
+      return '//newsinfo.eastmoney.com/'
+    },
+    url: function(){
+      return ''
+    }
+  },
+  gray: {
+    dataurl: function(){
+      return '//reportapi.eastmoney.com/'
+    },
+    quoteurl: function(){
+      return '//push2.eastmoney.com/'
+    },
+    quotehisurl: function(){
+      return '//push2his.eastmoney.com/'
+    },      
+    dcfmurl: function(){
+      return '//dcfm.eastmoney.com/'
+    },
+    anoticeurl: function(){
+      return '//np-anotice-stock.eastmoney.com/'
+    },
+    cnoticeurl: function(){
+      return '//np-cnotice-stock.eastmoney.com/'
+    },
+    datacenter: function(){
+      return '//graydatacenter.eastmoney.com/'
+    },
+    datainterface: function(){
+      return '//datainterface.eastmoney.com/'
+    },
+    soapi: function(){
+      return '//searchapi.eastmoney.com/'
+    },      
+    cmsdataapi: function(){
+      return '//cmsdataapi.eastmoney.com/'
+    },
+    newsinfo: function(){
+      return '//newsinfo.eastmoney.com/'
+    },
+    url: function(){
+      return ''
+    }
+  },
+  production: {
+    dataurl: function(){
+      return '//reportapi.eastmoney.com/'
+    },
+    quoteurl: function(){
+      return '//push2.eastmoney.com/'
+    },
+    quotehisurl: function(){
+      return '//push2his.eastmoney.com/'
+    },      
+    dcfmurl: function(){
+      return '//dcfm.eastmoney.com/'
+    },
+    anoticeurl: function(){
+      return '//np-anotice-stock.eastmoney.com/'
+    },
+    cnoticeurl: function(){
+      return '//np-cnotice-stock.eastmoney.com/'
+    },
+    datacenter: function(){
+      return '//datacenter-web.eastmoney.com/'
+    },
+    datainterface: function(){
+      return '//datainterface.eastmoney.com/'
+    },
+    soapi: function(){
+      return '//searchapi.eastmoney.com/'
+    },      
+    cmsdataapi: function(){
+      return '//cmsdataapi.eastmoney.com/'
+    },
+    newsinfo: function(){
+      return '//newsinfo.eastmoney.com/'
+    },
+    url: function(){
+      return ''
+    }
+  },
+  getParam: function(name){
+    var urlpara = location.search;
+    var par = {};
+    if (urlpara != "") {
+      urlpara = urlpara.substring(1, urlpara.length);
+      var para = urlpara.split("&");
+      var parname;
+      var parvalue;
+      for (var i = 0; i < para.length; i++) {
+        parname = para[i].substring(0, para[i].indexOf("="));
+        parvalue = para[i].substring(para[i].indexOf("=") + 1, para[i].length);
+        par[parname] = parvalue;
+      }
+    }
+    if(typeof (par[name]) != "undefined"){
+      return par[name];
+    }
+    else{
+      return null;
+    }
+  },
+  getWebPath: function (name) {
+    var env=(window.service&&service.ENV)||this.getParam('env');
+    if (env&&this[env]) {
+      return this[env][name]()
+    }
+    return this.production[name]()
+  }
+}
+
+
+
+/***/ }),
+
+/***/ "./jssrc/kzz/detail.ts":
+/*!*****************************!*\
+  !*** ./jssrc/kzz/detail.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+exports.__esModule = true;
+/**
+ * 新股详细资料
+ */
+var web_1 = __importDefault(__webpack_require__(/*! ../../config/web */ "./config/web.js"));
+var fieldtools_1 = __importDefault(__webpack_require__(/*! ../../src/modules/commonutil/fieldtools */ "./src/modules/commonutil/fieldtools.ts"));
+var moment_1 = __importDefault(__webpack_require__(/*! moment */ "moment"));
+var code = info.SECURITY_CODE;
+loadcontent();
+loadevent();
+function loadevent() {
+    $(".catemark li").on("click", function () {
+        var type = $(this).data("type");
+        $(".catemark li").removeClass("at");
+        $(this).addClass("at");
+        $(".chart_box").hide();
+        $("#chart_box" + type).show();
+    });
+    $(".searchbtn").on('click', kzz_search);
+    $("#code").on('keyup', function (event) {
+        event = event || window.event;
+        if (event.keyCode == 13) {
+            kzz_search();
+        }
+        ;
+    });
+}
+function loadcontent() {
+    //列表
+    var mkt = (info.TRADE_MARKET == "CNSESH" ? "sh" : "sz");
+    $(".zqcode").html(getLink(info.LISTING_DATE, info.DELIST_DATE, info.SECURITY_CODE, info.SECURITY_CODE, mkt)); //债券代码
+    $(".zqname").html(getLink(info.LISTING_DATE, info.DELIST_DATE, info.SECURITY_CODE, info.SECURITY_NAME_ABBR, mkt)); //债券简称
+    $(".sgcode").html(info.CORRECODE); //申购代码
+    $(".sgname").html(info.CORRECODE_NAME_ABBR); //申购简称
+    $(".zgcode").html('<a href=\'//quote.eastmoney.com/unify/r/' + fieldtools_1["default"].datatoquotecode(info.CONVERT_STOCK_CODE) + '\'>' + info.CONVERT_STOCK_CODE + '</a>'); //正股代码
+    $(".zgname").html('<a href=\'/stockdata/' + info.CONVERT_STOCK_CODE + '.html\'>' + info.SECURITY_SHORT_NAME + '</a>'); //正股简称
+    $(".fxprice").html(fieldtools_1["default"].fieldfmt(info.ISSUE_PRICE, { num: 2 })); //发行价格(元)
+    $(".aissuevol").html(fieldtools_1["default"].fieldfmt(info.ACTUAL_ISSUE_SCALE, { num: 2 })); //实际募集资金总额(亿元)
+    $(".sgdate").html(fieldtools_1["default"].dateformat(info.PUBLIC_START_DATE, "YYYY-MM-DD 周W")); //申购日期
+    $(".sgsx").html(fieldtools_1["default"].fieldfmt(info.ONLINE_GENERAL_AAU, { zoom: -1, num: 0 })); //申购上限
+    $(".gqdate").html(fieldtools_1["default"].dateformat(info.SECURITY_START_DATE)); //股权登记日
+    $(".pse").html(fieldtools_1["default"].fieldfmt(info.FIRST_PER_PREPLACING, { num: 4 })); //每股配售额
+    if (info.REMARK) {
+        $(".fxbz").html(info.REMARK); //发行备注                           
+    }
+    else {
+        $(".fxbz").parents("tr").hide();
+        $("#tab1 tr .headTitle").eq(0).attr('rowspan', 9);
+    }
+    $(".zgprice").html(fieldtools_1["default"].fieldfmt(info.CONVERT_STOCK_PRICE, { num: 2 })); //正股价(元)
+    $(".zgsjl").html(fieldtools_1["default"].fieldfmt(info.PBV_RATIO, { num: 2 })); //正股市净率
+    $(".zqxj").html(fieldtools_1["default"].isEmpty(info.CURRENT_BOND_PRICENEW) ? fieldtools_1["default"].fieldfmt(info.CURRENT_BOND_PRICE, { num: 2 }) : fieldtools_1["default"].fieldfmt(info.CURRENT_BOND_PRICENEW, { num: 2 })); //债券现价(元)
+    $(".zgj").html(fieldtools_1["default"].fieldfmt(info.TRANSFER_PRICE, { num: 2 })); //转股价(元)
+    $(".zgvalue").html(fieldtools_1["default"].fieldfmt(info.TRANSFER_VALUE, { num: 2 })); //转股价值
+    $(".hscfj").html(fieldtools_1["default"].fieldfmt(info.RESALE_TRIG_PRICE, { num: 2 })); //回售触发价
+    $(".qscfj").html(fieldtools_1["default"].fieldfmt(info.REDEEM_TRIG_PRICE, { num: 2 })); //强赎触发价
+    $(".yjl").html(fieldtools_1["default"].fieldfmt(info.TRANSFER_PREMIUM_RATIO, { num: 2, fix: '%' })); //溢价率
+    $(".listdate").html(fieldtools_1["default"].dateformat(info.LISTING_DATE, "YYYY-MM-DD 周W")); //上市日
+    $(".delistdate").html(fieldtools_1["default"].dateformat(info.DELIST_DATE, "YYYY-MM-DD 周W")); //退市日
+    $(".zqhdate").html(fieldtools_1["default"].dateformat(info.BOND_START_DATE, "YYYY-MM-DD 周W")); //中签号公布日
+    $(".lucyrate").html(fieldtools_1["default"].fieldfmt(info.ONLINE_GENERAL_LWR, { num: 4 })); //网上发行中签率(%)
+    //???
+    var shyy = "-";
+    switch (info["EXECUTE_REASON_SH"] / 1) {
+        case 1:
+            shyy = "满足回售条款";
+            break;
+        case 2:
+            shyy = "满足赎回条件";
+            break;
+        case 3:
+            shyy = "满足附加回售条款";
+            break;
+        case 4:
+            shyy = "强制赎回";
+            break;
+        case 5:
+            shyy = "到期赎回";
+            break;
+    }
+    var hsyy = "-";
+    switch (info["EXECUTE_REASON_HS"] / 1) {
+        case 1:
+            hsyy = "满足回售条款";
+            break;
+        case 2:
+            hsyy = "满足赎回条件";
+            break;
+        case 3:
+            hsyy = "满足附加回售条款";
+            break;
+        case 4:
+            hsyy = "强制赎回";
+            break;
+        case 5:
+            hsyy = "到期赎回";
+            break;
+    }
+    var shll = "-";
+    switch (info["REDEEM_TYPE"] / 1) {
+        case 1:
+            shll = "部分赎回";
+            break;
+        case 2:
+            shll = "全部赎回";
+            break;
+    }
+    $(".NOTICEDATE_SH").html(fieldtools_1["default"].dateformat(info.NOTICE_DATE_SH, "YYYY-MM-DD 周W"));
+    $(".STARTDATE_SH").html(fieldtools_1["default"].dateformat(info.EXECUTE_START_DATESH, "YYYY-MM-DD 周W"));
+    $(".RECORDATE_SH").html(fieldtools_1["default"].dateformat(info.RECORD_DATE_SH, "YYYY-MM-DD 周W"));
+    $(".PRICE_SH").html(fieldtools_1["default"].fieldfmt(info.EXECUTE_PRICE_SH, { num: 2 }));
+    $(".EXECREASON_SH").html(shyy);
+    $(".CALLSTYPE_SH").html(shll);
+    $(".NOTICEDATE_HS").html(fieldtools_1["default"].dateformat(info.NOTICE_DATE_HS, "YYYY-MM-DD 周W"));
+    $(".STARTDATE_HS").html(fieldtools_1["default"].dateformat(info.EXECUTE_START_DATEHS, "YYYY-MM-DD 周W"));
+    $(".ENDATE_HS").html(fieldtools_1["default"].dateformat(info.EXECUTE_END_DATE, "YYYY-MM-DD 周W"));
+    $(".PRICE_HS").html(fieldtools_1["default"].fieldfmt(info.EXECUTE_PRICE_HS, { num: 2 }));
+    $(".EXECREASON_HS").html(hsyy);
+    chartdata(info.SECURITY_NAME_ABBR, info.LISTING_DATE);
+    //明细
+    $.ajax({
+        url: web_1["default"].getWebPath('datacenter') + "api/data/v1/get",
+        type: "GET",
+        dataType: "jsonp",
+        data: {
+            reportName: "RPT_BOND_CB_LIST",
+            columns: "ALL",
+            quoteColumns: "",
+            source: "WEB",
+            client: "WEB",
+            filter: "(SECURITY_CODE=\"" + code + "\")"
+        }
+    }).then(function (json) {
+        var list = json && json.result && json.result.data;
+        if (list && list.length > 0) {
+            var data = list[0];
+            $(".rgcode").html(data.CORRECODEO); //老股东配售认购代码
+            $(".rgname").html(data.CORRECODE_NAME_ABBRO); //老股东配售认购
+            $(".fxdx").html(data.ISSUE_OBJECT || "-"); //发行对象
+            $(".zgstartdate").html(fieldtools_1["default"].dateformat(data.TRANSFER_START_DATE, "YYYY年MM月DD日")); //转股开始日
+            $(".zgenddate").html(fieldtools_1["default"].dateformat(data.TRANSFER_END_DATE, "YYYY年MM月DD日")); //转股结束日
+            $(".zqnd").html(data.ISSUE_YEAR || "-"); //债券年度
+            $(".zqqx").html(data.BOND_EXPIRE || "-"); //债券期限
+            $(".xyjb").html(data.RATING || "-"); //信用级别
+            $(".pjjg").html(data.PARTY_NAME || "-"); //评级机构 
+            $(".qxr").html(fieldtools_1["default"].dateformat(data.VALUE_DATE, "YYYY-MM-DD")); //起息日
+            $(".zxr").html(fieldtools_1["default"].dateformat(data.CEASE_DATE, "YYYY-MM-DD")); //止息日
+            $(".mrtydate").html(fieldtools_1["default"].dateformat(data.EXPIRE_DATE, "YYYY-MM-DD")); //到期日
+            $(".payday").html(fieldtools_1["default"].dateformat(data.PAY_INTEREST_DAY, "MM-DD")); //每年付息日
+            $(".ratedes").html(data.INTEREST_RATE_EXPLAIN || "-"); //利率说明
+            //合并其他接口
+            $('.fxlx').html((data.PARAM_NAME)); //发行类型 
+            $(".putsclause").html(data.RESALE_CLAUSE); //回售条款
+            $(".callsclause").html(data.REDEEM_CLAUSE); //赎回条款
+        }
+    });
+    //中签号
+    $.ajax({
+        url: web_1["default"].getWebPath('datacenter') + "api/data/v1/get",
+        type: "GET",
+        dataType: "jsonp",
+        data: {
+            reportName: "RPT_CB_BALLOTNUM",
+            columns: "ALL",
+            quoteColumns: "",
+            source: "WEB",
+            client: "WEB",
+            filter: "(SECURITY_CODE=\"" + code + "\")"
+        }
+    }).then(function (json) {
+        var list = json && json.result && json.result.data;
+        if (list && list.length > 0) {
+            var html = "";
+            var len = list.length;
+            html += "<tr><td rowspan='" + len + "' style='width:120px;' class='headTitle'>中签号</td><td class='title'>" + list[0].TYPE + "</td><td colspan='2'>" + list[0].BALLOT_NUM + "</td></tr>";
+            for (var i = 1; i < len; i++) {
+                var data = list[i];
+                html += "<tr>";
+                html += "  <td class='title'>" + data.TYPE + "</td>";
+                html += "  <td  colspan='2'>" + data.BALLOT_NUM + "</td>";
+                html += "</tr>";
+            }
+            ;
+            $("#tab2 tbody").html(html);
+        }
+        else {
+            $("#tab2").hide();
+        }
+    });
+    //筹资用途
+    $.ajax({
+        url: web_1["default"].getWebPath('datacenter') + "api/data/v1/get",
+        type: "GET",
+        dataType: "jsonp",
+        data: {
+            reportName: "RPT_BOND_BS_OPRFINVESTITEM",
+            columns: "ALL",
+            quoteColumns: "",
+            source: "WEB",
+            client: "WEB",
+            filter: "(SECURITY_CODE=\"" + code + "\")",
+            sortColumns: "SORT",
+            sortTypes: 1
+        }
+    }).then(function (json) {
+        var list = json && json.result && json.result.data;
+        if (list && list.length > 0) {
+            var html = "";
+            var len = list.length;
+            $("#tab3 tbody .headTitle").attr("rowspan", len + 1);
+            for (var i = 0; i < len; i++) {
+                var data = list[i];
+                html += "<tr>";
+                html += "  <td class='title'>" + data.SORT + "</td>";
+                html += "  <td>" + data.ITEM_NAME + "</td>";
+                html += "  <td class='title'>" + parseFloat(data.PLAN_INVEST_AMT).toFixed(2) + "</td>";
+                html += "  <td>" + parseFloat(data.PLAN_INPUT_RF).toFixed(2) + "</td>";
+                html += "</tr>";
+            }
+            ;
+            $("#tab3 tbody").append(html);
+        }
+        else {
+            html += "<tr><td colspan='4'>暂无数据...</td></tr>";
+            $("#tab3 tbody").append(html);
+        }
+    });
+    //重要日期
+    getdata("RPT_CB_IMPORTANTDATE").then(function (json) {
+        var list = json && json.result && json.result.data;
+        if (list && list.length > 0) {
+            var html = "";
+            var len = list.length;
+            $("#tab4 tbody .headTitle").attr("rowspan", len + 1);
+            for (var i = 0; i < len; i++) {
+                var data = list[i];
+                html += "<tr>";
+                html += "  <td class='title'>" + (i + 1) + "</td>";
+                html += "  <td>" + (data.IS_INTERVAL == 1 ? (fieldtools_1["default"].dateformat(data.START_DATE) + "至" + fieldtools_1["default"].dateformat(data.END_DATE)) : fieldtools_1["default"].dateformat(data.START_DATE)) + "</td>";
+                html += "  <td>" + data.DATE_TYPE + "</td>";
+                html += "</tr>";
+            }
+            ;
+            $("#tab4 tbody").append(html);
+        }
+        else {
+            html += "<tr><td colspan='3'>暂无数据...</td></tr>";
+            $("#tab4 tbody").append(html);
+        }
+    });
+    // //回收赎回
+    // getdata("KZZ_HSSH").then(function (json) {
+    //     if (json && json.length > 0) {
+    //         var data = json[0];
+    //         $(".putsclause").html(data.PUTSCLAUSE);//回售条款
+    //         $(".callsclause").html(data.CALLSCLAUSE);//赎回条款
+    //     }
+    // })
+}
+function chartdata(zname, ssdate) {
+    ssdate = fieldtools_1["default"].dateformat(ssdate, "YYYYMMDD");
+    if (ssdate != '-' && ssdate > moment_1["default"]().format("YYYYMMDD")) {
+        return;
+    }
+    $("#content_box").show();
+    var kzz_chart1 = echarts.init(document.getElementById("chart_1"));
+    var kzz_chart2 = echarts.init(document.getElementById("chart_2"));
+    var kzz_chart3 = echarts.init(document.getElementById("chart_3"));
+    kzz_chart1.showLoading({
+        text: '图表加载中...' //loading
+    });
+    $.ajax({
+        url: web_1["default"].getWebPath("datacenter") + "api/data/get",
+        type: "GET",
+        dataType: "jsonp",
+        data: {
+            sty: "ALL",
+            token: '894050c76af8597a853f5b408b759f5d',
+            st: "date",
+            sr: "1",
+            source: "WEB",
+            type: "RPTA_WEB_KZZ_LS",
+            filter: "(zcode=\"" + code + "\")",
+            p: 1,
+            ps: 8000
+        }
+    }).then(function (json) {
+        if (json && json.result && json.result.data) {
+            var data = json.result.data;
+            var dates = [];
+            var spjs = [];
+            var czjzs = [];
+            var zgjzs = [];
+            var zgyjls = [];
+            var czyjls = [];
+            var syfedates = [];
+            var syfes = [];
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                dates.push(fieldtools_1["default"].dateformat(item.DATE));
+                spjs.push(fieldtools_1["default"].fieldfmt(item.FCLOSE));
+                czjzs.push(fieldtools_1["default"].fieldfmt(item.PUREBONDVALUE));
+                zgjzs.push(fieldtools_1["default"].fieldfmt(item.SWAPVALUE));
+                zgyjls.push(fieldtools_1["default"].fieldfmt(item.SWAPOR));
+                czyjls.push(fieldtools_1["default"].fieldfmt(item.PUREBONDOR));
+                if (item.SYFE != '' && item.SYFE != undefined && item.SYFE != null) {
+                    syfedates.push(fieldtools_1["default"].dateformat(item.DATE));
+                    syfes.push(item.SYFE);
+                }
+            }
+            if (syfedates.length < 1) {
+                $(".catemark li").eq(2).remove();
+            }
+            if (dates.length < 1) {
+                $("#content_box").hide();
+                return;
+            }
+            var option1 = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'line' // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter: function (data) {
+                        var str = "";
+                        var date = data[0].axisValue;
+                        for (var i = 0; i < data.length; i++) {
+                            if (!fieldtools_1["default"].isEmpty(data[i].value)) {
+                                str += data[i].marker + data[i].seriesName + ':' + data[i].value + '元<br/>';
+                            }
+                        }
+                        return date + '<br/>' + str;
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        showDetail: false
+                    }, {
+                        type: 'inside'
+                    }
+                ],
+                legend: {
+                    data: ['收盘价', '纯债价值', '转股价值'],
+                    top: '0'
+                },
+                grid: {
+                    top: '40',
+                    left: '2%',
+                    right: '3%',
+                    bottom: '13%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: dates
+                },
+                yAxis: {
+                    name: '单位(元)',
+                    splitLine: {
+                        lineStyle: { type: 'dashed' }
+                    }
+                },
+                series: [
+                    {
+                        name: '收盘价',
+                        type: 'line',
+                        data: spjs,
+                        itemStyle: {
+                            color: '#d32f2f'
+                        },
+                        showSymbol: false
+                    },
+                    {
+                        name: '纯债价值',
+                        type: 'line',
+                        data: czjzs,
+                        itemStyle: {
+                            color: '#fbc02d'
+                        },
+                        showSymbol: false
+                    },
+                    {
+                        name: '转股价值',
+                        type: 'line',
+                        data: zgjzs,
+                        itemStyle: {
+                            color: '#0288d1'
+                        },
+                        showSymbol: false
+                    }
+                ]
+            };
+            var option2 = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'line' // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter: function (data) {
+                        var str = "";
+                        var date = data[0].axisValue;
+                        for (var i = 0; i < data.length; i++) {
+                            if (!fieldtools_1["default"].isEmpty(data[i].value)) {
+                                str += data[i].marker + data[i].seriesName + ':' + data[i].value + '%<br/>';
+                            }
+                        }
+                        return date + '<br/>' + str;
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        showDetail: false
+                    }, {
+                        type: 'inside'
+                    }
+                ],
+                legend: {
+                    data: ['转股溢价率', '纯债溢价率'],
+                    top: '0'
+                },
+                grid: {
+                    top: '40',
+                    left: '2%',
+                    right: '3%',
+                    bottom: '13%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: dates
+                },
+                yAxis: {
+                    name: '单位(%)',
+                    splitLine: {
+                        lineStyle: { type: 'dashed' }
+                    }
+                },
+                series: [
+                    {
+                        name: '转股溢价率',
+                        type: 'line',
+                        data: zgyjls,
+                        itemStyle: {
+                            color: '#d32f2f'
+                        },
+                        showSymbol: false
+                    },
+                    {
+                        name: '纯债溢价率',
+                        type: 'line',
+                        data: czyjls,
+                        itemStyle: {
+                            color: '#0288d1'
+                        },
+                        showSymbol: false
+                    }
+                ]
+            };
+            var option3 = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'line' // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter: function (data) {
+                        var str = "";
+                        var date = data[0].axisValue;
+                        for (var i = 0; i < data.length; i++) {
+                            if (!fieldtools_1["default"].isEmpty(data[i].value)) {
+                                str += data[i].marker + data[i].seriesName + ':' + fieldtools_1["default"].fieldfmt(data[i].value, { num: 3 }) + '<br/>';
+                            }
+                        }
+                        return date + '<br/>' + str;
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        showDetail: false
+                    }, {
+                        type: 'inside'
+                    }
+                ],
+                legend: {
+                    data: ['剩余份额'],
+                    top: '0'
+                },
+                grid: {
+                    top: '40',
+                    left: '2%',
+                    right: '3%',
+                    bottom: '13%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: syfedates
+                },
+                yAxis: {
+                    name: '单位(元)',
+                    axisLabel: {
+                        formatter: function (value, index) {
+                            return fieldtools_1["default"].fieldfmt(value, { num: 0 });
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: { type: 'dashed' }
+                    }
+                },
+                series: [
+                    {
+                        name: '剩余份额',
+                        type: 'line',
+                        data: syfes,
+                        showSymbol: false,
+                        smooth: true,
+                        symbol: 'none',
+                        sampling: 'average',
+                        itemStyle: {
+                            color: '#fbc02d'
+                        },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#fffcf3'
+                                }, {
+                                    offset: 1,
+                                    color: '#ffffff'
+                                }])
+                        }
+                    }
+                ]
+            };
+            kzz_chart1.setOption(option1);
+            kzz_chart1.hideLoading();
+            kzz_chart2.setOption(option2);
+            kzz_chart3.setOption(option3);
+            $("#chart_box1 .chart_tip").html(zname + "[" + dates[dates.length - 1] + "]" + " 收盘价 " + spjs[spjs.length - 1] + " 转股价值 " + zgjzs[zgjzs.length - 1] + " 纯债价值 " + czjzs[czjzs.length - 1]);
+            $("#chart_box2 .chart_tip").html(zname + "[" + dates[dates.length - 1] + "]" + " 转股溢价率 " + fieldtools_1["default"].fieldfmt(zgyjls[zgyjls.length - 1], { num: 2, fix: "%", showcolor: true }) + " 纯债溢价率 " + fieldtools_1["default"].fieldfmt(czyjls[czyjls.length - 1], { num: 2, fix: "%", showcolor: true }));
+            $("#chart_box3 .chart_tip").html(zname + "[" + syfedates[syfedates.length - 1] + "]" + " 剩余份额 " + fieldtools_1["default"].fieldfmt(syfes[syfes.length - 1], { num: 3 }));
+        }
+        else {
+            $("#content_box").hide();
+        }
+    });
+}
+function getdata(type) {
+    return $.ajax({
+        url: web_1["default"].getWebPath('datacenter') + "api/data/v1/get",
+        type: "GET",
+        dataType: "jsonp",
+        data: {
+            reportName: type,
+            columns: "ALL",
+            quoteColumns: "",
+            source: "WEB",
+            client: "WEB",
+            filter: "(SECURITY_CODE=\"" + code + "\")"
+        }
+    });
+}
+function getLink(sdate, edate, value1, value2, mkt) {
+    sdate = fieldtools_1["default"].dateformat(sdate, "YYYYMMDD");
+    edate = fieldtools_1["default"].dateformat(edate, "YYYYMMDD");
+    if (sdate == "-") {
+        return "<span>" + value2 + "</span>";
+    }
+    if (sdate != "-") {
+        if (sdate > moment_1["default"]().format("YYYYMMDD"))
+            return "<span>" + value2 + "</span>";
+    }
+    if (edate != "-") {
+        if (edate < moment_1["default"]().format("YYYYMMDD"))
+            return "<span>" + value2 + "</span>";
+    }
+    return "<a href=\"//quote.eastmoney.com/bond/" + mkt + value1 + ".html\">" + value2 + "</a>";
+}
+function kzz_search() {
+    var s1 = $("#code").val();
+    if (s1 == "输入可转债代码" || s1 == "" || isNaN(parseInt(s1)) || s1.length != 6) {
+        alert("请输入所有查询可转债的代码！");
+        return false;
+    }
+    else {
+        var url = '/kzz/detail/' + s1 + '.html';
+        window.open(url);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/modules/commonutil/fieldtools.ts":
+/*!**********************************************!*\
+  !*** ./src/modules/commonutil/fieldtools.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * 数据字段常用公用方法
+ */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+exports.__esModule = true;
+var moment_1 = __importDefault(__webpack_require__(/*! moment */ "moment"));
+var weeks = ['日', '一', '二', '三', '四', '五', '六'];
+var quarters = ['1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4'];
+var quarters_z = ['一', '一', '一', '二', '二', '二', '三', '三', '三', '四', '四', '四'];
+var quarters0 = ['1', '1', '1', '1-2', '1-2', '1-2', '1-3', '1-3', '1-3', '1-4', '1-4', '1-4'];
+var quarters0_z = ['一', '一', '一', '一-二', '一-二', '一-二', '一-三', '一-三', '一-三', '一-四', '一-四', '一-四'];
+var reports = ['1季', '1季', '1季', '中', '中', '中', '3季', '3季', '3季', '年', '年', '年'];
+var reports_z = ['一季', '一季', '一季', '中', '中', '中', '三季', '三季', '三季', '年', '年', '年'];
+var defaultfmtconfig = {
+    def: '-',
+    omit: true,
+    trim: undefined,
+    strfmt: undefined,
+    num: 432,
+    smart: false,
+    fix: '',
+    zoom: 0,
+    showcolor: false,
+    showabs: false,
+    qfw: false,
+    colorfmt: '<span class="{color}">{value}</span>',
+    gtcolor: 'red',
+    ltcolor: 'green',
+    colorzero: 0
+};
+exports["default"] = {
+    /**
+     * 数据字段展示格式化方法(支持数字和日期处理)
+     *@param {string} value:字段,一般为字符串或数字
+     *@param {string} config:配置数据
+     *@param {fmtconfig} config {
+         
+   ```
+            def?: string;// 缺省值默认 ‘-’ 优先级最高，不受其他参数影响
+            datefmt?: string;//日期展示格式，如果有值的话做日期处理，有值的话除def外其他字段全部作废 优先级小于def (详见日期处理方法dateformat)
+            strfmt?: any;//作为字符串处理的参数，如果有值的话做字符串处理，优先级小于def,datefmt(详见字符串处理方法strformat)
+            omit?: boolean;//是否自动改为省略格式【xxxx万|xxxx亿|xxxx万亿】默认true
+            trim?: boolean;//是否自动省略末尾的0，默认不省略,smart有值时候则默认为true，可单独配置
+            num?: any;//保留小数位，默认值为 432（3位数保留一位小数，2位和1位数保留两位小数），可以设置保留小数规则（"5421" 代表
+                五位数字及以上保存0位小数，
+                四位数字及以上保留一位小数，
+                二位数字及以上保留2位小数，
+                一位数字保留3位小数）
+            smart?: number;//是否自动精简结果【最多保留多少位有效数字】配合omit=true时使用 有值的话小数位数小于num，>1时生效
+            fix?: string;//显示单位 默认空   举例 【‘%’，‘只’】
+            zoom?: number;//缩放倍数（指数幂） 默认0【不放大+】  举例 【1就是放大10倍】
+            showabs?: boolean//是否展示为绝对值 默认不展示
+            showcolor?: boolean//是否展示颜色 默认不展示
+            colorfmt?: string;//带颜色的返回模板 默认<span class="{color}">{value}</span>
+            gtcolor?: string;//大于标准值的样式 默认red
+            ltcolor?: string;//小于标准值的样式 默认green
+            colorvalue?: number;//颜色比较使用的值，默认使用value字段
+            colorzero?: number;//颜色比较标准值 默认0  与零比较
+            
+   ```
+        }
+     **/
+    fieldfmt: function (value, config) {
+        if (this.isEmpty(value)) {
+            return (config && config.def != undefined) ? config.def : defaultfmtconfig.def;
+        }
+        //无配置时尝试按数据类型转换
+        if ($.isEmptyObject(config)) {
+            if (/^\d{2,4}(\-|\/|\.)\d{1,2}\1\d{1,2}|^\d{13}$/.test(value)) {
+                return this.dateformat(value, 'YYYY-MM-DD');
+            }
+            if (!$.isNumeric(value)) {
+                return value;
+            }
+        }
+        config = $.extend({}, defaultfmtconfig, config);
+        if (config && config.datefmt) {
+            return this.dateformat(value, config.datefmt, config.def);
+        }
+        if (config && config.strfmt) {
+            return this.strformat(value, config.strfmt, config.def);
+        }
+        if (isNaN(value) || !isFinite(value)) {
+            return config.def;
+        }
+        var oldvalue = parseFloat(value);
+        var fix = "";
+        var num = 2;
+        //@ts-ignore
+        value = oldvalue * Math.pow(10, config.zoom).toFixed(Math.abs(config.zoom));
+        if (config.showabs)
+            value = Math.abs(value);
+        var f = config.trim ? parseFloat : function (v) { return v; };
+        var abslength = Math.abs(parseInt(value)).toString().length;
+        if (config.omit) {
+            if (abslength > 12) {
+                value = value / 1000000000000;
+                abslength -= 12;
+                fix = '万亿';
+            }
+            else if (abslength > 8) {
+                value = value / 100000000;
+                abslength -= 8;
+                fix = '亿';
+            }
+            else if (abslength > 4) {
+                value = value / 10000;
+                abslength -= 4;
+                fix = '万';
+            }
+        }
+        if (-1 < value && value < 1)
+            abslength = 0;
+        if (config.smart) {
+            f = parseFloat;
+            config.num = "43220";
+        }
+        if ($.isNumeric(config.num) && config.num < 10)
+            num = config.num;
+        else {
+            var numstr = config.num.toString();
+            num = numstr.length - 1;
+            for (var i = 0; i < numstr.length; i++) {
+                if (abslength >= numstr[i]) {
+                    num = i;
+                    break;
+                }
+            }
+        }
+        value = f(this.toFixed(value, num));
+        value += fix + config.fix;
+        if (config.showcolor) {
+            var bz = config.colorvalue;
+            if (!$.isNumeric(bz))
+                bz = oldvalue;
+            var color = bz == config.colorzero ? '' : bz > config.colorzero ? config.gtcolor : config.ltcolor;
+            //修正数字过小造成的正负号丢失问题
+            if (oldvalue < 0 && config.showabs == false && value[0] != '-')
+                value = '-' + value;
+            value = config.colorfmt.replace('{color}', color).replace('{value}', value);
+        }
+        if (config.qfw)
+            return value.replace(/\d+/, function (n) {
+                return n.replace(/(\d)(?=(\d{3})+$)/g, function ($1) {
+                    return $1 + ",";
+                });
+            });
+        return value;
+    },
+    /**
+     * 日期字段展示格式化方法
+     * @param {string} str:字段值+
+     * @param {string} fmt：日期格式 根据nomentjs 文档http://momentjs.cn/docs/
+     *                  添加 {W:"星期，['日', '一', '二', '三', '四', '五', '六']
+     *                  添加 {Q|q:"季度，如3月为'一|1'；6月为'二|2'"；9月为'三|3'"；12月为'四|4'"}
+     *                  添加 {J|j:"季度跨度，如3月为'一|1'；6月为'一-二|1-2'"；9月为'一-三|1-3'"；12月为示'一-四|1-4'"}
+     *                  添加 {B|b:"报告期，如3月为'一季|1季'；6月为'中'"；9月为'三季|3季'"；12月为'年'"}
+     **/
+    dateformat: function (str, fmt, def) {
+        if (fmt === void 0) { fmt = 'YYYY-MM-DD'; }
+        if (def === void 0) { def = '-'; }
+        if (this.isEmpty(str)) {
+            return def;
+        }
+        try {
+            if (/^\d*$/.test(str)) {
+                str = parseInt(str);
+            }
+            var ret = moment_1["default"](str);
+            if (ret.isValid()) {
+                var value = ret.format(fmt);
+                var o = {
+                    "W": weeks[ret.day()],
+                    "Q": quarters_z[ret.month()],
+                    "q": quarters[ret.month()],
+                    "J": quarters0_z[ret.month()],
+                    "j": quarters0[ret.month()],
+                    "B": reports_z[ret.month()],
+                    "b": reports[ret.month()]
+                };
+                for (var k in o) {
+                    if (new RegExp("(" + k + ")").test(value)) {
+                        value = value.replace(RegExp.$1, o[k]);
+                    }
+                }
+                return value;
+            }
+            return def;
+        }
+        catch (err) {
+            return def;
+        }
+    },
+    /**
+     * 字符串展示格式化方法
+     * @param {string} str:字段值
+     * @param {any} fmt：格式化参数，数组或对象
+     **/
+    strformat: function (str, fmt, def) {
+        if (def === void 0) { def = '-'; }
+        if (this.isEmpty(str)) {
+            return def;
+        }
+        str = str.toString();
+        if (typeof (fmt) == "object") {
+            if (fmt.len && fmt.ellipsis) {
+                str = this.cutstr(str, fmt.len, fmt.ellipsis, def);
+            }
+            for (var key in fmt) {
+                if (fmt[key] !== undefined) {
+                    var reg = new RegExp("({" + key + "})", "g");
+                    str = str.replace(reg, fmt[key]);
+                }
+            }
+        }
+        else if (Array.isArray(fmt)) {
+            fmt.forEach(function (s, i) {
+                var reg = new RegExp("({)" + i + "(})", "g");
+                str = str.replace(reg, s);
+            });
+        }
+        return str;
+    },
+    /**
+    * js截取字符串，中英文都能用
+    * @param {string} str: 需要截取的字符串
+    * @param {number} len: 需要截取的长度【中文算两个】
+    * @param {string} ellipsis: 溢出文字
+    * @returns {string} 截取后的字符串
+    */
+    cutstr: function (str, len, ellipsis, def) {
+        if (def === void 0) { def = '-'; }
+        if (this.isEmpty(str)) {
+            return def;
+        }
+        if (typeof ellipsis != "string")
+            ellipsis = "...";
+        var str_length = 0;
+        var str_len = 0;
+        var a;
+        for (var i = 0; i < str.length; i++) {
+            a = str.charAt(i);
+            str_length++;
+            if (escape(a).length > 4) {
+                //中文字符的长度经编码之后大于4  
+                str_length++;
+            }
+            if (str_length <= len) {
+                str_len++;
+            }
+        }
+        //如果给定字符串小于指定长度，则返回源字符串；  
+        if (str_length <= len) {
+            return str.toString();
+        }
+        else {
+            return str.substr(0, str_len).concat(ellipsis);
+        }
+    },
+    /**
+    * html标签转义
+    * @param {string} str: 需要处理的字符串
+    * @returns {string} 处理后的字符串
+    */
+    escapeHTML: function (text) {
+        if (typeof text === 'string') {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/`/g, '&#x60;');
+        }
+        return text;
+    },
+    /**
+     * 验证数据是否存在
+     * @param data
+     */
+    isEmpty: function (data) {
+        if (data === '' || data === '-' || data === undefined || data === null || typeof data === "undefined" || data === false) {
+            return true;
+        }
+        return false;
+    },
+    /**
+     *
+     * 分割数据转json,三期|f10
+     */
+    splitdatatojson: function (data, fields) {
+        //console.info(fields);
+        var ret = {};
+        var datas = [];
+        var SplitSymbol = data.SplitSymbol;
+        var fs = data.FieldName.split(',');
+        if (!fields)
+            fields = fs;
+        var _loop_1 = function () {
+            itemstr = data.Data[i];
+            var model = {};
+            var arr = itemstr.split(SplitSymbol);
+            arr.forEach(function (v, i) {
+                var field = fs[i];
+                if (fields.indexOf(field) > -1)
+                    model[fs[i]] = v;
+            });
+            datas.push(model);
+        };
+        var itemstr;
+        for (var i = 0; i < data.Data.length; i++) {
+            _loop_1();
+        }
+        Object.keys(data).forEach(function (key) {
+            if (key != "Data")
+                ret[key] = data[key];
+        });
+        ret.datas = datas;
+        //console.info(ret);
+        return ret;
+    },
+    /**
+     *
+     * 数据转行情code(仅支持沪深京港)
+     * 数据平台接口尽量传对象使用
+     * 多层逻辑
+     * obj 情况 有 SECURITY_CODE(或其他),TRADE_MARKET_CODE
+     * obj 情况 有 SECUCODE
+     * obj 情况 只有 SECURITY_CODE
+     * string 情况  带市场格式   如   “605199.SH"
+     * string 情况  6位数字    如  "300059"
+     * string 情况  5位数字    如  "00001"
+     *
+     *
+     * 都不成立的情况用第二个参数（尽量不用）
+     */
+    datatoquotecode: function (item, scode) {
+        if (scode === void 0) { scode = ''; }
+        if (typeof item === "object") {
+            var code = item.SECURITY_CODE || item.SECURITYCODE || item.SCODE || item.SCode || item.scode || item.code || item.securitycode || item.securityCode;
+            if (item.TRADE_MARKET_CODE && code.length && code.length == 6) {
+                //沪
+                if (item.TRADE_MARKET_CODE == "069001001001" || item.TRADE_MARKET_CODE == "069001001003" || item.TRADE_MARKET_CODE == "069001001006") {
+                    return "1." + code;
+                }
+                //深
+                else if (item.TRADE_MARKET_CODE == "069001002001" || item.TRADE_MARKET_CODE == "069001002002" || item.TRADE_MARKET_CODE == "069001002005") {
+                    return "0." + code;
+                }
+                //京
+                else if (item.TRADE_MARKET_CODE == "069001017") {
+                    return "0." + code;
+                }
+                //新三板，老三版
+                else if (item.TRADE_MARKET_CODE == "069001004001" || item.TRADE_MARKET_CODE == "069001004002") {
+                    return "0." + code;
+                }
+            }
+            if (item.SECUCODE) {
+                item = item.SECUCODE;
+            }
+            else if (code) {
+                item = code;
+            }
+            else {
+                item = scode;
+            }
+        }
+        if (typeof item === "string") {
+            var codes = item.split('.');
+            if (codes.length == 2) {
+                var mkt = '';
+                if (codes[1].toUpperCase() == "SH")
+                    mkt = '1';
+                else if (codes[1].toUpperCase() == "SZ")
+                    mkt = '0';
+                else if (codes[1].toUpperCase() == "BJ")
+                    mkt = '0';
+                else if (codes[1].toUpperCase() == "NQ")
+                    mkt = '0';
+                else if (codes[1].toUpperCase() == "HK")
+                    mkt = '116';
+                return mkt + "." + codes[0];
+            }
+            if (/\d{6}/.test(item)) {
+                item = /\d{6}/.exec(item)[0];
+                var one = item.substr(0, 1);
+                var three = item.substr(0, 3);
+                if (one == "5" || one == "6" || one == "9") {
+                    //沪
+                    return "1." + item;
+                }
+                else if (one == "4" || one == "8") {
+                    //京
+                    return "0." + item;
+                }
+                else {
+                    if (three == "009" || three == "126" || three == "110" || three == "201" || three == "202" || three == "203" || three == "204") {
+                        //沪
+                        return "1." + item;
+                    }
+                    else {
+                        //深   其它
+                        return "0." + item;
+                    }
+                }
+            }
+            else if (/\d{5}/.test(item)) {
+                item = /\d{5}/.exec(item)[0];
+                //港
+                return "116." + item;
+            }
+        }
+    },
+    getUrlParam: function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURIComponent(r[2]);
+        return null;
+    },
+    toFixed: function (value, num) {
+        var power = Math.pow(10, num);
+        return (Math.round(value * power) / power).toFixed(num);
+    }
+};
+
+
+/***/ }),
+
+/***/ "moment":
+/*!*************************!*\
+  !*** external "moment" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = moment;
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=detail.js.map
