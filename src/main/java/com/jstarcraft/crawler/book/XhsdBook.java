@@ -11,37 +11,37 @@ import java.util.List;
 public class XhsdBook implements Book<Chapter> {
 
     @Override
-    public String getId() {
+    public String getBookId() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String getTitle() {
+    public String getBookTitle() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<Chapter> getChapters() {
+    public List<Chapter> getBookChapters() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String getIsbn() {
+    public String getBookIsbn() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String getScore() {
+    public String getBookScore() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<String> getTags() {
+    public List<String> getBookTags() {
         // TODO Auto-generated method stub
         return null;
     }

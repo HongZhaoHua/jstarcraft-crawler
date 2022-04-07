@@ -207,27 +207,27 @@ public class DoubanMovie {
         this.instant = instant;
     }
 
-    public String getId() {
+    public String getMovieId() {
         return id;
     }
 
-    public String getTitle() {
+    public String getMovieTitle() {
         return title;
     }
 
-    public String getImdb() {
+    public String getMovieImdb() {
         return imdb;
     }
 
-    public String getScore() {
+    public String getMovieScore() {
         return score;
     }
 
-    public List<String> getGenres() {
+    public List<String> getMovieGenres() {
         return genres;
     }
 
-    public List<String> getTags() {
+    public List<String> getMovieTags() {
         return tags;
     }
 

@@ -21,11 +21,11 @@ public class DoubanBookTestCase {
         String id = "26413155";
         DoubanBook book = new DoubanBook(template, id);
         book.update(Instant.now());
-        Assert.assertEquals("星际穿越", book.getTitle());
-        Assert.assertEquals("9787213066856", book.getIsbn());
-        Assert.assertEquals("8.8", book.getScore());
-        Assert.assertEquals(187, book.getChapters().size());
-        Assert.assertEquals(10, book.getTags().size());
+        Assert.assertEquals("星际穿越", book.getBookTitle());
+        Assert.assertEquals("9787213066856", book.getBookIsbn());
+        Assert.assertEquals("8.8", book.getBookScore());
+        Assert.assertEquals(187, book.getBookChapters().size());
+        Assert.assertEquals(10, book.getBookTags().size());
     }
 
     @Test

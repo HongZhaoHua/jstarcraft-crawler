@@ -20,7 +20,7 @@ public class Chapter {
      * 
      * @return
      */
-    public String getTitle() {
+    public String getChapterTitle() {
         return title;
     }
 

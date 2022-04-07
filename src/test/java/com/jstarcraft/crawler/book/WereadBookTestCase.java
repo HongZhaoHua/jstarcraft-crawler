@@ -40,12 +40,12 @@ public class WereadBookTestCase {
         String id = "630480";
         WereadBook book = new WereadBook(template, id);
         book.update(Instant.now());
-        Assert.assertEquals("630480", book.getId());
-        Assert.assertEquals("星际穿越", book.getTitle());
-        Assert.assertEquals("9787213066856", book.getIsbn());
-        Assert.assertEquals("86.0", book.getScore());
-        Assert.assertEquals(51, book.getChapters().size());
-        Assert.assertEquals(5, book.getTags().size());
+        Assert.assertEquals("630480", book.getBookId());
+        Assert.assertEquals("星际穿越", book.getBookTitle());
+        Assert.assertEquals("9787213066856", book.getBookIsbn());
+        Assert.assertEquals("86.0", book.getBookScore());
+        Assert.assertEquals(51, book.getBookChapters().size());
+        Assert.assertEquals(5, book.getBookTags().size());
     }
 
     @Test

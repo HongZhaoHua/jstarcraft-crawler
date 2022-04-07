@@ -186,32 +186,32 @@ public class WereadBook implements Book<WereadChapter> {
     }
 
     @Override
-    public String getId() {
+    public String getBookId() {
         return id;
     }
 
     @Override
-    public String getTitle() {
+    public String getBookTitle() {
         return title;
     }
 
     @Override
-    public List<WereadChapter> getChapters() {
+    public List<WereadChapter> getBookChapters() {
         return chapters;
     }
 
     @Override
-    public String getIsbn() {
+    public String getBookIsbn() {
         return isbn;
     }
 
     @Override
-    public String getScore() {
+    public String getBookScore() {
         return score;
     }
 
     @Override
-    public List<String> getTags() {
+    public List<String> getBookTags() {
         return tags;
     }
 

@@ -25,7 +25,7 @@ public class WereadChapter extends Chapter {
      * 
      * @return
      */
-    public int getId() {
+    public int getChapterId() {
         return id;
     }
 
@@ -34,7 +34,7 @@ public class WereadChapter extends Chapter {
      * 
      * @return
      */
-    public int getLevel() {
+    public int getChapterLevel() {
         return level;
     }
 

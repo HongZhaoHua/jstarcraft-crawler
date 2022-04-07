@@ -15,41 +15,41 @@ public interface Book<C extends Chapter> {
      * 
      * @return
      */
-    public String getId();
+    public String getBookId();
 
     /**
      * 获取标题
      * 
      * @return
      */
-    public String getTitle();
+    public String getBookTitle();
 
     /**
      * 获取章节
      * 
      * @return
      */
-    public List<C> getChapters();
+    public List<C> getBookChapters();
 
     /**
      * 获取国际标准书号(International Standard Book Number/ISBN)
      * 
      * @return
      */
-    public String getIsbn();
+    public String getBookIsbn();
 
     /**
      * 获取得分
      * 
      * @return
      */
-    public String getScore();
+    public String getBookScore();
 
     /**
      * 获取标签
      * 
      * @return
      */
-    public List<String> getTags();
+    public List<String> getBookTags();
 
 }

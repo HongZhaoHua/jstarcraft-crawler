@@ -21,11 +21,11 @@ public class DoubanMovieTestCase {
         String id = "1889243";
         DoubanMovie movie = new DoubanMovie(template, id);
         movie.update(Instant.now());
-        Assert.assertEquals("星际穿越 Interstellar", movie.getTitle());
-        Assert.assertEquals("tt0816692", movie.getImdb());
-        Assert.assertEquals("9.4", movie.getScore());
-        Assert.assertEquals(3, movie.getGenres().size());
-        Assert.assertEquals(31, movie.getTags().size());
+        Assert.assertEquals("星际穿越 Interstellar", movie.getMovieTitle());
+        Assert.assertEquals("tt0816692", movie.getMovieImdb());
+        Assert.assertEquals("9.4", movie.getMovieScore());
+        Assert.assertEquals(3, movie.getMovieGenres().size());
+        Assert.assertEquals(31, movie.getMovieTags().size());
     }
 
     @Test
