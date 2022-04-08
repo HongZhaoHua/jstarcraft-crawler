@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author Birdy
  *
  */
-public interface IssueBond {
+public interface IssueBond extends Bond {
 
     /**
      * 获取发行日期/申购日期
@@ -23,12 +23,5 @@ public interface IssueBond {
      * @return
      */
     public LocalDate getListDate();
-    
-    /**
-     * 获取下市日期
-     * 
-     * @return
-     */
-    public LocalDate getDelistDate();
 
 }

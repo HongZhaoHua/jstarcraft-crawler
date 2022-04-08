@@ -1,6 +1,9 @@
 package com.jstarcraft.crawler.trade.security.bond.eastmoney;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,7 @@ import com.jstarcraft.crawler.trade.security.bond.ConvertibleBond;
 import com.jstarcraft.crawler.trade.security.bond.IssueBond;
 import com.jstarcraft.crawler.trade.security.stock.Stock;
 
+import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
 import jodd.net.URLDecoder;
 
 /**
@@ -35,21 +39,69 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
 
     protected static final Logger logger = LoggerFactory.getLogger(EastmoneyIssueBond.class);
 
+    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     /** 新债列表模板 */
     // https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize={size}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
     private static final String issueUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={}&sortTypes={}&pageNumber={}&pageSize={}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO");
 
+    private ONode node;
+
     /** 转换股票 */
     private Stock conversionStock;
 
-    /** 转换价格 */
-    private float conversionPrice;
+    protected EastmoneyIssueBond(ONode node) {
+        this.node = node;
+    }
 
-    /** 转换价值 */
-    private float conversionValue;
+    @Override
+    public String getBondCode() {
+        return node.get("SECURITY_CODE").getString();
+    }
 
-    /** 转换日期 */
-    private LocalDate conversionDate;
+    @Override
+    public String getBondName() {
+        return node.get("SECURITY_NAME_ABBR").getString();
+    }
+
+    @Override
+    public float getFaceValue() {
+        return node.get("PAR_VALUE").getFloat();
+    }
+
+    @Override
+    public Duration getBondDuration() {
+        return Duration.between(getBeginDate(), getEndDate());
+    }
+
+    @Override
+    public Object2FloatSortedMap<LocalDate> getInterestRate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    private LocalDate getDate(String data) {
+        try {
+            return LocalDate.parse(data, formatter);
+        } catch (DateTimeParseException exception) {
+            return null;
+        }
+    }
+
+    @Override
+    public LocalDate getBeginDate() {
+        return getDate(node.get("VALUE_DATE").getString());
+    }
+
+    @Override
+    public LocalDate getEndDate() {
+        return getDate(node.get("CEASE_DATE").getString());
+    }
+
+    @Override
+    public String getCreditRank() {
+        return node.get("RATING").getString();
+    }
 
     @Override
     public Stock getConversionStock() {
@@ -58,12 +110,12 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
 
     @Override
     public float getConversionPrice() {
-        return conversionPrice;
+        return node.get("TRANSFER_PRICE").getFloat();
     }
 
     @Override
     public float getConversionValue() {
-        return conversionValue;
+        return node.get("TRANSFER_VALUE").getFloat();
     }
 
     @Override
@@ -74,43 +126,32 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
 
     @Override
     public float getConversionPremiumRatio() {
-        // TODO Auto-generated method stub
-        return 0;
+        return node.get("TRANSFER_PREMIUM_RATIO").getFloat();
     }
 
     @Override
     public LocalDate getConversionDate() {
-        return conversionDate;
+        return getDate(node.get("TRANSFER_START_DATE").getString());
     }
 
     @Override
     public float getPutablePrice() {
-        // TODO Auto-generated method stub
-        return 0;
+        return node.get("RESALE_TRIG_PRICE").getFloat();
     }
 
     @Override
     public float getCallablePrice() {
-        // TODO Auto-generated method stub
-        return 0;
+        return node.get("REDEEM_TRIG_PRICE").getFloat();
     }
 
     @Override
     public LocalDate getIssueDate() {
-        // TODO Auto-generated method stub
-        return null;
+        return getDate(node.get("PUBLIC_START_DATE").getString());
     }
 
     @Override
     public LocalDate getListDate() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LocalDate getDelistDate() {
-        // TODO Auto-generated method stub
-        return null;
+        return getDate(node.get("LISTING_DATE").getString());
     }
 
     public static Map<String, String> getItemsByPage(RestTemplate template, int page, int size) {

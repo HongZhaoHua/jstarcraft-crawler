@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.jstarcraft.crawler.trade.security.stock.Stock;
 
 /**
- * 转债
+ * 可转换债券
  * 
  * <pre>
  * 转债包含债权 / 期权 / 股权
@@ -14,7 +14,7 @@ import com.jstarcraft.crawler.trade.security.stock.Stock;
  * @author Birdy
  *
  */
-public interface ConvertibleBond {
+public interface ConvertibleBond extends Bond {
 
     /**
      * 获取转股股票/转换股票
@@ -31,7 +31,7 @@ public interface ConvertibleBond {
     public float getConversionPrice();
 
     /**
-     * 获取转股价值/转换价值
+     * 获取转股价值/转换价值(TODO 依赖正股价格)
      * 
      * <pre>
      * 转股价值 = 转债面值 ÷ 转股价格 × 正股价格
@@ -39,10 +39,11 @@ public interface ConvertibleBond {
      * 
      * @return
      */
+    @Deprecated
     public float getConversionValue();
 
     /**
-     * 获取转股折溢价格
+     * 获取转股折溢价格(TODO 依赖转债价格)
      * 
      * <pre>
      * 转股溢价 = 转债价格 - 转股价值
@@ -50,6 +51,7 @@ public interface ConvertibleBond {
      * 
      * @return
      */
+    @Deprecated
     public float getConversionPremium();
 
     /**
@@ -57,6 +59,7 @@ public interface ConvertibleBond {
      * 
      * @return
      */
+    @Deprecated
     public float getConversionPremiumRatio();
 
     /**

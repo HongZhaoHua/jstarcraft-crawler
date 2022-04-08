@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond.essence;
+package com.jstarcraft.crawler.trade.security.bond.tjqka;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -26,47 +26,49 @@ import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
 import jodd.net.URLDecoder;
 
 /**
- * 安信新债
+ * 同花顺转债
  * 
- * 新债日历:https://www.essence.com.cn/service/sharesandbonds
+ * http://data.10jqka.com.cn/ipo/bond/
+ * 
+ * http://data.10jqka.com.cn/ipo/kzz/
  * 
  * @author Birdy
  *
  */
-public class EssenceIssueBond implements IssueBond {
+public class TjqkaIssueBond implements IssueBond {
 
-    protected static final Logger logger = LoggerFactory.getLogger(EssenceIssueBond.class);
+    protected static final Logger logger = LoggerFactory.getLogger(TjqkaIssueBond.class);
 
     protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /** 新债列表模板 */
-    // https://www.essence.com.cn/api/newbonds?pageNo={page}&pageSize={size}
-    private static final String issueUrl = URLDecoder.decode("https://www.essence.com.cn/api/newbonds?pageNo={}&pageSize={}");
+    // http://data.10jqka.com.cn/ipo/kzz/
+    private static final String issueUrl = URLDecoder.decode("http://data.10jqka.com.cn/ipo/kzz/");
 
     private ONode node;
 
-    protected EssenceIssueBond(ONode node) {
+    protected TjqkaIssueBond(ONode node) {
         this.node = node;
     }
 
     @Override
     public String getBondCode() {
-        return node.get("securityCode").getString();
+        return node.get("bond_code").getString();
     }
 
     @Override
     public String getBondName() {
-        return node.get("securityName").getString();
+        return node.get("bond_name").getString();
     }
 
     @Override
     public float getFaceValue() {
-        throw new UnsupportedOperationException();
+        return node.get("issue_price").getFloat();
     }
 
     @Override
     public Duration getBondDuration() {
-        throw new UnsupportedOperationException();
+        return Duration.between(getBeginDate(), getEndDate());
     }
 
     @Override
@@ -84,12 +86,12 @@ public class EssenceIssueBond implements IssueBond {
 
     @Override
     public LocalDate getBeginDate() {
-        throw new UnsupportedOperationException();
+        return getDate(node.get("sub_date").getString());
     }
 
     @Override
     public LocalDate getEndDate() {
-        throw new UnsupportedOperationException();
+        return getDate(node.get("expire_date").getString());
     }
 
     @Override
@@ -99,20 +101,19 @@ public class EssenceIssueBond implements IssueBond {
 
     @Override
     public LocalDate getIssueDate() {
-        return getDate(node.get("issueDate").getString());
+        return getDate(node.get("sub_date").getString());
     }
 
     @Override
     public LocalDate getListDate() {
-        return getDate(node.get("listDate").getString());
+        return getDate(node.get("sub_date").getString());
     }
 
-    public static Map<String, String> getItemsByPage(RestTemplate template, int page, int size) {
+    public static Map<String, TjqkaIssueBond> getItemsByPage(RestTemplate template) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-        headers.add(HttpHeaders.ACCEPT, "application/json");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(issueUrl, page, size);
+        String url = StringUtility.format(issueUrl);
         url = URLDecoder.decode(url);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
@@ -120,12 +121,12 @@ public class EssenceIssueBond implements IssueBond {
             logger.debug(JsonUtility.prettyJson(data));
         }
         ONode root = ONode.load(data);
-        List<ONode> nodes = root.get("data").ary();
-        Map<String, String> items = new LinkedHashMap<>();
+        List<ONode> nodes = root.get("list").ary();
+        Map<String, TjqkaIssueBond> items = new LinkedHashMap<>();
         for (ONode node : nodes) {
-            String id = node.get("id").getString();
-            String title = node.get("title").getString();
-            items.put(id, title);
+            TjqkaIssueBond bond = new TjqkaIssueBond(node);
+            String id = bond.getBondCode();
+            items.put(id, bond);
         }
         return items;
     }
