@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
-import com.jstarcraft.crawler.trade.security.bond.IssueBond;
+import com.jstarcraft.crawler.trade.security.IssueSecurity;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
 import jodd.net.URLDecoder;
@@ -33,7 +33,7 @@ import jodd.net.URLDecoder;
  * @author Birdy
  *
  */
-public class EssenceIssueBond implements IssueBond {
+public class EssenceIssueBond implements IssueSecurity {
 
     protected static final Logger logger = LoggerFactory.getLogger(EssenceIssueBond.class);
 
@@ -50,28 +50,13 @@ public class EssenceIssueBond implements IssueBond {
     }
 
     @Override
-    public String getBondCode() {
+    public String getSecurityCode() {
         return node.get("securityCode").getString();
     }
 
     @Override
-    public String getBondName() {
+    public String getSecurityName() {
         return node.get("securityName").getString();
-    }
-
-    @Override
-    public float getFaceValue() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Duration getBondDuration() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object2FloatSortedMap<LocalDate> getInterestRate() {
-        throw new UnsupportedOperationException();
     }
 
     private LocalDate getDate(String data) {
@@ -80,21 +65,6 @@ public class EssenceIssueBond implements IssueBond {
         } catch (DateTimeParseException exception) {
             return null;
         }
-    }
-
-    @Override
-    public LocalDate getBeginDate() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public LocalDate getEndDate() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getCreditRank() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.jstarcraft.crawler.trade.security.stock.essence;
 
+import java.time.LocalDate;
+
+import com.jstarcraft.crawler.trade.security.IssueSecurity;
+
 /**
  * 安信新股
  * 
@@ -8,6 +12,30 @@ package com.jstarcraft.crawler.trade.security.stock.essence;
  * @author Birdy
  *
  */
-public class EssenceIssueStock {
+public class EssenceIssueStock implements IssueSecurity {
+
+    @Override
+    public String getSecurityCode() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getSecurityName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LocalDate getIssueDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LocalDate getListDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

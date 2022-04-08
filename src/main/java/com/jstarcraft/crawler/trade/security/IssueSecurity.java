@@ -36,6 +36,6 @@ public interface IssueSecurity {
      * 
      * @return
      */
-    public LocalDate ListDate();
+    public LocalDate getListDate();
 
 }
