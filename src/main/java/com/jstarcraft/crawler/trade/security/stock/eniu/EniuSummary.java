@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
-import com.jstarcraft.crawler.trade.Measure;
+import com.jstarcraft.crawler.trade.security.stock.Measure;
 
 /**
  * 亿牛概要

@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade;
+package com.jstarcraft.crawler.trade.security.stock;
 
 public enum Measure {
 
@@ -23,7 +23,7 @@ public enum Measure {
     /** 股息率(Dividend Yield Ratio) */
     DY,
 
-    /** 派息率( Dividend Payout Ratio) */
+    /** 派息率(Dividend Payout Ratio) */
     DP;
 
 }

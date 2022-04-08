@@ -31,4 +31,60 @@ public interface Stock extends Security {
      */
     public String getStockSedol();
 
+    /**
+     * 获取股票价格
+     * 
+     * @return
+     */
+    public float getStockPrice();
+
+    /**
+     * 获取股票市净率
+     * 
+     * @return
+     */
+    public float getPrice2Book();
+
+    /**
+     * 获取股票市盈率
+     * 
+     * @return
+     */
+    public float getPrice2Earn();
+
+    /**
+     * 获取股票市销率
+     * 
+     * @return
+     */
+    public float getPrice2Sale();
+
+    /**
+     * 获取股票资产回报率
+     * 
+     * @return
+     */
+    public float getReturnAsset();
+
+    /**
+     * 获取股票权益回报率
+     * 
+     * @return
+     */
+    public float getReturnEquity();
+
+    /**
+     * 股息率
+     * 
+     * @return
+     */
+    public float getDividendYield();
+
+    /**
+     * 派息率
+     * 
+     * @return
+     */
+    public float getDividendPayout();
+
 }

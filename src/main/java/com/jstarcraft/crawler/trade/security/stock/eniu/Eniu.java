@@ -22,8 +22,8 @@ import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
-import com.jstarcraft.crawler.trade.Exchange;
-import com.jstarcraft.crawler.trade.Measure;
+import com.jstarcraft.crawler.trade.security.Exchange;
+import com.jstarcraft.crawler.trade.security.stock.Measure;
 
 import it.unimi.dsi.fastutil.longs.Long2FloatAVLTreeMap;
 import it.unimi.dsi.fastutil.longs.Long2FloatMap;

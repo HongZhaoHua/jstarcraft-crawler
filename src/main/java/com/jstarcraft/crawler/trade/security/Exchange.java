@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade;
+package com.jstarcraft.crawler.trade.security;
 
 /**
  * 证券交易所

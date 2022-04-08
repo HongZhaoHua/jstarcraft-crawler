@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 import org.threeten.extra.YearQuarter;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
-import com.jstarcraft.crawler.trade.Measure;
 import com.jstarcraft.crawler.trade.security.stock.eniu.EniuHistory;
 import com.jstarcraft.crawler.trade.security.stock.eniu.EniuStatistic;
 import com.jstarcraft.crawler.trade.security.stock.eniu.EniuSummary;
