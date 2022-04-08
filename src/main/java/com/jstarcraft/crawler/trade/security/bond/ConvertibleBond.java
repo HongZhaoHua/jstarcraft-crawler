@@ -1,5 +1,7 @@
 package com.jstarcraft.crawler.trade.security.bond;
 
+import java.time.LocalDate;
+
 import com.jstarcraft.crawler.trade.security.stock.Stock;
 
 /**
@@ -15,7 +17,7 @@ import com.jstarcraft.crawler.trade.security.stock.Stock;
 public interface ConvertibleBond {
 
     /**
-     * 获取转股股票
+     * 获取转股股票/转换股票
      * 
      * @return
      */
@@ -58,7 +60,14 @@ public interface ConvertibleBond {
     public float getConversionPremiumRatio();
 
     /**
-     * 获取回售价格(Putability/Resale)、
+     * 获取转股日期/转换日期
+     * 
+     * @return
+     */
+    public LocalDate getConversionDate();
+
+    /**
+     * 获取回售价格(Putability/Resale)
      * 
      * <pre>
      * 债权人回售债券

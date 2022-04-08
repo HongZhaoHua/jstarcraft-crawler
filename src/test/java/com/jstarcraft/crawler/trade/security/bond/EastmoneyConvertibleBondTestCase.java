@@ -8,12 +8,6 @@ import com.jstarcraft.crawler.trade.security.bond.eastmoney.EastmoneyConvertible
 public class EastmoneyConvertibleBondTestCase {
 
     @Test
-    public void testGetItemsByPage() {
-        RestTemplate template = new RestTemplate();
-        EastmoneyConvertibleBond.getItemsByPage(template, 1);
-    }
-
-    @Test
     public void testGetItemByCode() {
         RestTemplate template = new RestTemplate();
         EastmoneyConvertibleBond.getItemByCode(template, "113057");

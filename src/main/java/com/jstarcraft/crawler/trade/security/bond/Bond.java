@@ -1,5 +1,10 @@
 package com.jstarcraft.crawler.trade.security.bond;
 
+import java.time.Duration;
+import java.time.LocalDate;
+
+import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
+
 /**
  * 债券
  * 
@@ -30,63 +35,63 @@ public interface Bond {
     public float getFaceValue();
 
     /**
-     * 获取债券价格
+     * 获取债券价格(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondPrice();
 
     /**
-     * 获取债券涨跌额
+     * 获取债券涨跌额(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondChangeAmount();
 
     /**
-     * 获取债券涨跌幅
+     * 获取债券涨跌幅(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondChangeRate();
 
     /**
-     * 获取债券开盘价格
+     * 获取债券开盘价格(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondOpeningPrice();
 
     /**
-     * 获取债券收盘价格
+     * 获取债券收盘价格(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondClosingPrice();
 
     /**
-     * 获取债券最高价格
+     * 获取债券最高价格(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondHighestPrice();
 
     /**
-     * 获取债券最低价格
+     * 获取债券最低价格(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getBondLowestPrice();
 
     /**
-     * 成交额(考虑迁移到Security)
+     * 成交额(TODO 考虑迁移到Security)
      * 
      * @return
      */
     public float getTurnover();
 
     /**
-     * 成交量(考虑迁移到Security)
+     * 成交量(TODO 考虑迁移到Security)
      * 
      * @return
      */
@@ -105,5 +110,38 @@ public interface Bond {
      * @return
      */
     public float getDirtyPrice();
+
+    /**
+     * 获取债券期限
+     * 
+     * @return
+     */
+    public Duration getBondDuration();
+
+    /**
+     * 获取债券利率(TODO 兼容分段利率)
+     * 
+     * @return
+     */
+    public Object2FloatSortedMap<LocalDate> getInterestRate();
+
+    /**
+     * 起息日期
+     * 
+     * @return
+     */
+    public LocalDate getBeginDate();
+
+    /**
+     * 止息日期
+     * 
+     * @return
+     */
+    public LocalDate getEndDate();
+
+    /**
+     * 信用评级
+     */
+    public String getCreditRank();
 
 }

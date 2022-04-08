@@ -42,10 +42,6 @@ public class EastmoneyConvertibleBond {
 
     protected static final Logger logger = LoggerFactory.getLogger(EastmoneyConvertibleBond.class);
 
-    /** 转债列表模板 */
-    // https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize=50&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
-    private static final String pageUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={}&sortTypes={}&pageNumber={}&pageSize=50&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO");
-
     /** 转债详情模板 */
     // https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=&filter=(SECURITY_CODE%3D%22{code}%22)
     private static final String bondUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=&filter=(SECURITY_CODE%3D%22{}%22)");
@@ -53,28 +49,6 @@ public class EastmoneyConvertibleBond {
     /** 转债历史模板 */
     // https://datacenter-web.eastmoney.com/api/data/get?sty=ALL&st=date&sr=1&type=RPTA_WEB_KZZ_LS&filter=(zcode%3D%22{code}%22)&p={page}&ps=8000
     private static final String historyUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/get?sty=ALL&st=date&sr=1&type=RPTA_WEB_KZZ_LS&filter=(zcode%3D%22{}%22)&p={}&ps=8000");
-
-    public static Map<String, String> getItemsByPage(RestTemplate template, int page) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(pageUrl, "PUBLIC_START_DATE", -1, page);
-        url = URLDecoder.decode(url);
-        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String data = response.getBody();
-        if (logger.isDebugEnabled()) {
-            logger.debug(JsonUtility.prettyJson(data));
-        }
-        ONode root = ONode.load(data);
-        List<ONode> nodes = root.get("result").get("data").ary();
-        Map<String, String> items = new LinkedHashMap<>();
-        for (ONode node : nodes) {
-            String id = node.get("id").getString();
-            String title = node.get("title").getString();
-            items.put(id, title);
-        }
-        return items;
-    }
 
     public static Map<String, String> getItemByCode(RestTemplate template, String code) {
         HttpHeaders headers = new HttpHeaders();
@@ -109,7 +83,5 @@ public class EastmoneyConvertibleBond {
         Map<String, String> items = new LinkedHashMap<>();
         return items;
     }
-    
-   
 
 }
