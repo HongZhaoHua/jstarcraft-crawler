@@ -48,8 +48,8 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
     /** 转换价值 */
     private float conversionValue;
 
-    /** 转换折溢价 */
-    private float conversionPremium;
+    /** 转换日期 */
+    private LocalDate conversionDate;
 
     @Override
     public Stock getConversionStock() {
@@ -68,7 +68,8 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
 
     @Override
     public float getConversionPremium() {
-        return conversionPremium;
+        // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
@@ -79,8 +80,7 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
 
     @Override
     public LocalDate getConversionDate() {
-        // TODO Auto-generated method stub
-        return null;
+        return conversionDate;
     }
 
     @Override

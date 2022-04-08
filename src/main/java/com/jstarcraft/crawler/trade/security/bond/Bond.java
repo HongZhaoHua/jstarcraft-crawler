@@ -139,4 +139,9 @@ public interface Bond {
      */
     public LocalDate getEndDate();
 
+    /**
+     * 信用评级
+     */
+    public String getCreditRank();
+
 }
