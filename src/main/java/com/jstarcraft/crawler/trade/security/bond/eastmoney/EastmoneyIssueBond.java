@@ -39,42 +39,48 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
     // https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize={size}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
     private static final String issueUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={}&sortTypes={}&pageNumber={}&pageSize={}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO");
 
+    /** 转换股票 */
     private Stock conversionStock;
 
+    /** 转换价格 */
     private float conversionPrice;
 
+    /** 转换价值 */
     private float conversionValue;
 
+    /** 转换折溢价 */
     private float conversionPremium;
 
     @Override
     public Stock getConversionStock() {
-        // TODO Auto-generated method stub
         return conversionStock;
     }
 
     @Override
     public float getConversionPrice() {
-        // TODO Auto-generated method stub
-        return 0;
+        return conversionPrice;
     }
 
     @Override
     public float getConversionValue() {
-        // TODO Auto-generated method stub
-        return 0;
+        return conversionValue;
     }
 
     @Override
     public float getConversionPremium() {
-        // TODO Auto-generated method stub
-        return 0;
+        return conversionPremium;
     }
 
     @Override
     public float getConversionPremiumRatio() {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    @Override
+    public LocalDate getConversionDate() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
@@ -96,7 +102,13 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
     }
 
     @Override
-    public LocalDate ListDate() {
+    public LocalDate getListDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LocalDate getDelistDate() {
         // TODO Auto-generated method stub
         return null;
     }

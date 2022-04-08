@@ -22,6 +22,13 @@ public interface IssueBond {
      * 
      * @return
      */
-    public LocalDate ListDate();
+    public LocalDate getListDate();
+    
+    /**
+     * 获取下市日期
+     * 
+     * @return
+     */
+    public LocalDate getDelistDate();
 
 }
