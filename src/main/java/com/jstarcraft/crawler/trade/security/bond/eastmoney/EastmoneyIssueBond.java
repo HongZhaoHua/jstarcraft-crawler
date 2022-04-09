@@ -154,7 +154,7 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
         return getDate(node.get("LISTING_DATE").getString());
     }
 
-    public static Map<String, String> getItemsByPage(RestTemplate template, int page, int size) {
+    public static Map<String, EastmoneyIssueBond> getItemsByPage(RestTemplate template, int page, int size) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -167,11 +167,12 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("result").get("data").ary();
-        Map<String, String> items = new LinkedHashMap<>();
+        // TODO 获取总数
+        int count = root.get("result").get("count").getInt();
+        Map<String, EastmoneyIssueBond> items = new LinkedHashMap<>();
         for (ONode node : nodes) {
-            String id = node.get("id").getString();
-            String title = node.get("title").getString();
-            items.put(id, title);
+            EastmoneyIssueBond bond = new EastmoneyIssueBond(node);
+            items.put(bond.getBondCode(), bond);
         }
         return items;
     }

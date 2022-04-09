@@ -122,11 +122,12 @@ public class TjqkaIssueBond implements IssueBond {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("list").ary();
+        // TODO 获取总数
+        int count = nodes.size();
         Map<String, TjqkaIssueBond> items = new LinkedHashMap<>();
         for (ONode node : nodes) {
             TjqkaIssueBond bond = new TjqkaIssueBond(node);
-            String id = bond.getBondCode();
-            items.put(id, bond);
+            items.put(bond.getBondCode(), bond);
         }
         return items;
     }
