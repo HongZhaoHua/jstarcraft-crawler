@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.noear.snack.ONode;
 import org.slf4j.Logger;
@@ -32,10 +33,13 @@ public class WereadNote {
     private final RestTemplate template;
 
     private final String id;
+    
+    private final Supplier<String> cookie;
 
-    public WereadNote(RestTemplate template, String id) {
+    public WereadNote(RestTemplate template, String id, Supplier<String> cookie) {
         this.template = template;
         this.id = id;
+        this.cookie = cookie;
     }
 
     /** 笔记路径模板 */
@@ -84,8 +88,8 @@ public class WereadNote {
      * @param cookie
      * @return
      */
-    public List<WereadSummary> getOwnMarks(String cookie) {
-        List<String> cookies = Arrays.asList(cookie);
+    public List<WereadSummary> getOwnMarks() {
+        List<String> cookies = Arrays.asList(cookie.get());
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
@@ -110,8 +114,8 @@ public class WereadNote {
      * @param cookie
      * @return
      */
-    public List<WereadSummary> getOtherMarks(String cookie) {
-        List<String> cookies = Arrays.asList(cookie);
+    public List<WereadSummary> getOtherMarks() {
+        List<String> cookies = Arrays.asList(cookie.get());
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
@@ -150,8 +154,8 @@ public class WereadNote {
      * @param chapter
      * @return
      */
-    public List<WereadSummary> getOwnThoughts(String cookie, int chapter) {
-        List<String> cookies = Arrays.asList(cookie);
+    public List<WereadSummary> getOwnThoughts(int chapter) {
+        List<String> cookies = Arrays.asList(cookie.get());
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
@@ -177,8 +181,8 @@ public class WereadNote {
      * @param chapter
      * @return
      */
-    public List<WereadSummary> getOtherThoughts(String cookie, int chapter) {
-        List<String> cookies = Arrays.asList(cookie);
+    public List<WereadSummary> getOtherThoughts(int chapter) {
+        List<String> cookies = Arrays.asList(cookie.get());
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);

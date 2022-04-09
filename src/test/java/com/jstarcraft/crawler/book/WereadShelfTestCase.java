@@ -68,8 +68,8 @@ public class WereadShelfTestCase {
         if (cookie.isEmpty()) {
             throw new RuntimeException("必须填写Cookie才能获取信息");
         }
-        WereadNote note = new WereadNote(template, "855812");
-        List<WereadSummary> summaries = note.getOwnMarks(cookie);
+        WereadNote note = new WereadNote(template, "855812", () -> cookie);
+        List<WereadSummary> summaries = note.getOwnMarks();
         Assert.assertEquals(860, summaries.size());
     }
 
@@ -84,8 +84,8 @@ public class WereadShelfTestCase {
         if (cookie.isEmpty()) {
             throw new RuntimeException("必须填写Cookie才能获取信息");
         }
-        WereadNote note = new WereadNote(template, "855812");
-        List<WereadSummary> summaries = note.getOtherMarks(cookie);
+        WereadNote note = new WereadNote(template, "855812", () -> cookie);
+        List<WereadSummary> summaries = note.getOtherMarks();
         Assert.assertEquals(366, summaries.size());
     }
 
@@ -100,8 +100,8 @@ public class WereadShelfTestCase {
         if (cookie.isEmpty()) {
             throw new RuntimeException("必须填写Cookie才能获取信息");
         }
-        WereadNote note = new WereadNote(template, "855812");
-        List<WereadSummary> summaries = note.getOwnThoughts(cookie, 0);
+        WereadNote note = new WereadNote(template, "855812", () -> cookie);
+        List<WereadSummary> summaries = note.getOwnThoughts(0);
         Assert.assertEquals(8, summaries.size());
     }
 
@@ -116,8 +116,8 @@ public class WereadShelfTestCase {
         if (cookie.isEmpty()) {
             throw new RuntimeException("必须填写Cookie才能获取信息");
         }
-        WereadNote note = new WereadNote(template, "855812");
-        List<WereadSummary> summaries = note.getOtherThoughts(cookie, 0);
+        WereadNote note = new WereadNote(template, "855812", () -> cookie);
+        List<WereadSummary> summaries = note.getOtherThoughts(0);
         Assert.assertEquals(500, summaries.size());
     }
 
