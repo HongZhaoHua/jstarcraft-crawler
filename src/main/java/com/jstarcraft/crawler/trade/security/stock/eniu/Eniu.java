@@ -23,7 +23,7 @@ import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
 import com.jstarcraft.crawler.trade.security.Exchange;
-import com.jstarcraft.crawler.trade.security.stock.Measure;
+import com.jstarcraft.crawler.trade.security.stock.StockMeasure;
 
 import it.unimi.dsi.fastutil.longs.Long2FloatAVLTreeMap;
 import it.unimi.dsi.fastutil.longs.Long2FloatMap;
@@ -50,23 +50,23 @@ public class Eniu {
 
     private static final JsoupCssSelector industrySelector = new JsoupCssSelector("div.col-md-6 a");
 
-    private static final Map<String, Measure> abName2Measures = new HashMap<>();
+    private static final Map<String, StockMeasure> abName2Measures = new HashMap<>();
 
-    private static final Map<String, Measure> hName2Measures = new HashMap<>();
+    private static final Map<String, StockMeasure> hName2Measures = new HashMap<>();
 
     static {
-        abName2Measures.put("价 格", Measure.PRICE);
-        abName2Measures.put("市盈率", Measure.PE);
-        abName2Measures.put("市净率", Measure.PB);
-        abName2Measures.put("股息率", Measure.DY);
-        abName2Measures.put("派息率", Measure.DP);
-        abName2Measures.put("ROE", Measure.ROE);
+        abName2Measures.put("价 格", StockMeasure.PRICE);
+        abName2Measures.put("市盈率", StockMeasure.PE);
+        abName2Measures.put("市净率", StockMeasure.PB);
+        abName2Measures.put("股息率", StockMeasure.DY);
+        abName2Measures.put("派息率", StockMeasure.DP);
+        abName2Measures.put("ROE", StockMeasure.ROE);
 
-        hName2Measures.put("前复权股价", Measure.PRICE);
-        hName2Measures.put("历史市盈率", Measure.PE);
-        hName2Measures.put("历史市净率", Measure.PB);
-        hName2Measures.put("历史股息率", Measure.DY);
-        hName2Measures.put("前复权股价", Measure.PRICE);
+        hName2Measures.put("前复权股价", StockMeasure.PRICE);
+        hName2Measures.put("历史市盈率", StockMeasure.PE);
+        hName2Measures.put("历史市净率", StockMeasure.PB);
+        hName2Measures.put("历史股息率", StockMeasure.DY);
+        hName2Measures.put("前复权股价", StockMeasure.PRICE);
     }
 
     private static String getId(Exchange share, String code) {
@@ -85,7 +85,7 @@ public class Eniu {
         throw new IllegalArgumentException();
     }
 
-    public static Map<Measure, String> getNow(Exchange share, String code) {
+    public static Map<StockMeasure, String> getNow(Exchange share, String code) {
         String url = StringUtility.format("https://eniu.com/gu/{}", getId(share, code));
         if (share == Exchange.SH) {
             // A股
@@ -102,8 +102,8 @@ public class Eniu {
         throw new IllegalArgumentException();
     }
 
-    private static Map<Measure, String> getStock(String url, JsoupCssSelector[] selectors, Map<String, Measure> measures) {
-        Map<Measure, String> keyValues = new TreeMap<>();
+    private static Map<StockMeasure, String> getStock(String url, JsoupCssSelector[] selectors, Map<String, StockMeasure> measures) {
+        Map<StockMeasure, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
@@ -116,7 +116,7 @@ public class Eniu {
             for (Element element : selector.selectMultiple(document.root())) {
                 String key = element.attr("title");
                 String value = element.text();
-                Measure measure = measures.get(key);
+                StockMeasure measure = measures.get(key);
                 if (measure != null) {
                     value = value.replaceAll(regular, "$1");
                     keyValues.put(measure, value);
@@ -133,33 +133,33 @@ public class Eniu {
         return keyValues;
     }
 
-    private static final Map<Measure, String[]> abMeasure2Names = new HashMap<>();
+    private static final Map<StockMeasure, String[]> abMeasure2Names = new HashMap<>();
 
-    private static final Map<Measure, String[]> hMeasure2Names = new HashMap<>();
+    private static final Map<StockMeasure, String[]> hMeasure2Names = new HashMap<>();
 
     private static final Map<String, DateTimeFormatter> formatters = new HashMap<>();
 
     static {
-        abMeasure2Names.put(Measure.PRICE, new String[] { "https://eniu.com/chart/pricea/{}/t/1", "date", "price", "yyyy-MM-dd" });
-        abMeasure2Names.put(Measure.PE, new String[] { "https://eniu.com/chart/pea/{}/t/1", "date", "pe_ttm", "yyyy-MM-dd" });
-        abMeasure2Names.put(Measure.PB, new String[] { "https://eniu.com/chart/pba/{}/t/1", "date", "pb", "yyyy-MM-dd" });
-        abMeasure2Names.put(Measure.PS, new String[] { "https://eniu.com/chart/psa/{}/t/1", "date", "ps", "yyyy-MM-dd" });
-        abMeasure2Names.put(Measure.DY, new String[] { "https://eniu.com/chart/dva/{}/t/1", "date", "dv", "yyyy-MM-dd" });
-        abMeasure2Names.put(Measure.DP, new String[] { "https://eniu.com/chart/pxla/{}", "fhnd", "pxl", "yyyy" });
-        abMeasure2Names.put(Measure.ROA, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roa", "yyyy" });
-        abMeasure2Names.put(Measure.ROE, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roe", "yyyy" });
+        abMeasure2Names.put(StockMeasure.PRICE, new String[] { "https://eniu.com/chart/pricea/{}/t/1", "date", "price", "yyyy-MM-dd" });
+        abMeasure2Names.put(StockMeasure.PE, new String[] { "https://eniu.com/chart/pea/{}/t/1", "date", "pe_ttm", "yyyy-MM-dd" });
+        abMeasure2Names.put(StockMeasure.PB, new String[] { "https://eniu.com/chart/pba/{}/t/1", "date", "pb", "yyyy-MM-dd" });
+        abMeasure2Names.put(StockMeasure.PS, new String[] { "https://eniu.com/chart/psa/{}/t/1", "date", "ps", "yyyy-MM-dd" });
+        abMeasure2Names.put(StockMeasure.DY, new String[] { "https://eniu.com/chart/dva/{}/t/1", "date", "dv", "yyyy-MM-dd" });
+        abMeasure2Names.put(StockMeasure.DP, new String[] { "https://eniu.com/chart/pxla/{}", "fhnd", "pxl", "yyyy" });
+        abMeasure2Names.put(StockMeasure.ROA, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roa", "yyyy" });
+        abMeasure2Names.put(StockMeasure.ROE, new String[] { "https://eniu.com/chart/roea/{}/q/0", "date", "roe", "yyyy" });
 
-        hMeasure2Names.put(Measure.PRICE, new String[] { "https://eniu.com/chart/priceh/{}", "date", "price", "yyyy-MM-dd" });
-        hMeasure2Names.put(Measure.PE, new String[] { "https://eniu.com/chart/peh/{}", "date", "pe", "yyyy-MM-dd" });
-        hMeasure2Names.put(Measure.PB, new String[] { "https://eniu.com/chart/pbh/{}", "date", "pb", "yyyy-MM-dd" });
-        hMeasure2Names.put(Measure.DY, new String[] { "https://eniu.com/chart/dvh/{}", "date", "dv", "yyyy-MM-dd" });
-        hMeasure2Names.put(Measure.ROE, new String[] { "https://eniu.com/chart/roeh/{}", "date", "roe", "yyyy" });
+        hMeasure2Names.put(StockMeasure.PRICE, new String[] { "https://eniu.com/chart/priceh/{}", "date", "price", "yyyy-MM-dd" });
+        hMeasure2Names.put(StockMeasure.PE, new String[] { "https://eniu.com/chart/peh/{}", "date", "pe", "yyyy-MM-dd" });
+        hMeasure2Names.put(StockMeasure.PB, new String[] { "https://eniu.com/chart/pbh/{}", "date", "pb", "yyyy-MM-dd" });
+        hMeasure2Names.put(StockMeasure.DY, new String[] { "https://eniu.com/chart/dvh/{}", "date", "dv", "yyyy-MM-dd" });
+        hMeasure2Names.put(StockMeasure.ROE, new String[] { "https://eniu.com/chart/roeh/{}", "date", "roe", "yyyy" });
 
         formatters.put("yyyy", DateTimeFormatter.ofPattern("yyyy"));
         formatters.put("yyyy-MM-dd", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    public static Long2FloatMap getBefore(Exchange share, String code, Measure measure) {
+    public static Long2FloatMap getBefore(Exchange share, String code, StockMeasure measure) {
         String[] names = null;
         if (share == Exchange.SH || share == Exchange.SZ) {
             // A股

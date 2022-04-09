@@ -109,18 +109,18 @@ public class EniuStockTestCase {
     @Test
     public void testSummary() {
         RestTemplate template = new RestTemplate();
-        System.out.println(EniuSummary.AB.getMeasures(template, "sh601225").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getMeasures(template, "sh600900").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getMeasures(template, "sh600031").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getMeasures(template, "sh601318").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getMeasures(template, "sz000895").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getMeasures(template, "sz000651").get(Measure.PB));
-        System.out.println(EniuSummary.AB.getMeasures(template, "sz000063").get(Measure.PB));
-        System.out.println(EniuSummary.H.getMeasures(template, "hk01810").get(Measure.PB));
-        System.out.println(EniuSummary.H.getMeasures(template, "hk09988").get(Measure.PB));
-        System.out.println(EniuSummary.H.getMeasures(template, "hk00700").get(Measure.PB));
-        System.out.println(EniuSummary.H.getMeasures(template, "hk03333").get(Measure.PB));
-        System.out.println(EniuSummary.H.getMeasures(template, "hk01448").get(Measure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh601225").get(StockMeasure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh600900").get(StockMeasure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh600031").get(StockMeasure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sh601318").get(StockMeasure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sz000895").get(StockMeasure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sz000651").get(StockMeasure.PB));
+        System.out.println(EniuSummary.AB.getMeasures(template, "sz000063").get(StockMeasure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk01810").get(StockMeasure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk09988").get(StockMeasure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk00700").get(StockMeasure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk03333").get(StockMeasure.PB));
+        System.out.println(EniuSummary.H.getMeasures(template, "hk01448").get(StockMeasure.PB));
     }
 
     @Test

@@ -1,6 +1,13 @@
 package com.jstarcraft.crawler.trade.security.stock;
 
-public enum Measure {
+/**
+ * TODO Measure
+ * 
+ * @author Birdy
+ *
+ */
+@Deprecated
+public enum StockMeasure {
 
     /** 价格 */
     PRICE,

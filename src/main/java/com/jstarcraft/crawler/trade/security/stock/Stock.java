@@ -1,5 +1,9 @@
 package com.jstarcraft.crawler.trade.security.stock;
 
+import java.time.LocalDate;
+import java.time.Year;
+
+import com.jstarcraft.crawler.trade.Measure;
 import com.jstarcraft.crawler.trade.security.Security;
 
 /**
@@ -36,55 +40,55 @@ public interface Stock extends Security {
      * 
      * @return
      */
-    public float getStockPrice();
+    public Measure<LocalDate> getStockPrice();
 
     /**
      * 获取股票市净率
      * 
      * @return
      */
-    public float getPrice2Book();
+    public Measure<LocalDate> getPrice2Book();
 
     /**
      * 获取股票市盈率
      * 
      * @return
      */
-    public float getPrice2Earn();
+    public Measure<LocalDate> getPrice2Earn();
 
     /**
      * 获取股票市销率
      * 
      * @return
      */
-    public float getPrice2Sale();
+    public Measure<LocalDate> getPrice2Sale();
 
     /**
      * 获取股票资产回报率
      * 
      * @return
      */
-    public float getReturnAsset();
+    public Measure<LocalDate> getReturnAsset();
 
     /**
      * 获取股票权益回报率
      * 
      * @return
      */
-    public float getReturnEquity();
+    public Measure<LocalDate> getReturnEquity();
 
     /**
-     * 股息率
+     * 获取股票股息率
      * 
      * @return
      */
-    public float getDividendYield();
+    public Measure<Year> getDividendYield();
 
     /**
-     * 派息率
+     * 获取股票派息率
      * 
      * @return
      */
-    public float getDividendPayout();
+    public Measure<Year> getDividendPayout();
 
 }

@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
 import com.jstarcraft.core.utility.StringUtility;
-import com.jstarcraft.crawler.trade.security.stock.Measure;
+import com.jstarcraft.crawler.trade.security.stock.StockMeasure;
 
 /**
  * 亿牛概要
@@ -32,13 +32,13 @@ public enum EniuSummary {
 
     AB(new String[] { "价格", "市盈率", "市净率", "股息率", "派息率", "ROE" },
 
-            new Measure[] { Measure.PRICE, Measure.PE, Measure.PB, Measure.DY, Measure.DP, Measure.ROE },
+            new StockMeasure[] { StockMeasure.PRICE, StockMeasure.PE, StockMeasure.PB, StockMeasure.DY, StockMeasure.DP, StockMeasure.ROE },
 
             new String[] { "div#changyong > p > a[title]", "div#caiwu > p > a[title]" }),
 
     H(new String[] { "前复权股价", "历史市盈率", "历史市净率", "历史股息率", "ROE" },
 
-            new Measure[] { Measure.PRICE, Measure.PE, Measure.PB, Measure.DY, Measure.ROE },
+            new StockMeasure[] { StockMeasure.PRICE, StockMeasure.PE, StockMeasure.PB, StockMeasure.DY, StockMeasure.ROE },
 
             new String[] { "div.panel-body > div.row > p > a[title]" });
 
@@ -46,11 +46,11 @@ public enum EniuSummary {
 
     private static final JsoupCssSelector industrySelector = new JsoupCssSelector("div.col-md-6 a");
 
-    private final Map<String, Measure> name2Measures;
+    private final Map<String, StockMeasure> name2Measures;
 
     private final JsoupCssSelector[] selectors;
 
-    private EniuSummary(String[] names, Measure[] measures, String[] queries) {
+    private EniuSummary(String[] names, StockMeasure[] measures, String[] queries) {
         if (names.length != measures.length) {
             throw new IllegalArgumentException();
         }
@@ -72,9 +72,9 @@ public enum EniuSummary {
      * @param code
      * @return
      */
-    public Map<Measure, String> getMeasures(RestTemplate template, String code) {
+    public Map<StockMeasure, String> getMeasures(RestTemplate template, String code) {
         String url = StringUtility.format("https://eniu.com/gu/{}", code);
-        Map<Measure, String> keyValues = new TreeMap<>();
+        Map<StockMeasure, String> keyValues = new TreeMap<>();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
@@ -85,7 +85,7 @@ public enum EniuSummary {
             for (Element element : selector.selectMultiple(document.root())) {
                 String key = element.attr("title").replaceAll(StringUtility.SPACE, StringUtility.EMPTY);
                 String value = element.text();
-                Measure measure = name2Measures.get(key);
+                StockMeasure measure = name2Measures.get(key);
                 if (measure != null) {
                     value = value.replaceAll(regular, "$1");
                     keyValues.put(measure, value);
