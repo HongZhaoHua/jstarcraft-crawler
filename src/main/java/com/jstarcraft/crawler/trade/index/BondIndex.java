@@ -1,11 +1,11 @@
 package com.jstarcraft.crawler.trade.index;
 
 /**
- * 指数估值
+ * 债券指数
  * 
  * @author Birdy
  *
  */
-public interface ValuationIndex {
+public interface BondIndex {
 
 }

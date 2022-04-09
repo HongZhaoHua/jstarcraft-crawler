@@ -1,5 +1,9 @@
 package com.jstarcraft.crawler.trade.index;
 
+import java.time.temporal.Temporal;
+
+import com.jstarcraft.crawler.trade.Measure;
+
 /**
  * 指数
  * 
@@ -23,17 +27,10 @@ public interface Index {
     public String getIndexName();
 
     /**
-     * 获取指数市净率
+     * 获取指数点数
      * 
      * @return
      */
-    public float getPrice2Book();
-
-    /**
-     * 获取指数市盈率
-     * 
-     * @return
-     */
-    public float getPrice2Earn();
+    public Measure<Temporal> getIndexValue();
 
 }
