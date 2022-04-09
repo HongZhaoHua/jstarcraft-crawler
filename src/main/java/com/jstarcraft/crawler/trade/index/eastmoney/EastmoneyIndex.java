@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.index;
+package com.jstarcraft.crawler.trade.index.eastmoney;
 
 /**
  * 东方财富指数

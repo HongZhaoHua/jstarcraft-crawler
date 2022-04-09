@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.index;
+package com.jstarcraft.crawler.trade.index.csindex;
 
 /**
  * 中证指数

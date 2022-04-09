@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.index;
+package com.jstarcraft.crawler.trade.index.funddb;
 
 import java.util.LinkedHashMap;
 import java.util.List;

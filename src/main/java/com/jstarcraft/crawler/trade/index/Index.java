@@ -10,7 +10,7 @@ import com.jstarcraft.crawler.trade.Measure;
  * @author Birdy
  *
  */
-public interface Index {
+public interface Index<T extends Temporal> {
 
     /**
      * 获取指数代号
@@ -31,6 +31,6 @@ public interface Index {
      * 
      * @return
      */
-    public Measure<Temporal> getIndexValue();
+    public Measure<T> getIndexValue();
 
 }

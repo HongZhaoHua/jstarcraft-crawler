@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.index;
+package com.jstarcraft.crawler.trade.index.danjuan;
 
 /**
  * 蛋卷指数

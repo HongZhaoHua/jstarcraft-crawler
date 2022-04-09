@@ -13,6 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.selection.jsonpath.SnackJsonPathSelector;
+import com.jstarcraft.crawler.trade.index.funddb.FunddbIndex;
 
 /**
  * 韭圈儿指数单元测试

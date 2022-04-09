@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.index;
+package com.jstarcraft.crawler.trade.index.legulegu;
 
 /**
  * 乐咕乐股指数
