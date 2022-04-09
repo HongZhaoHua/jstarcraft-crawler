@@ -27,6 +27,8 @@ import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.reflection.TypeUtility;
 import com.jstarcraft.core.common.selection.jsonpath.SnackJsonPathSelector;
 import com.jstarcraft.core.common.tuple.Duet;
+import com.jstarcraft.core.common.tuple.MapTuple;
+import com.jstarcraft.core.common.tuple.Tuple;
 import com.jstarcraft.core.utility.StringUtility;
 import com.jstarcraft.crawler.trade.Measure;
 import com.jstarcraft.crawler.trade.TradeMeasure;
@@ -136,7 +138,7 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
     // https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={category}
     private static final String categoryUrl = URLDecoder.decode("https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={}");
 
-    public static Map<String, FunddbIndex> getTuplesByCategory(RestTemplate template, int category) {
+    public static Map<String, MapTuple> getTuplesByCategory(RestTemplate template, int category) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -151,7 +153,7 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
         List<ONode> nodes = root.get("data").get("right_list").ary();
         // TODO 获取总数
         int count = nodes.size();
-        Map<String, FunddbIndex> items = new LinkedHashMap<>();
+        Map<String, MapTuple> items = new LinkedHashMap<>();
 //        for (ONode node : nodes) {
 //            EastmoneyIssueBond bond = new EastmoneyIssueBond(node);
 //            items.put(bond.getBondCode(), bond);
