@@ -9,6 +9,7 @@ import com.jstarcraft.crawler.trade.Measure;
  * 
  * @author Birdy
  *
+ * @param <T>
  */
 public interface Index<T extends Temporal> {
 

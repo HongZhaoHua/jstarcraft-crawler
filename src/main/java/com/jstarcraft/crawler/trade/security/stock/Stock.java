@@ -26,14 +26,18 @@ public interface Stock extends Security {
      * 
      * @return
      */
-    public String getStockCusip();
+    default String getStockCusip() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * 获取股票SEDOL
      * 
      * @return
      */
-    public String getStockSedol();
+    default String getStockSedol() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * 获取股票价格

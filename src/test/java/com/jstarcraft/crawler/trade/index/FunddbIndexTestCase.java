@@ -28,32 +28,24 @@ import com.jstarcraft.crawler.trade.index.funddb.FunddbIndex;
 public class FunddbIndexTestCase {
 
     @Test
-    public void testCategory() throws InterruptedException {
+    public void testCategory() {
         RestTemplate template = new RestTemplate();
-        FunddbIndex.getItemsByCategory(template, 6);
-//        HttpHeaders headers = new HttpHeaders();
-//        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-//        ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/showcategory", HttpMethod.GET, request, String.class);
-//        String data = response.getBody();
-//        ONode root = ONode.load(data);
-//        SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.right_list");
-//        for (ONode node : selector.selectMultiple(root)) {
-//            System.out.println(node);
-//        }
+        FunddbIndex.getTuplesByCategory(template, 6);
     }
 
     @Test
-    public void testDetail() throws InterruptedException {
+    public void testDetail() {
         RestTemplate template = new RestTemplate();
         FunddbIndex.getIndexByCode(template, "000852.SH");
     }
 
     @Test
-    public void testHistory() throws InterruptedException {
+    public void testHistory() {
         RestTemplate template = new RestTemplate();
         FunddbIndex.getHistoryByCode(template, "000852.SH", "pe").get();
         FunddbIndex.getHistoryByCode(template, "000852.SH", "pb").get();
         FunddbIndex.getHistoryByCode(template, "000852.SH", "dy").get();
+        FunddbIndex.getHistoryByCode(template, "000852.SH", "rp").get();
     }
 
     /**

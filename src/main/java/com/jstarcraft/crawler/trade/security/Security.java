@@ -13,13 +13,17 @@ public interface Security {
      * 
      * @return
      */
-    public String getSecurityIsin();
+    default String getSecurityIsin() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * 获取国际市场识别码(Market Identifier Code/MIC)
      * 
      * @return
      */
-    public String getSecurityMic();
+    default String getSecurityMic() {
+        throw new UnsupportedOperationException();
+    }
 
 }

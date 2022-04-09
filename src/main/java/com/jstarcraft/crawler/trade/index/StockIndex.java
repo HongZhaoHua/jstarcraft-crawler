@@ -1,11 +1,9 @@
 package com.jstarcraft.crawler.trade.index;
 
 import java.time.LocalDate;
-import java.time.Year;
-import java.util.List;
+import java.time.temporal.Temporal;
 
 import com.jstarcraft.crawler.trade.Measure;
-import com.jstarcraft.crawler.trade.security.stock.Stock;
 
 /**
  * 股票指数
@@ -13,14 +11,7 @@ import com.jstarcraft.crawler.trade.security.stock.Stock;
  * @author Birdy
  *
  */
-public interface StockIndex extends Index {
-
-    /**
-     * 获取成分股票
-     * 
-     * @return
-     */
-    public List<Stock> getConstituentStocks();
+public interface StockIndex<C, T extends Temporal> extends ConstituentIndex<C, T> {
 
     /**
      * 获取指数市净率
@@ -41,6 +32,6 @@ public interface StockIndex extends Index {
      * 
      * @return
      */
-    public Measure<Year> getDividendYield();
+    public Measure<LocalDate> getDividendYield();
 
 }

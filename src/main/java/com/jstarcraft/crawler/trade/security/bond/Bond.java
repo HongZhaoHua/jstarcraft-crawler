@@ -49,21 +49,23 @@ public interface Bond {
     public Object2FloatSortedMap<LocalDate> getInterestRate();
 
     /**
-     * 起息日期
+     * 获取债券起息日期
      * 
      * @return
      */
     public LocalDate getBeginDate();
 
     /**
-     * 止息日期
+     * 获取债券止息日期
      * 
      * @return
      */
     public LocalDate getEndDate();
 
     /**
-     * 信用评级
+     * 获取债券信用评级
+     * 
+     * @return
      */
     public String getCreditRank();
 
