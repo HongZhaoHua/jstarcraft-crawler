@@ -3,7 +3,8 @@ package com.jstarcraft.crawler.trade.index;
 /**
  * 乐咕乐股指数
  * 
- * https://legulegu.com/stockdata/indices
+ * 指数列表页面:https://legulegu.com/stockdata/indices
+ * 指数估值页面:https://legulegu.com/stockdata/{code}-{ttm-lyr,pb}
  * 
  * @author Birdy
  *
