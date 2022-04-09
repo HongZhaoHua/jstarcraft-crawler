@@ -31,15 +31,16 @@ public class FunddbIndexTestCase {
     @Test
     public void testCategory() throws InterruptedException {
         RestTemplate template = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/showcategory", HttpMethod.GET, request, String.class);
-        String data = response.getBody();
-        ONode root = ONode.load(data);
-        SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.right_list");
-        for (ONode node : selector.selectMultiple(root)) {
-            System.out.println(node);
-        }
+        FunddbIndex.getItemsByCategory(template, 6);
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+//        ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/showcategory", HttpMethod.GET, request, String.class);
+//        String data = response.getBody();
+//        ONode root = ONode.load(data);
+//        SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.right_list");
+//        for (ONode node : selector.selectMultiple(root)) {
+//            System.out.println(node);
+//        }
     }
 
     @Test
@@ -63,9 +64,10 @@ public class FunddbIndexTestCase {
         }
         System.out.println(nodes.size());
     }
-    
+
     /**
      * 获取成分股
+     * 
      * @throws InterruptedException
      */
     @Test
