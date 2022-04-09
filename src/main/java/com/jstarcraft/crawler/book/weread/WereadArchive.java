@@ -55,6 +55,24 @@ public class WereadArchive {
         return progresses;
     }
 
+    public WereadArchive(String id, String name, Map<String, String> items) {
+        this.id = id;
+        this.name = name;
+        this.items = items;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<String, String> getItems() {
+        return items;
+    }
+
     /**
      * 按书架获取档案
      * 
@@ -90,24 +108,6 @@ public class WereadArchive {
         WereadArchive archive = new WereadArchive(StringUtility.EMPTY, StringUtility.EMPTY, items);
         archives.put(StringUtility.EMPTY, archive);
         return archives;
-    }
-
-    public WereadArchive(String id, String name, Map<String, String> items) {
-        this.id = id;
-        this.name = name;
-        this.items = items;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Map<String, String> getItems() {
-        return items;
     }
 
 }

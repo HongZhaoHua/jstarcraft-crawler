@@ -98,38 +98,6 @@ public class WereadBook implements Book<WereadChapter> {
 
     private Instant instant;
 
-    public static String getHerf(String id) {
-        return function.doWith(String.class, id);
-    }
-
-    /**
-     * 按关键字获取图书
-     * 
-     * @param template
-     * @param key
-     * @return
-     */
-    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(findUrl, key, offset);
-        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String data = response.getBody();
-        if (logger.isDebugEnabled()) {
-            logger.debug(JsonUtility.prettyJson(data));
-        }
-        ONode root = ONode.load(data);
-        List<ONode> nodes = root.get("books").ary();
-        Map<String, String> items = new LinkedHashMap<>(nodes.size());
-        for (ONode node : nodes) {
-            String id = node.get("bookInfo").get("bookId").getString();
-            String title = node.get("bookInfo").get("title").getString();
-            items.put(id, title);
-        }
-        return items;
-    }
-
     public WereadBook(RestTemplate template, String id) {
         this.template = template;
         this.id = id;
@@ -247,6 +215,38 @@ public class WereadBook implements Book<WereadChapter> {
             summaries.add(summary);
         }
         return summaries;
+    }
+
+    public static String getHerf(String id) {
+        return function.doWith(String.class, id);
+    }
+
+    /**
+     * 按关键字获取图书
+     * 
+     * @param template
+     * @param key
+     * @return
+     */
+    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format(findUrl, key, offset);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
+        ONode root = ONode.load(data);
+        List<ONode> nodes = root.get("books").ary();
+        Map<String, String> items = new LinkedHashMap<>(nodes.size());
+        for (ONode node : nodes) {
+            String id = node.get("bookInfo").get("bookId").getString();
+            String title = node.get("bookInfo").get("title").getString();
+            items.put(id, title);
+        }
+        return items;
     }
 
 }

@@ -105,68 +105,6 @@ public class DoubanBook implements Book<Chapter> {
 
     private Instant instant;
 
-    /**
-     * 按关键字获取图书
-     * 
-     * @param template
-     * @param key
-     * @return
-     */
-    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(findUrl, key, offset);
-        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String data = response.getBody();
-        if (logger.isDebugEnabled()) {
-            logger.debug(XmlUtility.prettyHtml(data));
-        }
-        data = scriptSelector.selectSingle(data);
-        data = function.doWith(String.class, data);
-        if (logger.isDebugEnabled()) {
-            logger.debug(JsonUtility.prettyJson(data));
-        }
-        ONode root = ONode.load(data);
-        List<ONode> nodes = root.get("payload").get("items").ary();
-        Map<String, String> items = new LinkedHashMap<>();
-        for (ONode node : nodes) {
-            String id = node.get("id").getString();
-            String title = node.get("title").getString();
-            items.put(id, title);
-        }
-        return items;
-    }
-
-    /**
-     * 按标签获取图书
-     * 
-     * @param template
-     * @param tag
-     * @param offset
-     * @return
-     */
-    public static Map<String, String> getItemsByTag(RestTemplate template, String tag, int offset) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(tagUrl, tag, offset, "T");
-        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
-        String data = response.getBody();
-        if (logger.isDebugEnabled()) {
-            logger.debug(XmlUtility.prettyHtml(data));
-        }
-        Document document = Jsoup.parse(data);
-        List<Element> elements = itemSelector.selectMultiple(document.root());
-        Map<String, String> items = new LinkedHashMap<>(elements.size());
-        for (Element element : elements) {
-            String id = idSelector.selectSingle(element.attr("href"));
-            String title = element.attr("title");
-            items.put(id, title);
-        }
-        return items;
-    }
-
     public DoubanBook(RestTemplate template, String id) {
         this.template = template;
         this.id = id;
@@ -244,6 +182,68 @@ public class DoubanBook implements Book<Chapter> {
 
     public Instant getInstant() {
         return instant;
+    }
+
+    /**
+     * 按关键字获取图书
+     * 
+     * @param template
+     * @param key
+     * @return
+     */
+    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format(findUrl, key, offset);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
+        data = scriptSelector.selectSingle(data);
+        data = function.doWith(String.class, data);
+        if (logger.isDebugEnabled()) {
+            logger.debug(JsonUtility.prettyJson(data));
+        }
+        ONode root = ONode.load(data);
+        List<ONode> nodes = root.get("payload").get("items").ary();
+        Map<String, String> items = new LinkedHashMap<>();
+        for (ONode node : nodes) {
+            String id = node.get("id").getString();
+            String title = node.get("title").getString();
+            items.put(id, title);
+        }
+        return items;
+    }
+
+    /**
+     * 按标签获取图书
+     * 
+     * @param template
+     * @param tag
+     * @param offset
+     * @return
+     */
+    public static Map<String, String> getItemsByTag(RestTemplate template, String tag, int offset) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format(tagUrl, tag, offset, "T");
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
+        Document document = Jsoup.parse(data);
+        List<Element> elements = itemSelector.selectMultiple(document.root());
+        Map<String, String> items = new LinkedHashMap<>(elements.size());
+        for (Element element : elements) {
+            String id = idSelector.selectSingle(element.attr("href"));
+            String title = element.attr("title");
+            items.put(id, title);
+        }
+        return items;
     }
 
 }
