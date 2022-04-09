@@ -41,10 +41,6 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
 
     protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    /** 新债列表模板 */
-    // https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize={size}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
-    private static final String issueUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={}&sortTypes={}&pageNumber={}&pageSize={}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO");
-
     private ONode node;
 
     /** 转换股票 */
@@ -153,6 +149,10 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
     public LocalDate getListDate() {
         return getDate(node.get("LISTING_DATE").getString());
     }
+
+    /** 新债列表模板 */
+    // https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize={size}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
+    private static final String issueUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={}&sortTypes={}&pageNumber={}&pageSize={}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO");
 
     public static Map<String, EastmoneyIssueBond> getItemsByPage(RestTemplate template, int page, int size) {
         HttpHeaders headers = new HttpHeaders();

@@ -1,7 +1,5 @@
 package com.jstarcraft.crawler.trade.index;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.noear.snack.ONode;
 import org.springframework.http.HttpEntity;
@@ -45,25 +43,17 @@ public class FunddbIndexTestCase {
     }
 
     @Test
-    public void testIndex() throws InterruptedException {
+    public void testDetail() throws InterruptedException {
         RestTemplate template = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
-        parameters.add("gu_code", "399441.SZ");
-        parameters.add("pe_category", "pb");
-        parameters.add("year", -1);
-        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(parameters, headers);
-        ResponseEntity<String> response = template.exchange("https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata", HttpMethod.POST, request, String.class);
-        String data = response.getBody();
-        System.out.println(data);
-        ONode root = ONode.load(data);
-        ONode average = root.get("data").get("ping_pe");
-        SnackJsonPathSelector selector = new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市净率')].data");
-        List<ONode> nodes = selector.selectMultiple(root);
-        for (ONode node : nodes) {
-            System.out.println(node.ary().size());
-        }
-        System.out.println(nodes.size());
+        FunddbIndex.getIndexByCode(template, "000852.SH");
+    }
+
+    @Test
+    public void testHistory() throws InterruptedException {
+        RestTemplate template = new RestTemplate();
+        FunddbIndex.getHistoryByCode(template, "000852.SH", "pe").get();
+        FunddbIndex.getHistoryByCode(template, "000852.SH", "pb").get();
+        FunddbIndex.getHistoryByCode(template, "000852.SH", "dy").get();
     }
 
     /**
