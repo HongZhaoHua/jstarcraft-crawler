@@ -1,5 +1,7 @@
 package com.jstarcraft.crawler.trade.security;
 
+import com.jstarcraft.crawler.exception.CrawlerException;
+
 /**
  * 证券
  * 
@@ -14,7 +16,7 @@ public interface Security {
      * @return
      */
     default String getSecurityIsin() {
-        throw new UnsupportedOperationException();
+        throw new CrawlerException();
     }
 
     /**
@@ -23,7 +25,7 @@ public interface Security {
      * @return
      */
     default String getSecurityMic() {
-        throw new UnsupportedOperationException();
+        throw new CrawlerException();
     }
 
 }

@@ -3,6 +3,8 @@ package com.jstarcraft.crawler.trade;
 import java.time.temporal.Temporal;
 import java.util.function.Supplier;
 
+import com.jstarcraft.crawler.exception.CrawlerException;
+
 import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
 
 /**
@@ -35,7 +37,7 @@ public class TradeMeasure<T extends Temporal> implements Measure<T> {
     @Override
     public Object2FloatSortedMap<T> getMeasureHistory() {
         if (history == null) {
-            throw new UnsupportedOperationException();
+            throw new CrawlerException();
         }
         return history.get();
     }

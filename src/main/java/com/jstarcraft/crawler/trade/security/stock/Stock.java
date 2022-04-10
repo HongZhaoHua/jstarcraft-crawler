@@ -3,6 +3,7 @@ package com.jstarcraft.crawler.trade.security.stock;
 import java.time.LocalDate;
 import java.time.Year;
 
+import com.jstarcraft.crawler.exception.CrawlerException;
 import com.jstarcraft.crawler.trade.Measure;
 import com.jstarcraft.crawler.trade.security.Security;
 
@@ -27,7 +28,7 @@ public interface Stock extends Security {
      * @return
      */
     default String getStockCusip() {
-        throw new UnsupportedOperationException();
+        throw new CrawlerException();
     }
 
     /**
@@ -36,7 +37,7 @@ public interface Stock extends Security {
      * @return
      */
     default String getStockSedol() {
-        throw new UnsupportedOperationException();
+        throw new CrawlerException();
     }
 
     /**

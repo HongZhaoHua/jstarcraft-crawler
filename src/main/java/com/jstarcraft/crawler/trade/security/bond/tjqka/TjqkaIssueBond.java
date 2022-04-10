@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
+import com.jstarcraft.crawler.exception.CrawlerException;
 import com.jstarcraft.crawler.trade.security.bond.IssueBond;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
@@ -73,7 +74,7 @@ public class TjqkaIssueBond implements IssueBond {
 
     @Override
     public Object2FloatSortedMap<LocalDate> getInterestRate() {
-        throw new UnsupportedOperationException();
+        throw new CrawlerException();
     }
 
     private LocalDate getDate(String data) {
@@ -96,7 +97,7 @@ public class TjqkaIssueBond implements IssueBond {
 
     @Override
     public String getCreditRank() {
-        throw new UnsupportedOperationException();
+        throw new CrawlerException();
     }
 
     @Override
