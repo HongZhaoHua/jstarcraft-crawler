@@ -8,6 +8,6 @@ package com.jstarcraft.crawler.trade.index.chinabond;
  * @author Birdy
  *
  */
-public class ChinabondIndex {
+public class ChinabondBondIndex {
 
 }
