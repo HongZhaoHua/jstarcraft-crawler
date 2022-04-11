@@ -1,2 +1,8 @@
 AKShare 宏观数据:
 https://www.akshare.xyz/data/macro/macro.html
+
+全球经济数据总览:
+https://www.stockq.org/economy/worldstats.php
+
+GDP(国内生产总值):
+https://www.stockq.org/economy/gdp.php

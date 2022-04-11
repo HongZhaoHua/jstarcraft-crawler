@@ -1,2 +1,5 @@
 AKShare 利率数据:
 https://www.akshare.xyz/data/interest_rate/interest_rate.html
+
+全球利率:
+https://www.stockq.org/economy/rate.php

@@ -1,2 +1,5 @@
 AKShare 加密货币数据:
 https://www.akshare.xyz/data/dc/dc.html
+
+虚拟货币行情:
+https://www.stockq.org/market/cryptocurrency.php

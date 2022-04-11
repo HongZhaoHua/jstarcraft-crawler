@@ -1,2 +1,5 @@
 AKShare 外汇数据:
 https://www.akshare.xyz/data/fx/fx.html
+
+全球货币汇率:
+https://www.stockq.org/market/currency.php
