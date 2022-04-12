@@ -138,6 +138,13 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
     // https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={category}
     private static final String categoryUrl = URLDecoder.decode("https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={}");
 
+    /**
+     * 按照类型获取元组
+     * 
+     * @param template
+     * @param category {0:全部,1:主题,2:规模,3:行业,4:风格,5:境外,6:自选}
+     * @return
+     */
     public static Map<String, MapTuple> getTuplesByCategory(RestTemplate template, int category) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
@@ -153,12 +160,13 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
         List<ONode> nodes = root.get("data").get("right_list").ary();
         // TODO 获取总数
         int count = nodes.size();
-        Map<String, MapTuple> items = new LinkedHashMap<>();
-//        for (ONode node : nodes) {
-//            EastmoneyIssueBond bond = new EastmoneyIssueBond(node);
-//            items.put(bond.getBondCode(), bond);
-//        }
-        return items;
+        Map<String, MapTuple> tuples = new LinkedHashMap<>();
+        for (ONode node : nodes) {
+            String id = node.get("id").getString();
+            // TODO 考虑如何映射Tuple
+            tuples.put(id, null);
+        }
+        return tuples;
     }
 
     /** 指数详情模板 */
