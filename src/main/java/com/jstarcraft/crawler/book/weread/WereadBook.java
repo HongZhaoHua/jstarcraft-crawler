@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.common.selection.css.JsoupCssSelector;
+import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.script.ScriptContext;
 import com.jstarcraft.core.script.js.JsFunction;
 import com.jstarcraft.core.utility.StringUtility;
@@ -68,7 +69,9 @@ public class WereadBook implements Book<WereadChapter> {
 
     private static final JsoupCssSelector scriptSelector = new JsoupCssSelector("script[nonce]");
 
-    private static final JsoupCssSelector scoreSelector = new JsoupCssSelector("div.book_ratings_header > span");
+    private static final JsoupCssSelector scoreSelector = new JsoupCssSelector("div.book_ratings_container");
+
+    private static final RegularSelector regularSelector = new RegularSelector("([\\d\\.]+)%", 0, 1);
 
     private static final JsoupCssSelector tagSelector = new JsoupCssSelector("meta[name='keywords']");
 
@@ -147,7 +150,7 @@ public class WereadBook implements Book<WereadChapter> {
         // 获取ISBN
         this.isbn = book.get("bookInfo").get("isbn").getString();
         // 获取评分
-        this.score = scoreSelector.selectSingle(document.root()).text().replaceAll("([\\S]*)%", "$1");
+        this.score = regularSelector.selectSingle(scoreSelector.selectSingle(document.root()).text());
         // 获取标签
         String[] tags = tagSelector.selectSingle(document.root()).attr("content").split(",");
         this.tags = Arrays.asList(tags);
