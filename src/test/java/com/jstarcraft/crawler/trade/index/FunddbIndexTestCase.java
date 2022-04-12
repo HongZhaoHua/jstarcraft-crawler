@@ -33,6 +33,7 @@ public class FunddbIndexTestCase {
         FunddbIndex index = FunddbIndex.getIndexByCode(template, "000300.SH");
         Assert.assertEquals("000300.SH", index.getIndexCode());
         LocalDate date = LocalDate.of(2020, 6, 1);
+        Assert.assertEquals(3971.34F, index.getIndexValue().getMeasureHistory().getFloat(date), 0F);
         Assert.assertTrue(1.35F == index.getPrice2Book().getMeasureHistory().getFloat(date));
         Assert.assertTrue(12.23F == index.getPrice2Earn().getMeasureHistory().getFloat(date));
         Assert.assertTrue(2.27F == index.getDividendYield().getMeasureHistory().getFloat(date));

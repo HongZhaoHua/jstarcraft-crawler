@@ -28,7 +28,6 @@ import com.jstarcraft.core.common.reflection.TypeUtility;
 import com.jstarcraft.core.common.selection.jsonpath.SnackJsonPathSelector;
 import com.jstarcraft.core.common.tuple.Duet;
 import com.jstarcraft.core.common.tuple.MapTuple;
-import com.jstarcraft.core.common.tuple.Tuple;
 import com.jstarcraft.core.utility.StringUtility;
 import com.jstarcraft.crawler.trade.Measure;
 import com.jstarcraft.crawler.trade.TradeMeasure;
@@ -92,7 +91,12 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
 
     @Override
     public Measure<LocalDate> getIndexValue() {
-        float value = attributes.get("close").get("new_value").get("value").getFloat();
+        ONode attribute = attributes.get("close");
+        float value = attribute.get("new_value").get("value").getFloat();
+        // TODO 准备支持百分位
+        String percent = attribute.get("new_percent_value").get("value").getString();
+        // TODO 准备支持平均数
+        float average = attribute.get("new_avg").get("value").getFloat();
         Supplier<Object2FloatSortedMap<LocalDate>> history = getHistoryByCode(template, getIndexCode(), "price");
         return new TradeMeasure<LocalDate>(value, history);
     }
@@ -104,21 +108,36 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
 
     @Override
     public Measure<LocalDate> getPrice2Book() {
-        float value = attributes.get("pb").get("new_value").get("value").getFloat();
+        ONode attribute = attributes.get("pb");
+        float value = attribute.get("new_value").get("value").getFloat();
+        // TODO 准备支持百分位
+        String percent = attribute.get("new_percent_value").get("value").getString();
+        // TODO 准备支持平均数
+        float average = attribute.get("new_avg").get("value").getFloat();
         Supplier<Object2FloatSortedMap<LocalDate>> history = getHistoryByCode(template, getIndexCode(), "pb");
         return new TradeMeasure<LocalDate>(value, history);
     }
 
     @Override
     public Measure<LocalDate> getPrice2Earn() {
-        float value = attributes.get("pe").get("new_value").get("value").getFloat();
+        ONode attribute = attributes.get("pe");
+        float value = attribute.get("new_value").get("value").getFloat();
+        // TODO 准备支持百分位
+        String percent = attribute.get("new_percent_value").get("value").getString();
+        // TODO 准备支持平均数
+        float average = attribute.get("new_avg").get("value").getFloat();
         Supplier<Object2FloatSortedMap<LocalDate>> history = getHistoryByCode(template, getIndexCode(), "pe");
         return new TradeMeasure<LocalDate>(value, history);
     }
 
     @Override
     public Measure<LocalDate> getDividendYield() {
-        float value = attributes.get("xilv").get("new_value").get("value").getFloat();
+        ONode attribute = attributes.get("xilv");
+        float value = attribute.get("new_value").get("value").getFloat();
+        // TODO 准备支持百分位
+        String percent = attribute.get("new_percent_value").get("value").getString();
+        // TODO 准备支持平均数
+        float average = attribute.get("new_avg").get("value").getFloat();
         Supplier<Object2FloatSortedMap<LocalDate>> history = getHistoryByCode(template, getIndexCode(), "dy");
         return new TradeMeasure<LocalDate>(value, history);
     }
@@ -129,7 +148,12 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
      * @return
      */
     public Measure<LocalDate> getRiskPremium() {
-        float value = attributes.get("fed").get("new_value").get("value").getFloat();
+        ONode attribute = attributes.get("fed");
+        float value = attribute.get("new_value").get("value").getFloat();
+        // TODO 准备支持百分位
+        String percent = attribute.get("new_percent_value").get("value").getString();
+        // TODO 准备支持平均数
+        float average = attribute.get("new_avg").get("value").getFloat();
         Supplier<Object2FloatSortedMap<LocalDate>> history = getHistoryByCode(template, getIndexCode(), "rp");
         return new TradeMeasure<LocalDate>(value, history);
     }
@@ -198,13 +222,21 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
     private static final Map<String, Duet<String, SnackJsonPathSelector>> measures = new HashMap<>();
 
     static {
-        measures.put("price", new Duet<>("fed", new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '收盘价')].data")));
+        measures.put("price", new Duet<>("fed", new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '收盘价(点击隐藏)')].data")));
         measures.put("pb", new Duet<>("pb", new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市净率')].data")));
         measures.put("pe", new Duet<>("pe", new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '市盈率')].data")));
         measures.put("dy", new Duet<>("xilv", new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '股息率')].data")));
         measures.put("rp", new Duet<>("fed", new SnackJsonPathSelector("$.data.tubiao.series[?(@.name == '风险溢价')].data")));
     }
 
+    /**
+     * 按照代码获取历史
+     * 
+     * @param template
+     * @param code
+     * @param measure
+     * @return
+     */
     public static Supplier<Object2FloatSortedMap<LocalDate>> getHistoryByCode(RestTemplate template, String code, String measure) {
         Duet<String, SnackJsonPathSelector> duet = measures.get(measure);
         Supplier<Object2FloatSortedMap<LocalDate>> history = () -> {
@@ -213,6 +245,7 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
             parameters.add("gu_code", code);
             parameters.add("pe_category", duet.getA());
             parameters.add("year", -1);
+            parameters.add("ver", "new");
             HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(parameters, headers);
             ResponseEntity<String> response = template.exchange(historyUrl, HttpMethod.POST, request, String.class);
             String data = response.getBody();
@@ -221,13 +254,25 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
             }
             ONode root = ONode.load(data);
             SnackJsonPathSelector selector = duet.getB();
-            List<ONode> nodes = selector.selectSingle(root).ary();
+            root = selector.selectSingle(root);
             Object2FloatSortedMap<LocalDate> keyValues = new Object2FloatRBTreeMap<>();
-            for (ONode node : nodes) {
-                Instant instant = Instant.ofEpochMilli(node.get(0).getLong());
-                LocalDate date = LocalDateTime.ofInstant(instant, ZoneOffset.ofHours(8)).toLocalDate();
-                float value = node.get(1).getFloat();
-                keyValues.put(date, value);
+            // 区分数组和对象
+            if (root.isArray()) {
+                // 其它历史为数组
+                root.forEach((node) -> {
+                    Instant instant = Instant.ofEpochMilli(node.get(0).getLong());
+                    LocalDate date = LocalDateTime.ofInstant(instant, ZoneOffset.ofHours(8)).toLocalDate();
+                    float value = node.get(1).getFloat();
+                    keyValues.put(date, value);
+                });
+            } else {
+                // 价格历史为对象
+                root.forEach((key, node) -> {
+                    Instant instant = Instant.ofEpochMilli(node.get(0).getLong());
+                    LocalDate date = LocalDateTime.ofInstant(instant, ZoneOffset.ofHours(8)).toLocalDate();
+                    float value = node.get(1).getFloat();
+                    keyValues.put(date, value);
+                });
             }
             return keyValues;
         };
