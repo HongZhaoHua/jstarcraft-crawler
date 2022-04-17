@@ -96,4 +96,19 @@ public interface Stock extends Security {
      */
     public Measure<Year> getDividendPayout();
 
+    /**
+     * 获取股票净利润
+     * 
+     * @param extraordinary(非经常性项目)
+     * @return
+     */
+    public Measure<LocalDate> getNetProfit(boolean extraordinary);
+
+    /**
+     * 获取股票市值
+     * 
+     * @return
+     */
+    public Measure<LocalDate> getMarketValue();
+
 }

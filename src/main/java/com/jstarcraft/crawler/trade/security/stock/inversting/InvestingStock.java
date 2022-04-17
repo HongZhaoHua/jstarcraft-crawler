@@ -14,10 +14,11 @@ package com.jstarcraft.crawler.trade.security.stock.inversting;
  * GET:https://cn.investing.com/instruments/Financials/changereporttypeajax?action=change_report_type&pair_ID={id}&report_type={INC}&period_type={Annual,Interim}
  * 现金流:https://cn.investing.com/equities/{}-cash-flow
  * GET:https://cn.investing.com/instruments/Financials/changereporttypeajax?action=change_report_type&pair_ID={id}&report_type={CAS}&period_type={Annual,Interim}
- * 比率:https://cn.investing.com/equities/{}-ratios
+ * 比率(市净率,市现率,市盈率,市销率):https://cn.investing.com/equities/{}-ratios
  * 股息:https://cn.investing.com/equities/{}-dividends
  * POST:https://cn.investing.com/equities/MoreDividendsHistory
  * pairID,last_timestamp
+ * 财务:https://cn.investing.com/equities/{}-financial-summary
  * 财报:https://cn.investing.com/equities/{}-earnings
  * POST:https://cn.investing.com/equities/morehistory
  * pairID,last_timestamp
