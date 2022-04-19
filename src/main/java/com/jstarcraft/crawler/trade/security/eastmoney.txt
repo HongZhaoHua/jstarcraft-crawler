@@ -1,3 +1,6 @@
+efinance 是一个可以快速获取基金、股票、债券、期货数据的 Python 库，回测以及量化交易的好帮手！:
+https://github.com/Micro-sheep/efinance
+
 一个简单的股票爬虫程序，爬的是东方财富的数据:
 https://github.com/xxuzhengg/eastmoney
 
