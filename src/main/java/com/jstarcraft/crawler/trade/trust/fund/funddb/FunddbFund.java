@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.funddb;
+package com.jstarcraft.crawler.trade.trust.fund.funddb;
 
 /**
  * 韭圈儿基金

@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.hexun;
+package com.jstarcraft.crawler.trade.trust.fund.hexun;
 
 /**
  * 和讯基金

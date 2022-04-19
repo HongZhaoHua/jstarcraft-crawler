@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.jrj;
+package com.jstarcraft.crawler.trade.trust.fund.jrj;
 
 /**
  * 金融界基金

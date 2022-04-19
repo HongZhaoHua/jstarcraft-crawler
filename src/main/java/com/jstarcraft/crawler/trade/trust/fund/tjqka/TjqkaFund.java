@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.tjqka;
+package com.jstarcraft.crawler.trade.trust.fund.tjqka;
 
 /**
  * 同花顺基金

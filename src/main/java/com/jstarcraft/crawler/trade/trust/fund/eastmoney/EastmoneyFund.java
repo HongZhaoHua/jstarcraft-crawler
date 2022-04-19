@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.eastmoney;
+package com.jstarcraft.crawler.trade.trust.fund.eastmoney;
 
 /**
  * 东方财富基金

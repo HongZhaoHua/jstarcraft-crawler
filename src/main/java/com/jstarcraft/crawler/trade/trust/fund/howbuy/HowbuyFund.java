@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.howbuy;
+package com.jstarcraft.crawler.trade.trust.fund.howbuy;
 
 /**
  * 好买基金

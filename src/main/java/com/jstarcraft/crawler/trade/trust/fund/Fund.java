@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund;
+package com.jstarcraft.crawler.trade.trust.fund;
 
 import java.time.temporal.Temporal;
 

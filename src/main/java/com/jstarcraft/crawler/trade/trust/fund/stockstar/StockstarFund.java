@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.fund.stockstar;
+package com.jstarcraft.crawler.trade.trust.fund.stockstar;
 
 /**
  * 证券之星基金
