@@ -27,14 +27,14 @@ public class WereadBookTestCase {
     public void testGetBooks() {
         RestTemplate template = new RestTemplate();
         String isbn = "9787213066856";
-        Map<String, String> items = WereadBook.getItemsByKey(template, isbn, 0);
+        Map<String, String> items = WereadBook.getTuplesByKey(template, isbn, 0);
         Assert.assertEquals(1, items.size());
     }
 
     @Test
     public void testGetHerf() {
         String id = "630480";
-        Assert.assertEquals("13f329c0599ed013ff80b18", WereadBook.getHerf(id));
+        Assert.assertEquals("13f329c0599ed013ff80b18", WereadBook.getHref(id));
     }
 
     @Test

@@ -32,7 +32,7 @@ public class DoubanMovieTestCase {
     public void testSearch() {
         String imdb = "tt0816692";
         RestTemplate template = new RestTemplate();
-        Map<String, String> items = DoubanMovie.getItemsByKey(template, imdb, 0);
+        Map<String, String> items = DoubanMovie.getTuplesByKey(template, imdb, 0);
         Assert.assertEquals(1, items.size());
     }
 
@@ -40,7 +40,7 @@ public class DoubanMovieTestCase {
     public void testTag() {
         String tag = "科幻";
         RestTemplate template = new RestTemplate();
-        Map<String, String> items = DoubanMovie.getItemsByTag(template, tag, 0);
+        Map<String, String> items = DoubanMovie.getTuplesByTag(template, tag, 0);
         Assert.assertEquals(20, items.size());
     }
 

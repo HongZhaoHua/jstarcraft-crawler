@@ -154,7 +154,7 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
     // https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={column}&sortTypes={-1:降序,1:升序}&pageNumber={page}&pageSize={size}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO
     private static final String issueUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?sortColumns={}&sortTypes={}&pageNumber={}&pageSize={}&reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE%2Cf235~10~SECURITY_CODE~TRANSFER_PRICE%2Cf236~10~SECURITY_CODE~TRANSFER_VALUE%2Cf2~10~SECURITY_CODE~CURRENT_BOND_PRICE%2Cf237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO%2Cf239~10~SECURITY_CODE~RESALE_TRIG_PRICE%2Cf240~10~SECURITY_CODE~REDEEM_TRIG_PRICE%2Cf23~01~CONVERT_STOCK_CODE~PBV_RATIO");
 
-    public static Map<String, EastmoneyIssueBond> getItemsByPage(RestTemplate template, int page, int size) {
+    public static Map<String, EastmoneyIssueBond> getIssueBondsByPage(RestTemplate template, int page, int size) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -169,12 +169,12 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
         List<ONode> nodes = root.get("result").get("data").ary();
         // TODO 获取总数
         int count = root.get("result").get("count").getInt();
-        Map<String, EastmoneyIssueBond> items = new LinkedHashMap<>();
+        Map<String, EastmoneyIssueBond> bonds = new LinkedHashMap<>();
         for (ONode node : nodes) {
             EastmoneyIssueBond bond = new EastmoneyIssueBond(node);
-            items.put(bond.getBondCode(), bond);
+            bonds.put(bond.getBondCode(), bond);
         }
-        return items;
+        return bonds;
     }
 
 }

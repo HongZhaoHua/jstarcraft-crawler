@@ -115,7 +115,7 @@ public class DoubanMovie {
      * @param key
      * @return
      */
-    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
+    public static Map<String, String> getTuplesByKey(RestTemplate template, String key, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -132,13 +132,13 @@ public class DoubanMovie {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("payload").get("items").ary();
-        Map<String, String> items = new HashMap<>();
+        Map<String, String> tuples = new HashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
             String title = node.get("title").getString();
-            items.put(id, title);
+            tuples.put(id, title);
         }
-        return items;
+        return tuples;
     }
 
     /**
@@ -149,7 +149,7 @@ public class DoubanMovie {
      * @param offset
      * @return
      */
-    public static Map<String, String> getItemsByTag(RestTemplate template, String tag, int offset) {
+    public static Map<String, String> getTuplesByTag(RestTemplate template, String tag, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -161,13 +161,13 @@ public class DoubanMovie {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("data").ary();
-        Map<String, String> items = new HashMap<>();
+        Map<String, String> tuples = new HashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
             String title = node.get("title").getString();
-            items.put(id, title);
+            tuples.put(id, title);
         }
-        return items;
+        return tuples;
     }
 
     public DoubanMovie(RestTemplate template, String id) {

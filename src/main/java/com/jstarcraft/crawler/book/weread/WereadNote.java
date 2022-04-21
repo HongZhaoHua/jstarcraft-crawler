@@ -45,7 +45,7 @@ public class WereadNote {
     /** 笔记路径模板 */
     private static final String noteUrl = "https://i.weread.qq.com/user/notebooks";
 
-    public static Map<String, String> getItems(RestTemplate template, String cookie) {
+    public static Map<String, String> getTuples(RestTemplate template, String cookie) {
         List<String> cookies = Arrays.asList(cookie);
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.COOKIE, cookies);
@@ -58,13 +58,13 @@ public class WereadNote {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("books").ary();
-        Map<String, String> items = new HashMap<>(nodes.size());
+        Map<String, String> tuples = new HashMap<>(nodes.size());
         for (ONode book : nodes) {
             String id = book.get("bookId").getString();
             String title = book.get("title").getString();
-            items.put(id, title);
+            tuples.put(id, title);
         }
-        return items;
+        return tuples;
     }
 
     private static List<WereadSummary> getMarks(String id, List<ONode> nodes) {

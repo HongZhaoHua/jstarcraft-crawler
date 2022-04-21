@@ -8,9 +8,9 @@ import com.jstarcraft.crawler.trade.security.bond.tjqka.TjqkaIssueBond;
 public class TjqkaIssueBondTestCase {
 
     @Test
-    public void testGetItemsByPage() {
+    public void testGetBondsByPage() {
         RestTemplate template = new RestTemplate();
-        TjqkaIssueBond.getItemsByPage(template);
+        TjqkaIssueBond.getIssueBondByPage(template);
     }
     
 }

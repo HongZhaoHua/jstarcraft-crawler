@@ -75,7 +75,7 @@ public class EssenceIssueBond implements IssueSecurity {
         return getDate(node.get("listDate").getString());
     }
 
-    public static Map<String, EssenceIssueBond> getItemsByPage(RestTemplate template, int page, int size) {
+    public static Map<String, EssenceIssueBond> getIssueBondsByPage(RestTemplate template, int page, int size) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         headers.add(HttpHeaders.ACCEPT, "application/json");
@@ -91,12 +91,12 @@ public class EssenceIssueBond implements IssueSecurity {
         List<ONode> nodes = root.get("data").ary();
         // TODO 获取总数
         int count = root.get("total").getInt();
-        Map<String, EssenceIssueBond> items = new LinkedHashMap<>();
+        Map<String, EssenceIssueBond> bonds = new LinkedHashMap<>();
         for (ONode node : nodes) {
             EssenceIssueBond bond = new EssenceIssueBond(node);
-            items.put(bond.getSecurityCode(), bond);
+            bonds.put(bond.getSecurityCode(), bond);
         }
-        return items;
+        return bonds;
     }
 
 }

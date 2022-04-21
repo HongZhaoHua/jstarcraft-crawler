@@ -110,7 +110,7 @@ public class TjqkaIssueBond implements IssueBond {
         return getDate(node.get("sub_date").getString());
     }
 
-    public static Map<String, TjqkaIssueBond> getItemsByPage(RestTemplate template) {
+    public static Map<String, TjqkaIssueBond> getIssueBondByPage(RestTemplate template) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -125,12 +125,12 @@ public class TjqkaIssueBond implements IssueBond {
         List<ONode> nodes = root.get("list").ary();
         // TODO 获取总数
         int count = nodes.size();
-        Map<String, TjqkaIssueBond> items = new LinkedHashMap<>();
+        Map<String, TjqkaIssueBond> bonds = new LinkedHashMap<>();
         for (ONode node : nodes) {
             TjqkaIssueBond bond = new TjqkaIssueBond(node);
-            items.put(bond.getBondCode(), bond);
+            bonds.put(bond.getBondCode(), bond);
         }
-        return items;
+        return bonds;
     }
 
 }

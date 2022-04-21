@@ -53,7 +53,7 @@ public class WereadShelfTestCase {
         if (cookie.isEmpty()) {
             throw new RuntimeException("必须填写Cookie才能获取信息");
         }
-        Map<String, String> items = WereadNote.getItems(template, cookie);
+        Map<String, String> items = WereadNote.getTuples(template, cookie);
         Assert.assertEquals(32, items.size());
     }
 

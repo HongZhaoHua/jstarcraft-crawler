@@ -80,7 +80,7 @@ public class WereadBook implements Book<WereadChapter> {
 
     private final RestTemplate template;
 
-    private final String herf;
+    private final String href;
 
     private final String id;
 
@@ -104,7 +104,7 @@ public class WereadBook implements Book<WereadChapter> {
     public WereadBook(RestTemplate template, String id) {
         this.template = template;
         this.id = id;
-        this.herf = getHerf(id);
+        this.href = getHref(id);
     }
 
     @Deprecated
@@ -112,7 +112,7 @@ public class WereadBook implements Book<WereadChapter> {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
-        String url = StringUtility.format(bookUrl, herf);
+        String url = StringUtility.format(bookUrl, href);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -220,7 +220,7 @@ public class WereadBook implements Book<WereadChapter> {
         return summaries;
     }
 
-    public static String getHerf(String id) {
+    public static String getHref(String id) {
         return function.doWith(String.class, id);
     }
 
@@ -231,7 +231,7 @@ public class WereadBook implements Book<WereadChapter> {
      * @param key
      * @return
      */
-    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
+    public static Map<String, String> getTuplesByKey(RestTemplate template, String key, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -243,13 +243,13 @@ public class WereadBook implements Book<WereadChapter> {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("books").ary();
-        Map<String, String> items = new LinkedHashMap<>(nodes.size());
+        Map<String, String> tuples = new LinkedHashMap<>(nodes.size());
         for (ONode node : nodes) {
             String id = node.get("bookInfo").get("bookId").getString();
             String title = node.get("bookInfo").get("title").getString();
-            items.put(id, title);
+            tuples.put(id, title);
         }
-        return items;
+        return tuples;
     }
 
 }

@@ -34,7 +34,7 @@ public class DoubanBookTestCase {
     public void testSearch() {
         RestTemplate template = new RestTemplate();
         String isbn = "9787213066856";
-        Map<String, String> items = DoubanBook.getItemsByKey(template, isbn, 0);
+        Map<String, String> items = DoubanBook.getTuplesByKey(template, isbn, 0);
         Assert.assertEquals(1, items.size());
     }
 
@@ -42,7 +42,7 @@ public class DoubanBookTestCase {
     public void testTag() {
         RestTemplate template = new RestTemplate();
         String tag = "科普";
-        Map<String, String> items = DoubanBook.getItemsByTag(template, tag, 0);
+        Map<String, String> items = DoubanBook.getTuplesByTag(template, tag, 0);
         Assert.assertEquals(20, items.size());
     }
 

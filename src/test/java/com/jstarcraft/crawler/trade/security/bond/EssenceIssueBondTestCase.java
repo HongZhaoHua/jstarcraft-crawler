@@ -8,9 +8,9 @@ import com.jstarcraft.crawler.trade.security.bond.essence.EssenceIssueBond;
 public class EssenceIssueBondTestCase {
 
     @Test
-    public void testGetItemsByPage() {
+    public void testGetBondsByPage() {
         RestTemplate template = new RestTemplate();
-        EssenceIssueBond.getItemsByPage(template, 1, 10);
+        EssenceIssueBond.getIssueBondsByPage(template, 1, 10);
     }
 
 }

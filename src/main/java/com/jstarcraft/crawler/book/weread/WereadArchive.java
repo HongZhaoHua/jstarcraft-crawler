@@ -43,9 +43,9 @@ public class WereadArchive {
     private String name;
 
     /** 笔记 */
-    private Map<String, String> items;
+    private Map<String, String> notes;
 
-    private static Map<String, String> getItems(List<ONode> nodes) {
+    private static Map<String, String> getNotes(List<ONode> nodes) {
         Map<String, String> progresses = new HashMap<>(nodes.size());
         for (ONode book : nodes) {
             String id = book.get("bookId").getString();
@@ -58,7 +58,7 @@ public class WereadArchive {
     public WereadArchive(String id, String name, Map<String, String> items) {
         this.id = id;
         this.name = name;
-        this.items = items;
+        this.notes = items;
     }
 
     public String getId() {
@@ -69,8 +69,8 @@ public class WereadArchive {
         return name;
     }
 
-    public Map<String, String> getItems() {
-        return items;
+    public Map<String, String> getNotes() {
+        return notes;
     }
 
     /**
@@ -100,11 +100,11 @@ public class WereadArchive {
         for (ONode node : nodes) {
             String id = node.get("archiveId").getString();
             String name = node.get("name").getString();
-            Map<String, String> progresses = getItems(node.get("bookInfos").ary());
+            Map<String, String> progresses = getNotes(node.get("bookInfos").ary());
             WereadArchive archive = new WereadArchive(id, name, progresses);
             archives.put(id, archive);
         }
-        Map<String, String> items = getItems(root.get("shelf").get("books").ary());
+        Map<String, String> items = getNotes(root.get("shelf").get("books").ary());
         WereadArchive archive = new WereadArchive(StringUtility.EMPTY, StringUtility.EMPTY, items);
         archives.put(StringUtility.EMPTY, archive);
         return archives;

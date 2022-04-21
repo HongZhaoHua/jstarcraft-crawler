@@ -8,9 +8,9 @@ import com.jstarcraft.crawler.trade.security.bond.eastmoney.EastmoneyIssueBond;
 public class EastmoneyIssueBondTestCase {
 
     @Test
-    public void testGetItemsByPage() {
+    public void testGetBondsByPage() {
         RestTemplate template = new RestTemplate();
-        EastmoneyIssueBond.getItemsByPage(template, 1, 10);
+        EastmoneyIssueBond.getIssueBondsByPage(template, 1, 10);
     }
 
 }

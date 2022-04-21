@@ -191,7 +191,7 @@ public class DoubanBook implements Book<Chapter> {
      * @param key
      * @return
      */
-    public static Map<String, String> getItemsByKey(RestTemplate template, String key, int offset) {
+    public static Map<String, String> getTuplesByKey(RestTemplate template, String key, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -208,13 +208,13 @@ public class DoubanBook implements Book<Chapter> {
         }
         ONode root = ONode.load(data);
         List<ONode> nodes = root.get("payload").get("items").ary();
-        Map<String, String> items = new LinkedHashMap<>();
+        Map<String, String> tuples = new LinkedHashMap<>();
         for (ONode node : nodes) {
             String id = node.get("id").getString();
             String title = node.get("title").getString();
-            items.put(id, title);
+            tuples.put(id, title);
         }
-        return items;
+        return tuples;
     }
 
     /**
@@ -225,7 +225,7 @@ public class DoubanBook implements Book<Chapter> {
      * @param offset
      * @return
      */
-    public static Map<String, String> getItemsByTag(RestTemplate template, String tag, int offset) {
+    public static Map<String, String> getTuplesByTag(RestTemplate template, String tag, int offset) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -237,13 +237,13 @@ public class DoubanBook implements Book<Chapter> {
         }
         Document document = Jsoup.parse(data);
         List<Element> elements = itemSelector.selectMultiple(document.root());
-        Map<String, String> items = new LinkedHashMap<>(elements.size());
+        Map<String, String> tuples = new LinkedHashMap<>(elements.size());
         for (Element element : elements) {
             String id = idSelector.selectSingle(element.attr("href"));
             String title = element.attr("title");
-            items.put(id, title);
+            tuples.put(id, title);
         }
-        return items;
+        return tuples;
     }
 
 }
