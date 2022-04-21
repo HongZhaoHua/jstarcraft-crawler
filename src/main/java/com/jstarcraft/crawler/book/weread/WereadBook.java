@@ -82,7 +82,8 @@ public class WereadBook implements Book<WereadChapter> {
 
     private final String href;
 
-    private final String id;
+    /** 标识 */
+    private String id;
 
     /** 标题 */
     private String title;
@@ -101,10 +102,9 @@ public class WereadBook implements Book<WereadChapter> {
 
     private Instant instant;
 
-    public WereadBook(RestTemplate template, String id) {
+    public WereadBook(RestTemplate template, String href) {
         this.template = template;
-        this.id = id;
-        this.href = getHref(id);
+        this.href = href;
     }
 
     @Deprecated
@@ -128,6 +128,8 @@ public class WereadBook implements Book<WereadChapter> {
         }
         ONode root = ONode.load(script);
         ONode book = root.get("reader");
+        // 获取标识
+        this.id = book.get("bookId").getString();
         // 获取章节
         Map<String, WereadChapter> chapters = new HashMap<>();
         for (ONode chapter : book.get("chapterInfos").ary()) {
@@ -199,7 +201,7 @@ public class WereadBook implements Book<WereadChapter> {
      * @param size
      * @return
      */
-    public List<WereadSummary> search(String key, int offset, int size) {
+    public static List<WereadSummary> search(RestTemplate template, String id, String key, int offset, int size) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
         String url = StringUtility.format(searchUrl, id, key, offset, size);

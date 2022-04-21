@@ -40,13 +40,13 @@ public class WereadBookTestCase {
     @Test
     public void testUpdateBook() {
         RestTemplate template = new RestTemplate();
-        String id = "630480";
-        WereadBook book = new WereadBook(template, id);
+        String href = "13f329c0599ed013ff80b18";
+        WereadBook book = new WereadBook(template, href);
         book.update(Instant.now());
         Assert.assertEquals("630480", book.getBookId());
         Assert.assertEquals("星际穿越", book.getBookTitle());
         Assert.assertEquals("9787213066856", book.getBookIsbn());
-        Assert.assertEquals("85.9", book.getBookScore());
+        Assert.assertEquals("86.1", book.getBookScore());
         Assert.assertEquals(51, book.getBookChapters().size());
         Assert.assertEquals(5, book.getBookTags().size());
     }
@@ -55,8 +55,7 @@ public class WereadBookTestCase {
     public void testSearchContent() {
         RestTemplate template = new RestTemplate();
         String id = "630480";
-        WereadBook book = new WereadBook(template, id);
-        List<WereadSummary> summaries = book.search("人类", 0, 10);
+        List<WereadSummary> summaries = WereadBook.search(template, id, "人类", 0, 10);
         Assert.assertEquals(7, summaries.size());
     }
 
