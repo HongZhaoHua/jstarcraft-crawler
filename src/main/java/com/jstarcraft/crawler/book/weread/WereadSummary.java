@@ -19,7 +19,7 @@ public class WereadSummary {
     /** 内容 */
     private String content;
 
-    /** 注释 */
+    /** 评论 */
     private String comment;
 
     public WereadSummary(String book, int chapter, String content) {
@@ -33,11 +33,11 @@ public class WereadSummary {
         this.comment = comment;
     }
 
-    public String getBook() {
+    public String getBookId() {
         return book;
     }
 
-    public int getChapter() {
+    public int getChapterId() {
         return chapter;
     }
 
