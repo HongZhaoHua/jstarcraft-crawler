@@ -41,11 +41,11 @@ public class WereadSummary {
         return chapter;
     }
 
-    public String getContent() {
+    public String getSummaryContent() {
         return content;
     }
 
-    public String getComment() {
+    public String getSummaryComment() {
         return comment;
     }
 
