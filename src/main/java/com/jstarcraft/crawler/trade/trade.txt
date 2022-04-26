@@ -18,3 +18,6 @@ https://tushare.pro/
 
 Tushare 数据字典:
 http://tushare.org/index.html
+
+JoinQuant聚宽量化交易平台数据字典:
+https://www.joinquant.com/data
