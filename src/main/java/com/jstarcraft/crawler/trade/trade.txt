@@ -19,7 +19,12 @@ https://tushare.pro/
 Tushare 数据字典:
 http://tushare.org/index.html
 
+JQData-本地量化数据说明书:
+https://www.joinquant.com/help/api/help#name:JQData
+JoinQuant聚宽量化交易平台接口文档:
+https://www.joinquant.com/help/api/help#name:JQDataHttp
 JoinQuant聚宽量化交易平台数据字典:
 https://www.joinquant.com/data
-JoinQuant聚宽量化交易平台接口文档:
-https://www.joinquant.com/help/api/help#JQDataHttp:%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3
+
+
+
