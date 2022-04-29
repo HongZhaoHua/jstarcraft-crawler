@@ -14,6 +14,8 @@ package com.jstarcraft.crawler.trade.index.legulegu;
  * @author Birdy
  *
  */
-public class LeguleguIndex {
+public class LeguleguStockIndex {
+
+    // https://legulegu.com/stockdata/market_pe/getmarket_pe?token={token}
 
 }
