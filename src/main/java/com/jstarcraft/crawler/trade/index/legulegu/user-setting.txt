@@ -1,0 +1,824 @@
+(function ($) {
+
+    $(document).ready(function () {
+        $('.btn.btn-default.btn-sm').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/user/not-star-this-page?id=" + this.getAttribute('value'),
+                data: {},
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    'X-CSRF-Token': document.getElementsByName('_csrf')[0].content
+                },
+                success: function (data) {
+                    if (data.success === true) {
+                        location.reload();
+                    }
+                },
+                dataType: "json"
+            });
+        })
+
+        $('#download-data').click(click_download_data_button);
+
+    });
+
+    function reduce_reward_point_to_download(postPath, export_excel_call_back, download_file_name) {
+        $.ajax({
+            type: "POST",
+            url: "/rewards/reduceRewardPointToDownload",
+            data: {},
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                'X-CSRF-Token': document.getElementsByName('_csrf')[0].content
+            },
+            success: function (data) {
+                if (data.success === true) {
+                    vip_free_download(postPath, export_excel_call_back, download_file_name)
+                } else {
+                    $('#download-tip-text').html('积分不足');
+                    $('#download-no').html('确定');
+                    $('#download-yes').hide()
+                }
+            },
+            error: function () {
+
+            },
+            dataType: "json"
+        });
+    }
+
+    function download(getDataUrl, export_excel_call_back, download_file_name) {
+        $.ajax({
+            type: "POST",
+            url: "/user/isVip",
+            data: {},
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                'X-CSRF-Token': document.getElementsByName('_csrf')[0].content
+            },
+            success: function (data) {
+                if (data.success === true) {
+                    if (data.code === 1) {
+                        $('#download-tip-text').html('普通用户，每次下载须扣除2分普通积分，是否继续？');
+                        $('#myModal').modal('show');
+                    } else if (data.code === 2) {
+                        vip_free_download(getDataUrl, export_excel_call_back, download_file_name)
+                    }
+                }
+                $('#download-yes').show()
+                $('#download-yes').unbind("click");
+                $('#download-yes').click(function () {
+                    reduce_reward_point_to_download(getDataUrl, export_excel_call_back, download_file_name)
+                });
+                $('#download-no').html('否')
+                $('#download-no').unbind("click");
+                $('#download-no').click(function () {
+                    $('#myModal').modal('hide');
+                });
+            },
+            error: function () {
+                $('#download-tip-text').html('当前没有登录，请登录');
+                $('#myModal').modal('show');
+
+                $('#download-yes').click(function () {
+                    window.location.href = $('.login-link').attr("href")
+                });
+
+                $('#download-no').click(function () {
+                    $('#myModal').modal('hide');
+                });
+            },
+            dataType: "json"
+        });
+    }
+
+    function click_download_data_button() {
+        // 全部A股
+        if (location.pathname == '/stockdata/market_pe') {
+            download('stockdata/market_pe/getmarket_pe?', export_all_pe)
+        }
+        if (location.pathname == '/stockdata/shanghaiPE') {
+            download('api/stock-data/market-pe?marketId=1&', download_data_pe, '上证')
+        }
+        if (location.pathname == '/stockdata/shenzhenPE') {
+            download('api/stock-data/market-pe?marketId=2&', download_data_pe, '深证')
+        }
+        if (location.pathname == '/stockdata/zxbPE') {
+            download('api/stock-data/market-pe?marketId=3&', download_data_pe, '中小')
+        }
+        if (location.pathname == '/stockdata/cybPE') {
+            download('api/stock-data/market-pe?marketId=4&', download_data_pe, '创业')
+        }
+        if (location.pathname == '/stockdata/ke-chuang-ban-pe') {
+            download('api/stockdata/get-ke-chuang-ban-pe?', download_data_ke_chuang_pe, '科创')
+        }
+        if (location.pathname == '/stockdata/a-ttm-lyr') {
+            download('api/stock-data/market-ttm-lyr?marketId=5&', download_data_a_middle_pe, '全部A股等权重市盈率、中位数市盈率')
+        }
+        if (location.pathname == '/stockdata/market_pb') {
+            download('api/stockdata/guxilv?', export_all_pb)
+        }
+        if (location.pathname == '/stockdata/shanghaiPB') {
+            download('api/stockdata/index-basic?indexCode=1&', download_data_pb, '上证')
+        }
+        if (location.pathname == '/stockdata/shenzhenPB') {
+            download('api/stockdata/index-basic?indexCode=2&', download_data_pb, '深证')
+        }
+        if (location.pathname == '/stockdata/ke-chuang-ban-pb') {
+            download('api/stockdata/index-basic?indexCode=7&', download_data_pb, '科创板')
+        }
+        if (location.pathname == '/stockdata/cybPB') {
+            download('api/stockdata/index-basic?indexCode=4&', download_data_pb, '创业')
+        }
+        if (location.pathname == '/stockdata/all-pb') {
+            download('api/stock-data/market-ttm-lyr?marketId=5&', download_data_a_middle_pb, '全部A股等权重市盈率、中位数市盈率')
+        }
+        // 沪深300市盈率
+        if (location.pathname == '/stockdata/hs300-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000300.SH&', download_index_pe, '沪深300市盈率')
+        }
+        // 上证50市盈率
+        if (location.pathname == '/stockdata/sz50-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000016.SH&', download_index_pe, '上证50市盈率')
+        }
+        // 上证红利市盈率
+        if (location.pathname == '/stockdata/sz000015-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000015.SH&', download_index_pe, '上证红利市盈率')
+        }
+        // 深证红利市盈率
+        if (location.pathname == '/stockdata/sz399324-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=399324.SZ&', download_index_pe, '深证红利市盈率')
+        }
+        // 上证180市盈率
+        if (location.pathname == '/stockdata/sz180-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000010.SH&', download_index_pe, '上证180市盈率')
+        }
+        // 上证380市盈率
+        if (location.pathname == '/stockdata/sz380-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000009.SH&', download_index_pe, '上证380市盈率')
+        }
+        // 中证流通市盈率
+        if (location.pathname == '/stockdata/zzlt-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000902.SH&', download_index_pe, '中证流通市盈率')
+        }
+        // 中证100市盈率
+        if (location.pathname == '/stockdata/zz100-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000903.SH&', download_index_pe, '中证100市盈率')
+        }
+        // 中证500市盈率
+        if (location.pathname == '/stockdata/zz500-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000905.SH&', download_index_pe, '中证500市盈率')
+        }
+        // 中证800市盈率
+        if (location.pathname == '/stockdata/zz800-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000906.SH&', download_index_pe, '中证800市盈率')
+        }
+        // 中证1000市盈率
+        if (location.pathname == '/stockdata/zz1000-ttm-lyr') {
+            download('api/stockdata/index-basic?indexCode=000852.SH&', download_index_pe, '中证1000市盈率')
+        }
+        // 沪深300 市净率
+        if (location.pathname == '/stockdata/hs300-pb') {
+            download('api/stockdata/index-basic?indexCode==000300.SH&', download_index_pb, '沪深300市净率')
+        }
+        // 上证50 市净率
+        if (location.pathname == '/stockdata/sz50-pb') {
+            download('api/stockdata/index-basic?indexCode=000016.SH&', download_index_pb, '上证50市净率')
+        }
+        // 上证红利 市净率
+        if (location.pathname == '/stockdata/sz000015-pb') {
+            download('api/stockdata/index-basic?indexCode=000015.SH&', download_index_pb, '上证红利市净率')
+        }
+        // 深证红利 市净率
+        if (location.pathname == '/stockdata/sz399324-pb') {
+            download('api/stockdata/index-basic?indexCode=399324.SZ&', download_index_pb, '深证红利市净率')
+        }
+        // 上证180 市净率
+        if (location.pathname == '/stockdata/sz180-pb') {
+            download('api/stockdata/index-basic?indexCode=000010.SH&', download_index_pb, '上证180市净率')
+        }
+        // 上证380 市净率
+        if (location.pathname == '/stockdata/sz380-pb') {
+            download('api/stockdata/index-basic?indexCode=000009.SH&', download_index_pb, '上证380市净率')
+        }
+        // 中证流通 市净率
+        if (location.pathname == '/stockdata/zzlt-pb') {
+            download('api/stockdata/index-basic?indexCode=000902.SH&', download_index_pb, '中证流通市净率')
+        }
+        // 中证100 市净率
+        if (location.pathname == '/stockdata/zz100-pb') {
+            download('api/stockdata/index-basic?indexCode=000903.SH&', download_index_pb, '中证100市净率')
+        }
+        // 中证500 市净率
+        if (location.pathname == '/stockdata/zz500-pb') {
+            download('api/stockdata/index-basic?indexCode=000905.SH&', download_index_pb, '中证500市净率')
+        }
+        // 中证800 市净率
+        if (location.pathname == '/stockdata/zz800-pb') {
+            download('api/stockdata/index-basic?indexCode=000906.SH&', download_index_pb, '中证800市净率')
+        }
+        // 中证1000 市净率
+        if (location.pathname == '/stockdata/zz1000-pb') {
+            download('api/stockdata/index-basic?indexCode=000852.SH&', download_index_pb, '中证1000市净率')
+        }
+
+        if (location.pathname == '/stockdata/m1m2') {
+            download('stockdata/m1m2/getm1m2?', download_m1m2, 'M0 M1 M2历史数据一览')
+        }
+
+        if (location.pathname == '/stockdata/m1-ppi') {
+            download('api/stock-data/m1-ppi?', download_m1_ppi, 'M1-PPI')
+        }
+
+        if (location.pathname == '/stockdata/weight-pe') {
+            var param = location.href.split('?')[1]
+            // 沪深300 加权市盈率
+            if (param == 'marketId=000300.SH') {
+                download('api/stock-data/weight-pe?marketId=000300.SH&', download_index_add_weight_pe, '沪深300 加权市盈率')
+            }
+            // 上证50 加权市盈率
+            if (param == 'marketId=000016.SH') {
+                download('api/stock-data/weight-pe?marketId=000016.SH&', download_index_add_weight_pe, '上证50 加权市盈率')
+            }
+            // 中证500 加权市盈率
+            if (param == 'marketId=000905.SH') {
+                download('api/stock-data/weight-pe?marketId=000905.SH&', download_index_add_weight_pe, '中证500 加权市盈率')
+            }
+            // 创业板 加权市盈率
+            if (param == 'marketId=399006.SZ') {
+                download('api/stock-data/weight-pe?marketId=399006.SZ&', download_index_add_weight_pe, '创业板 加权市盈率')
+            }
+            // 深证成指 加权市盈率
+            if (param == 'marketId=399001.SZ') {
+                download('api/stock-data/weight-pe?marketId=399001.SZ&', download_index_add_weight_pe, '深证成指 加权市盈率')
+            }
+        }
+
+        if (location.pathname == '/stockdata/weight-pb') {
+            var param = location.href.split('?')[1]
+            // 沪深300 加权市净率
+            if (param == 'marketId=000300.SH') {
+                download('api/stock-data/weight-pb?marketId=000300.SH&', download_index_add_weight_pb, '沪深300 加权市净率')
+            }
+            // 上证50 加权市净率
+            if (param == 'marketId=000016.SH') {
+                download('api/stock-data/weight-pb?marketId=000016.SH&', download_index_add_weight_pb, '上证50 加权市净率')
+            }
+            // 中证500 加权市净率
+            if (param == 'marketId=000905.SH') {
+                download('api/stock-data/weight-pb?marketId=000905.SH&', download_index_add_weight_pb, '中证500 加权市净率')
+            }
+            // 创业板 加权市净率
+            if (param == 'marketId=399006.SZ') {
+                download('api/stock-data/weight-pb?marketId=399006.SZ&', download_index_add_weight_pb, '创业板 加权市净率')
+            }
+            // 深证成指 加权市净率
+            if (param == 'marketId=399001.SZ') {
+                download('api/stock-data/weight-pb?marketId=399001.SZ&', download_index_add_weight_pb, '深证成指 加权市净率')
+            }
+            // 上证指数 加权市净率
+            if (param == 'marketId=000001.SH') {
+                download('api/stock-data/weight-pb?marketId=000001.SH&', download_index_add_weight_pb, '上证指数 加权市净率')
+            }
+        }
+
+        // 中证行业数据下载
+        if (location.pathname.includes('/s/')) {
+            var stockCode = location.pathname.replace('/s/', '')
+            download('s/base-info/' + stockCode + '?', download_s_base_info_data, stockCode)
+        }
+
+        // 中证行业数据下载
+        if (location.pathname.includes('/stockdata/industry')) {
+            download('api' + location.pathname + '/data?', download_csindex_industry_data, '中证行业数据')
+        }
+
+        // 申万2021数据下载
+        if (location.pathname === '/stockdata/sw-industry-2021') {
+            var param = location.href.split('?')[1]
+            let industryCode = param.split('=')[1];
+            download('api/stockdata/sw-industry-2021?industryCode=' + industryCode + "&", download_sw_industry_data, industryCode)
+        }
+
+        // 申万数据下载
+        if (location.pathname === '/stockdata/sw-industry') {
+            var param = location.href.split('?')[1]
+            let industryCode = param.split('=')[1];
+            download('api/stockdata/sw-industry?industryCode=' + industryCode + "&", download_sw_industry_data, industryCode)
+        }
+
+        // 指数数据下载
+        if (location.pathname === '/stockdata/index-basic') {
+            var param = location.href.split('?')[1]
+            let indexCode = param.split('=')[1];
+            download('api/stockdata/index-basic?indexCode=' + indexCode + "&", download_index_basic_data, indexCode)
+        }
+
+        if (location.pathname === '/stockdata/fund-position/pos-stock') {
+            download('api/stockdata/fund-position?type=pos_stock&category=总仓位&marketId=5&', download_fund_data, '股票型基金仓位')
+        }
+
+        if (location.pathname === '/stockdata/fund-position/pos-pingheng') {
+            download('api/stockdata/fund-position?type=pos_pingheng&category=总仓位&marketId=5&', download_fund_data, '平衡混合型基金仓位')
+        }
+
+        if (location.pathname === '/stockdata/fund-position/pos-linghuo') {
+            download('api/stockdata/fund-position?type=pos_linghuo&category=总仓位&marketId=5&', download_fund_data, '灵活配置型基金仓位')
+        }
+
+        // 恒生指数
+        if (location.pathname === '/stockdata/market/hsi') {
+            let indexCode = 'HSI';
+            download('api/stockdata/index-basic?indexCode=' + indexCode + "&", download_index_basic_data, indexCode)
+        }
+        // 恒生地产
+        if (location.pathname === '/stockdata/market/hsp') {
+            let indexCode = 'HSP';
+            download('api/stockdata/index-basic?indexCode=' + indexCode + "&", download_index_basic_data, indexCode)
+        }
+        // 恒生公共
+        if (location.pathname === '/stockdata/market/hsu') {
+            let indexCode = 'HSU';
+            download('api/stockdata/index-basic?indexCode=' + indexCode + "&", download_index_basic_data, indexCode)
+        }
+        // 恒生金融
+        if (location.pathname === '/stockdata/market/hsf') {
+            let indexCode = 'HSF';
+            download('api/stockdata/index-basic?indexCode=' + indexCode + "&", download_index_basic_data, indexCode)
+        }
+        // 恒生工商
+        if (location.pathname === '/stockdata/market/hsci') {
+            let indexCode = 'HSCI';
+            download('api/stockdata/index-basic?indexCode=' + indexCode + "&", download_index_basic_data, indexCode)
+        }
+        // 全部股息率
+        if (location.pathname === '/stockdata/guxilv') {
+            download('api/stockdata/guxilv?', export_all_guxilv)
+        }
+    }
+
+    function export_all_pe(data) {
+
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '收盘价', 'pe', '最近十年分位数', '全部历史分位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].pe,
+                    pe_data[i].quantileInRecent10Years, pe_data[i].quantileInAllHistory];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.shSharesPEList);
+        var sheetSZ = build_excel_blob(data.szSharesPEList);
+        var sheetZX = build_excel_blob(data.zxSharesPEList);
+        var sheetCY = build_excel_blob(data.cySharesPEList);
+        openDownloadDialog(sheet2blob(sheetSh), '上海.xlsx');
+        openDownloadDialog(sheet2blob(sheetSZ), '深圳.xlsx');
+        openDownloadDialog(sheet2blob(sheetZX), '中小.xlsx');
+        openDownloadDialog(sheet2blob(sheetCY), '创业.xlsx');
+    }
+
+    function export_sw2021_data(data) {
+
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '收盘价', 'pe', '最近十年分位数', '全部历史分位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].pe,
+                    pe_data[i].quantileInRecent10Years, pe_data[i].quantileInAllHistory];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.shSharesPEList);
+        var sheetSZ = build_excel_blob(data.szSharesPEList);
+        var sheetZX = build_excel_blob(data.zxSharesPEList);
+        var sheetCY = build_excel_blob(data.cySharesPEList);
+        openDownloadDialog(sheet2blob(sheetSh), '上海.xlsx');
+        openDownloadDialog(sheet2blob(sheetSZ), '深圳.xlsx');
+        openDownloadDialog(sheet2blob(sheetZX), '中小.xlsx');
+        openDownloadDialog(sheet2blob(sheetCY), '创业.xlsx');
+    }
+
+    function export_all_guxilv(data) {
+        function build_excel_blob(guxilv_data) {
+            var result = [['日期', '收盘价', '股息率']];
+            for (var i = 0; i < guxilv_data.length; i++) {
+                var item = [formatDate(guxilv_data[i].date), guxilv_data[i].close, guxilv_data[i].addDvTtm];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.shangzheng);
+        var sheetSZ = build_excel_blob(data.shenzheng);
+        var sheetCYB = build_excel_blob(data.chuangyeban);
+        var sheetKCB = build_excel_blob(data.kechuangban);
+
+        openDownloadDialog(sheet2blob(sheetSh), '上海.xlsx');
+        openDownloadDialog(sheet2blob(sheetSZ), '深圳.xlsx');
+        openDownloadDialog(sheet2blob(sheetCYB), '创业.xlsx');
+        openDownloadDialog(sheet2blob(sheetKCB), '科创板.xlsx');
+    }
+
+    function export_all_pb(data) {
+
+        function build_excel_blob(pb_data) {
+            var result = [['日期', '收盘价', 'pb']];
+            for (var i = 0; i < pb_data.length; i++) {
+                var item = [formatDate(pb_data[i].date), pb_data[i].close, pb_data[i].addPb];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.shangzheng);
+        var sheetSZ = build_excel_blob(data.shenzheng);
+        var sheetCYB = build_excel_blob(data.chuangyeban);
+        var sheetKCB = build_excel_blob(data.kechuangban);
+
+        openDownloadDialog(sheet2blob(sheetSh), '上海.xlsx');
+        openDownloadDialog(sheet2blob(sheetSZ), '深圳.xlsx');
+        openDownloadDialog(sheet2blob(sheetCYB), '创业.xlsx');
+        openDownloadDialog(sheet2blob(sheetKCB), '科创板.xlsx');
+    }
+
+    function download_data_pe(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '收盘价', 'pe', '最近十年分位数', '全部历史分位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close,
+                    pe_data[i].pe, pe_data[i].quantileInRecent10Years,
+                    pe_data[i].quantileInAllHistory];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_data_pb(data, download_file_name) {
+        function build_excel_blob(pb_data) {
+            var result = [['日期', '收盘价', 'pb']];
+            for (var i = 0; i < pb_data.length; i++) {
+                var item = [formatDate(pb_data[i].date), pb_data[i].close,
+                    pb_data[i].addPb];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_data_a_middle_pe(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '收盘价', 'TTM(滚动)市盈率中位数', 'TTM(滚动)市盈率等权平均', '静态市盈率中位数', '静态市盈率等权平均',
+                'TTM(滚动)市盈率历史上的分位数', 'TTM(滚动)市盈率近10年分位数', 'TTM(滚动)市盈率等权平均历史上的分位数', 'TTM(滚动)市盈率等权平均近10年分位数',
+                '静态市盈率历史上的分位数', '静态市盈率近10年分位数', '静态市盈率等权平均历史上的分位数', '静态市盈率等权平均近10年分位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close,
+                    pe_data[i].middlePETTM, pe_data[i].averagePETTM, pe_data[i].middlePELYR, pe_data[i].averagePELYR,
+                    pe_data[i].quantileInAllHistoryMiddlePeTtm, pe_data[i].quantileInRecent10YearsMiddlePeTtm,
+                    pe_data[i].quantileInAllHistoryAveragePeTtm, pe_data[i].quantileInRecent10YearsAveragePeTtm,
+                    pe_data[i].quantileInAllHistoryMiddlePeLyr, pe_data[i].quantileInRecent10YearsMiddlePeLyr,
+                    pe_data[i].quantileInAllHistoryAveragePeLyr, pe_data[i].quantileInRecent10YearsAveragePeLyr];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_data_a_middle_pb(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '收盘价', '市净率中位数', '市净率等权平均',
+                '市净率中位数历史上的分位数', '市净率中位数近10年分位数', '市净率等权平均历史上的分位数', '市净率等权平均平均近10年分位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close,
+                    pe_data[i].middlePB, pe_data[i].equalWeightAveragePB,
+                    pe_data[i].quantileInAllHistoryMiddlePB, pe_data[i].quantileInRecent10YearsMiddlePB,
+                    pe_data[i].quantileInAllHistoryEqualWeightAveragePB, pe_data[i].quantileInRecent10YearsEqualWeightAveragePB];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_index_pe(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '指数', '静态市盈率', '滚动市盈率', '等权静态市盈率', '等权滚动市盈率', '静态市盈率中位数'
+                , '滚动市盈率中位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].addLyrPe, pe_data[i].addTtmPe
+                    , pe_data[i].lyrPe, pe_data[i].ttmPe, pe_data[i].middleLyrPe, pe_data[i].middleTtmPe];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_index_pb(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '指数', '市净率', '等权市净率', '市净率中位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].addPb
+                    , pe_data[i].pb, pe_data[i].middlePb];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_m1m2(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '指数', 'M0供应量(亿元)', 'M0同比(%)', 'M1供应量(亿元)', 'M1同比(%)', 'M2供应量(亿元)', 'M2同比(%)']];
+            for (var i = 0; i < pe_data.length; i++) {
+                    var item = [formatDate(pe_data[i].date), pe_data[i].close,
+                        pe_data[i].broadMoneyZero, pe_data[i].broadMoneyZeroYearIncrease,
+                        pe_data[i].broadMoneyOne, pe_data[i].broadMoneyOneYearIncrease,
+                        pe_data[i].broadMoneyTwo,pe_data[i].broadMoneyTwoYearIncrease];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_m1_ppi(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', 'M1同比', 'PPI全部工业品当月同比', 'M1-PPI']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [pe_data[i].date, pe_data[i].m1Yoy,
+                    pe_data[i].ppiYoy, Number.parseFloat(pe_data[i].m1MinusPpi).toFixed(3)];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_index_add_weight_pe(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '指数', '静态市盈率(加权)', '滚动市盈率(加权)']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].pe,
+                    pe_data[i].peTtm];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_index_add_weight_pb(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '指数', '市净率(加权)']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].pb];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_sw_industry_data(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '总市值(亿)', '静态市盈率', '滚动市盈率', '等权静态市盈率', '等权滚动市盈率', '静态市盈率中位数'
+                , '滚动市盈率中位数', '市净率', '等权市净率', '市净率中位数', '股息率', '滚动股息率', '加权股息率', '等权滚动股息率', '破净股比例']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].totalMv, pe_data[i].addLyrPe, pe_data[i].addTtmPe
+                    , pe_data[i].lyrPe, pe_data[i].ttmPe, pe_data[i].middleLyrPe, pe_data[i].middleTtmPe, pe_data[i].addPb
+                    , pe_data[i].pb, pe_data[i].middlePb, pe_data[i].addDvRatio, pe_data[i].addDvTtm, pe_data[i].dvRatio, pe_data[i].dvTtm, pe_data[i].belowNetAssetPercent];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_s_base_info_data(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '市盈率', '市盈率TTM', '市净率', '市销率', '市销率TTM', '股息率', '股息率TTM', '市值']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [pe_data[i][0], pe_data[i][1], pe_data[i][2], pe_data[i][3], pe_data[i][4], pe_data[i][5], pe_data[i][6], pe_data[i][7], , pe_data[i][8]];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data.items);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_csindex_industry_data(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '静态市盈率', '滚动市盈率', '市净率', '股息率']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].lyrPE, pe_data[i].ttmPE, pe_data[i].pb, pe_data[i].dividendRate];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_fund_data(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '沪深300', '仓位']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].position];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_index_basic_data(data, download_file_name) {
+        function build_excel_blob(pe_data, data_start_date) {
+            var result = [['日期', '指数', '静态市盈率', '滚动市盈率', '等权静态市盈率', '等权滚动市盈率', '静态市盈率中位数'
+                , '滚动市盈率中位数', '市净率', '等权市净率', '市净率中位数', '等权股息率', '等权滚动股息率', '破净股比例']];
+            for (var i = 0; i < pe_data.length; i++) {
+                if (pe_data[i].date >= data_start_date) {
+                    var item = [formatDate(pe_data[i].date), pe_data[i].close, pe_data[i].addLyrPe, pe_data[i].addTtmPe
+                        , pe_data[i].lyrPe, pe_data[i].ttmPe, pe_data[i].middleLyrPe, pe_data[i].middleTtmPe, pe_data[i].addPb
+                        , pe_data[i].pb, pe_data[i].middlePb, pe_data[i].dvRatio, pe_data[i].dvTtm, pe_data[i].belowNetAssetPercent];
+                    result.push(item)
+                }
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data, data.dataStartDate);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+    function download_data_ke_chuang_pe(data, download_file_name) {
+        function build_excel_blob(pe_data) {
+            var result = [['日期', '收盘价', 'pe', '最近十年分位数', '全部历史分位数']];
+            for (var i = 0; i < pe_data.length; i++) {
+                var item = [formatDate(pe_data[i].date), pe_data[i].close,
+                    pe_data[i].pe, pe_data[i].quantileInRecent10Years,
+                    pe_data[i].quantileInAllHistory];
+                result.push(item)
+            }
+            var sheet = XLSX.utils.aoa_to_sheet(result);
+            return sheet;
+        }
+
+        var sheetSh = build_excel_blob(data.data);
+        openDownloadDialog(sheet2blob(sheetSh), download_file_name + '.xlsx');
+    }
+
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    function getContextPath() {
+        if (location.pathname.includes("stockdata")) {
+            return location.pathname.replace(/stockdata.*/g, '');
+        }
+        if (location.pathname.includes("s/")) {
+            return location.pathname.replace(/s\/.*/g, '');
+        }
+    }
+
+    function vip_free_download(postPath, successCallBack, download_file_name) {
+        $('#myModal').modal('hide');
+        var MD5 = new Hashes.MD5;
+        var token = MD5.hex(formatDate(new Date()));
+        $.ajax(getContextPath() + postPath + 'token=' + token, {
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+            method: 'GET',
+            success: function (data) {
+                successCallBack(data, download_file_name);
+            },
+            error: successCallBack
+        });
+    }
+
+    // csv转sheet对象
+    function csv2sheet(csv) {
+        var sheet = {}; // 将要生成的sheet
+        csv = csv.split('\n');
+        csv.forEach(function (row, i) {
+            row = row.split(',');
+            if (i == 0) sheet['!ref'] = 'A1:' + String.fromCharCode(65 + row.length - 1) + (csv.length - 1);
+            row.forEach(function (col, j) {
+                sheet[String.fromCharCode(65 + j) + (i + 1)] = {v: col};
+            });
+        });
+        return sheet;
+    }
+
+    // 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
+    function sheet2blob(sheet, sheetName) {
+        sheetName = sheetName || 'sheet1';
+        var workbook = {
+            SheetNames: [sheetName],
+            Sheets: {}
+        };
+        workbook.Sheets[sheetName] = sheet;
+        // 生成excel的配置项
+        var wopts = {
+            bookType: 'xlsx', // 要生成的文件类型
+            bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+            type: 'binary'
+        };
+        var wbout = XLSX.write(workbook, wopts);
+        var blob = new Blob([s2ab(wbout)], {type: "application/octet-stream"});
+
+        // 字符串转ArrayBuffer
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+        return blob;
+    }
+
+    /**
+     * 通用的打开下载对话框方法，没有测试过具体兼容性
+     * @param url 下载地址，也可以是一个blob对象，必选
+     * @param saveName 保存文件名，可选
+     */
+    function openDownloadDialog(url, saveName) {
+        if (typeof url == 'object' && url instanceof Blob) {
+            url = URL.createObjectURL(url); // 创建blob地址
+        }
+        var aLink = document.createElement('a');
+        aLink.href = url;
+        aLink.download = saveName || ''; // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+        var event;
+        if (window.MouseEvent) event = new MouseEvent('click');
+        else {
+            event = document.createEvent('MouseEvents');
+            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        }
+        aLink.dispatchEvent(event);
+    }
+
+}(jQuery));
