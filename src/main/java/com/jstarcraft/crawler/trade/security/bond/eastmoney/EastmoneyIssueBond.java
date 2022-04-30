@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 import org.noear.snack.ONode;
 import org.slf4j.Logger;
@@ -19,11 +20,13 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
+import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.utility.StringUtility;
 import com.jstarcraft.crawler.trade.security.bond.ConvertibleBond;
 import com.jstarcraft.crawler.trade.security.bond.IssueBond;
 import com.jstarcraft.crawler.trade.security.stock.Stock;
 
+import it.unimi.dsi.fastutil.objects.Object2FloatRBTreeMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
 import jodd.net.URLDecoder;
 
@@ -70,9 +73,18 @@ public class EastmoneyIssueBond implements ConvertibleBond, IssueBond {
         return Duration.between(getBeginDate(), getEndDate());
     }
 
+    private static final RegularSelector interestSelector = new RegularSelector("第([\\S]*?)年([\\d\\.]+?)%", 0, 0);
+
     @Override
     public Object2FloatSortedMap<LocalDate> getInterestRate() {
-        // TODO Auto-generated method stub
+        Object2FloatSortedMap<LocalDate> keyValues = new Object2FloatRBTreeMap<>();
+        String text = node.get("INTEREST_RATE_EXPLAIN").getString();
+        Matcher matcher = interestSelector.matchContent(text);
+        while (matcher.find()) {
+            // TODO 中文数字转阿拉伯数字
+            String year = matcher.group(1);
+            String interest = matcher.group(2);
+        }
         return null;
     }
 

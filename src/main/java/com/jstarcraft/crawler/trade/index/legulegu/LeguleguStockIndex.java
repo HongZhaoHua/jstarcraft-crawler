@@ -1,5 +1,19 @@
 package com.jstarcraft.crawler.trade.index.legulegu;
 
+import java.util.Map;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import com.jstarcraft.core.common.selection.regular.RegularSelector;
+import com.jstarcraft.core.common.tuple.MapTuple;
+
+import jodd.net.URLDecoder;
+
 /**
  * 乐咕乐股指数
  * 
@@ -18,6 +32,21 @@ package com.jstarcraft.crawler.trade.index.legulegu;
  */
 public class LeguleguStockIndex {
 
+    /** 指数列表模板 */
+    private static final String indexUrl = URLDecoder.decode("https://legulegu.com/static/js/user/user-settings.js");
+
+    private static final RegularSelector indexSelector = new RegularSelector("download\\('([\\S]+)',\\s([\\S]+)[,\\)]", 0, 0);
+
+    public static Map<String, MapTuple> getTuples(RestTemplate template) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = template.exchange(indexUrl, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        indexSelector.matchContent(data);
+        return null;
+    }
+    // https://legulegu.com/static/js/user/user-settings.js
     // https://legulegu.com/stockdata/market_pe/getmarket_pe?token={token}
 
 }
