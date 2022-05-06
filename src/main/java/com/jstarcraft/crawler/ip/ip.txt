@@ -1,0 +1,7 @@
+ip查询地址:
+http://ip.t086.com/
+http://ip.t086.com/?ip={ip}
+
+iP地址归属地查询:
+https://www.ip138.com/
+https://www.ip138.com/iplookup.asp?ip={ip}&action=2
