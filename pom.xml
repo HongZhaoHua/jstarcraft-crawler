@@ -54,6 +54,12 @@
             <artifactId>jstarcraft-ai-data</artifactId>
             <version>1.0</version>
         </dependency>
+        
+         <dependency>
+            <groupId>com.jstarcraft</groupId>
+            <artifactId>jstarcraft-nlp</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!-- CSS -->
         <dependency>
