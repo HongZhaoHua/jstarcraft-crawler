@@ -60,8 +60,12 @@ public class WereadBook implements Book<WereadChapter> {
     private static final String findUrl = "https://weread.qq.com/web/search/global?keyword={}&maxIdx={}&fragmentSize=120&count=20";
 
     /** 书籍路径模板 */
+    // https://weread.qq.com/web/bookDetail/{href}
+    private static final String bookUrl = "https://weread.qq.com/web/bookDetail/{}";
+    
+    /** 版权路径模板 */
     // https://weread.qq.com/web/reader/{href}
-    private static final String bookUrl = "https://weread.qq.com/web/reader/{}";
+    private static final String licenseUrl = "https://weread.qq.com/web/reader/{}";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("div.bookInfo_right_header_title");
 
