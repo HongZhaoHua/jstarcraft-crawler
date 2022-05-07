@@ -20,4 +20,25 @@ public interface Fund<T extends Temporal> {
      */
     public Measure<T> getAssetValue();
 
+    /**
+     * 詹森指数
+     * 
+     * @return
+     */
+    public float getJensenIndex();
+
+    /**
+     * 夏普指数
+     * 
+     * @return
+     */
+    public float getSharpeIndex();
+
+    /**
+     * 特雷诺指数
+     * 
+     * @return
+     */
+    public float getTreynorIndex();
+
 }
