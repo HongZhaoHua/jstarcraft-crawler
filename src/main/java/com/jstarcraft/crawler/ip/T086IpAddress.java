@@ -5,12 +5,12 @@ import java.util.Locale;
 import com.jstarcraft.nlp.locale.ip.InternetProtocolAddress;
 
 /**
- * https://www.ip138.com/iplookup.asp?ip={ip}&action=2
+ * http://ip.t086.com/?ip={ip}
  * 
  * @author Birdy
  *
  */
-public class Ip138Address implements InternetProtocolAddress {
+public class T086IpAddress implements InternetProtocolAddress {
 
     @Override
     public Locale getCountry() {
