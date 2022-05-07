@@ -1,16 +1,16 @@
-package com.jstarcraft.crawler.phone;
+package com.jstarcraft.crawler.address.card;
 
 import java.util.Locale;
 
-import com.jstarcraft.nlp.locale.phone.PhoneAddress;
+import com.jstarcraft.nlp.locale.card.CardAddress;
 
 /**
- * https://www.ip138.com/mobile.asp?mobile={phone}&action=mobile
+ * https://qq.ip138.com/idsearch/index.asp?userid={card}&action=idcard
  * 
  * @author Birdy
  *
  */
-public class Ip138PhoneAddress implements PhoneAddress {
+public class Ip138CardAddress implements CardAddress {
 
     @Override
     public Locale getCountry() {
@@ -37,7 +37,7 @@ public class Ip138PhoneAddress implements PhoneAddress {
     }
 
     @Override
-    public String getPhoneNumber() {
+    public String getCardNumber() {
         // TODO Auto-generated method stub
         return null;
     }

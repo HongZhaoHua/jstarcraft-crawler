@@ -1,0 +1,3 @@
+国内身份证号码查询归属地验证:
+https://www.ip138.com/
+https://qq.ip138.com/idsearch/index.asp?userid={card}&action=idcard

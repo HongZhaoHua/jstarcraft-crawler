@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.ip;
+package com.jstarcraft.crawler.address.ip;
 
 import java.util.Locale;
 

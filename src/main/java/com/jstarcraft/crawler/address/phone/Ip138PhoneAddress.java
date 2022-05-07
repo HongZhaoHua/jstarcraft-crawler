@@ -1,16 +1,16 @@
-package com.jstarcraft.crawler.ip;
+package com.jstarcraft.crawler.address.phone;
 
 import java.util.Locale;
 
-import com.jstarcraft.nlp.locale.ip.InternetProtocolAddress;
+import com.jstarcraft.nlp.locale.phone.PhoneAddress;
 
 /**
- * https://www.ip138.com/iplookup.asp?ip={ip}&action=2
+ * https://www.ip138.com/mobile.asp?mobile={phone}&action=mobile
  * 
  * @author Birdy
  *
  */
-public class Ip138IpAddress implements InternetProtocolAddress {
+public class Ip138PhoneAddress implements PhoneAddress {
 
     @Override
     public Locale getCountry() {
@@ -37,7 +37,7 @@ public class Ip138IpAddress implements InternetProtocolAddress {
     }
 
     @Override
-    public String getIpNumber() {
+    public String getPhoneNumber() {
         // TODO Auto-generated method stub
         return null;
     }
