@@ -1,31 +1,31 @@
 ***** 食物 *****
 
 专业全面的食物数据库:
-https://food.hiyd.com/
+https://food.hiyd.com
 
 食物营养成分查询平台:
-https://fq.chinafcd.org/
+https://fq.chinafcd.org
 
 食物营养成分表查询:
-http://yingyang.00cha.com/
+http://yingyang.00cha.com
 
 食谱秀:
-https://www.shipuxiu.com/
+https://www.shipuxiu.com
 
 美食杰:
-https://www.meishij.net/
+https://www.meishij.net
 
 美食天下:
-https://www.meishichina.com/
+https://www.meishichina.com
 
 心食谱:
-https://www.xinshipu.com/
+https://www.xinshipu.com
 
 下厨房:
-https://www.xiachufang.com/
+https://www.xiachufang.com
 
 饭菜网:
-https://www.fancai.com/
+https://www.fancai.com
 
 健康专区:
 https://health.pclady.com.cn/healthzq/
