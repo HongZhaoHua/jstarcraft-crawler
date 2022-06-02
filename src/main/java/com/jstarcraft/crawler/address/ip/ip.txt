@@ -1,3 +1,9 @@
+https://ip-api.com/docs
+
+https://ipapi.co/api/
+
+https://www.geoplugin.com/examples
+
 ip查询地址:
 http://ip.t086.com/
 http://ip.t086.com/?ip={ip}

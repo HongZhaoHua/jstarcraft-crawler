@@ -13,6 +13,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
@@ -31,7 +32,7 @@ public class IpTestCase {
         String data = response.getBody();
         System.out.println(XmlUtility.prettyHtml(data));
     }
-    
+
     @Test
     public void testIp138() {
         RestTemplate template = new RestTemplate();
@@ -52,6 +53,35 @@ public class IpTestCase {
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         System.out.println(XmlUtility.prettyHtml(data));
+    }
+
+    @Test
+    public void testIpapi() {
+        RestTemplate template = new RestTemplate();
+        String ip = "119.131.76.71";
+        String ipUrl = "http://ip-api.com/json/{}?lang=zh-CN";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format(ipUrl, ip);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        System.out.println(JsonUtility.prettyJson(data));
+    }
+
+    @Test
+    public void testGeoplugin() {
+        RestTemplate template = new RestTemplate();
+        String ip = "119.131.76.71";
+        String ipUrl = "http://www.geoplugin.net/php.gp?ip={}";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
+        String url = StringUtility.format(ipUrl, ip);
+        ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
+        String data = response.getBody();
+        // Library for serializing Java objects into the PHP serializing format and unserializing data from this format back into Java objects.
+        // https://github.com/kayahr/pherialize
     }
 
 }
