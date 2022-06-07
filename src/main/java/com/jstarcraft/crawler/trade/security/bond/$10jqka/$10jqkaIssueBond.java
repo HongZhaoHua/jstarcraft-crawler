@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.trade.security.bond.tjqka;
+package com.jstarcraft.crawler.trade.security.bond.$10jqka;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -36,9 +36,9 @@ import jodd.net.URLDecoder;
  * @author Birdy
  *
  */
-public class TjqkaIssueBond implements IssueBond {
+public class $10jqkaIssueBond implements IssueBond {
 
-    protected static final Logger logger = LoggerFactory.getLogger(TjqkaIssueBond.class);
+    protected static final Logger logger = LoggerFactory.getLogger($10jqkaIssueBond.class);
 
     protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -48,7 +48,7 @@ public class TjqkaIssueBond implements IssueBond {
 
     private ONode node;
 
-    protected TjqkaIssueBond(ONode node) {
+    protected $10jqkaIssueBond(ONode node) {
         this.node = node;
     }
 
@@ -110,7 +110,7 @@ public class TjqkaIssueBond implements IssueBond {
         return getDate(node.get("sub_date").getString());
     }
 
-    public static Map<String, TjqkaIssueBond> getIssueBondByPage(RestTemplate template) {
+    public static Map<String, $10jqkaIssueBond> getIssueBondByPage(RestTemplate template) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
@@ -125,9 +125,9 @@ public class TjqkaIssueBond implements IssueBond {
         List<ONode> nodes = root.get("list").ary();
         // TODO 获取总数
         int count = nodes.size();
-        Map<String, TjqkaIssueBond> bonds = new LinkedHashMap<>();
+        Map<String, $10jqkaIssueBond> bonds = new LinkedHashMap<>();
         for (ONode node : nodes) {
-            TjqkaIssueBond bond = new TjqkaIssueBond(node);
+            $10jqkaIssueBond bond = new $10jqkaIssueBond(node);
             bonds.put(bond.getBondCode(), bond);
         }
         return bonds;

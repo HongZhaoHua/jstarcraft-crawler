@@ -8,6 +8,6 @@ package com.jstarcraft.crawler.api;
  * @author Birdy
  *
  */
-public class SixApi {
+public class $6Api {
 
 }
