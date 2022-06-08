@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.mall.taobao;
+package com.jstarcraft.crawler.item.taobao;
 
 /**
  * 淘宝商品
