@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.mall.engtb;
+package com.jstarcraft.crawler.item.engtb;
 
 /**
  * Engtaobao商品

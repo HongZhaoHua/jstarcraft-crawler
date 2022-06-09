@@ -1,4 +1,4 @@
-package com.jstarcraft.crawler.home;
+package com.jstarcraft.crawler.house;
 
 /**
  * 宜家家居
