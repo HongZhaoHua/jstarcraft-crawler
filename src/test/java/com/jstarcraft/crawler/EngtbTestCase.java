@@ -27,8 +27,11 @@ public class EngtbTestCase {
 
     private String findUrl = "https://www.engtb.com/shop.html?action=list&tp=taobao&key={}&page={}";
 
+    /**
+     * 以词搜物
+     */
     @Test
-    public void testSearchItems() {
+    public void testSearchItemsByWord() {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
