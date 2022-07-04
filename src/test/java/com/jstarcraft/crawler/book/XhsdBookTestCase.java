@@ -1,13 +1,20 @@
 package com.jstarcraft.crawler.book;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.common.conversion.xml.XmlUtility;
 import com.jstarcraft.core.utility.StringUtility;
 
@@ -19,6 +26,8 @@ import com.jstarcraft.core.utility.StringUtility;
  */
 public class XhsdBookTestCase {
 
+    protected static final Logger logger = LoggerFactory.getLogger(WereadShelfTestCase.class);
+
     @Test
     public void testSearch() {
         RestTemplate template = new RestTemplate();
@@ -28,8 +37,9 @@ public class XhsdBookTestCase {
         String url = StringUtility.format("https://search.xhsd.com/search?keyword={}", "9787213066856");
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
-        System.out.println(data.length());
-        System.out.println(XmlUtility.prettyHtml(data));
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
     }
 
     /**
