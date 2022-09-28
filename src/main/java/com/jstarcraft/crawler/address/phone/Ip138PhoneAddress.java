@@ -13,7 +13,13 @@ import jstarcraft.cloud.information.api.phone.PhoneAddress;
 public class Ip138PhoneAddress implements PhoneAddress {
 
     @Override
-    public Locale getCountry() {
+    public Locale getLocale() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getCountry() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -37,7 +43,7 @@ public class Ip138PhoneAddress implements PhoneAddress {
     }
 
     @Override
-    public String getPhoneNumber() {
+    public String getPhone() {
         // TODO Auto-generated method stub
         return null;
     }
