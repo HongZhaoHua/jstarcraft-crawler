@@ -2,7 +2,7 @@ package com.jstarcraft.crawler.address.phone;
 
 import java.util.Locale;
 
-import com.jstarcraft.nlp.locale.phone.PhoneAddress;
+import jstarcraft.cloud.information.api.phone.PhoneAddress;
 
 /**
  * https://www.ip138.com/mobile.asp?mobile={phone}&action=mobile

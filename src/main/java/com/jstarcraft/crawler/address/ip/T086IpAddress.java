@@ -2,7 +2,7 @@ package com.jstarcraft.crawler.address.ip;
 
 import java.util.Locale;
 
-import com.jstarcraft.nlp.locale.ip.InternetProtocolAddress;
+import jstarcraft.cloud.information.api.ip.InternetProtocolAddress;
 
 /**
  * http://ip.t086.com/?ip={ip}

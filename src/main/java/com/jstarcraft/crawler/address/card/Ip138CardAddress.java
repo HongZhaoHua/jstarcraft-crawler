@@ -2,7 +2,7 @@ package com.jstarcraft.crawler.address.card;
 
 import java.util.Locale;
 
-import com.jstarcraft.nlp.locale.card.CardAddress;
+import jstarcraft.cloud.information.api.card.CardAddress;
 
 /**
  * https://qq.ip138.com/idsearch/index.asp?userid={card}&action=idcard
