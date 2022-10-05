@@ -2,7 +2,7 @@ package com.jstarcraft.crawler.address.card;
 
 import java.util.Locale;
 
-import com.jstarcraft.nlp.locale.card.CardAddress;
+import jstarcraft.cloud.information.api.card.CardAddress;
 
 /**
  * https://qq.ip138.com/idsearch/index.asp?userid={card}&action=idcard
@@ -13,7 +13,13 @@ import com.jstarcraft.nlp.locale.card.CardAddress;
 public class Ip138CardAddress implements CardAddress {
 
     @Override
-    public Locale getCountry() {
+    public Locale getLocale() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getCountry() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -37,7 +43,7 @@ public class Ip138CardAddress implements CardAddress {
     }
 
     @Override
-    public String getCardNumber() {
+    public String getCard() {
         // TODO Auto-generated method stub
         return null;
     }
