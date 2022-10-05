@@ -26,6 +26,12 @@ public class XhsdBook implements Book<Chapter> {
     }
 
     @Override
+    public String getBookPicture() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public List<Chapter> getBookChapters() {
         // TODO Auto-generated method stub
         return null;
@@ -38,7 +44,13 @@ public class XhsdBook implements Book<Chapter> {
     }
 
     @Override
-    public String getBookScore() {
+    public Float getBookPrice() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Float getBookScore() {
         // TODO Auto-generated method stub
         return null;
     }

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -77,7 +78,11 @@ public class DoubanBook implements Book<Chapter> {
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("meta[property='og:title']");
 
+    private static final JsoupCssSelector pictureSelector = new JsoupCssSelector("div[id='mainpic'] > a");
+
     private static final JsoupCssSelector isbnSelector = new JsoupCssSelector("meta[property='book:isbn']");
+
+    private static final JsoupCssSelector priceSelector = new JsoupCssSelector("span.price > s");
 
     private static final JsoupCssSelector scoreSelector = new JsoupCssSelector("div.rating_self > strong");
 
@@ -91,14 +96,20 @@ public class DoubanBook implements Book<Chapter> {
     /** 标题 */
     private String title;
 
+    /** 封面 */
+    private String pricture;
+
     /** 章节 */
     private List<Chapter> chapters;
 
     /** ISBN */
     private String isbn;
 
+    /** 价格 */
+    private Float price;
+
     /** 得分 */
-    private String score;
+    private Float score;
 
     /** 标签 */
     private List<String> tags;
@@ -118,9 +129,14 @@ public class DoubanBook implements Book<Chapter> {
         String url = StringUtility.format(bookUrl, id);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
+        if (logger.isDebugEnabled()) {
+            logger.debug(XmlUtility.prettyHtml(data));
+        }
         Document document = Jsoup.parse(data);
         // 获取标题
         this.title = titleSelector.selectSingle(document.root()).attr("content");
+        // 获取封面
+        this.pricture = pictureSelector.selectSingle(document.root()).attr("href");
         // 获取章节
         Element catalogue = document.getElementById(StringUtility.format("dir_{}_full", id));
         String[] chapters;
@@ -137,8 +153,10 @@ public class DoubanBook implements Book<Chapter> {
         }
         // 获取ISBN
         this.isbn = isbnSelector.selectSingle(document.root()).attr("content");
+        // 获取价格
+        this.price = Float.valueOf(priceSelector.selectSingle(document.root()).text().replace("元", StringUtility.EMPTY));
         // 获取评分
-        this.score = scoreSelector.selectSingle(document.root()).text();
+        this.score = Float.valueOf(scoreSelector.selectSingle(document.root()).text());
         // 获取标签
         String[] tags = tagSelector.selectSingle(data).split("\\|");
         // 剔除最后一个标签
@@ -161,6 +179,11 @@ public class DoubanBook implements Book<Chapter> {
     }
 
     @Override
+    public String getBookPicture() {
+        return pricture;
+    }
+
+    @Override
     public List<Chapter> getBookChapters() {
         return chapters;
     }
@@ -171,7 +194,12 @@ public class DoubanBook implements Book<Chapter> {
     }
 
     @Override
-    public String getBookScore() {
+    public Float getBookPrice() {
+        return price;
+    }
+
+    @Override
+    public Float getBookScore() {
         return score;
     }
 

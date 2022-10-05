@@ -25,7 +25,7 @@ public class DoubanBookTestCase {
         book.update(Instant.now());
         Assert.assertEquals("星际穿越", book.getBookTitle());
         Assert.assertEquals("9787213066856", book.getBookIsbn());
-        Assert.assertEquals("8.8", book.getBookScore());
+        Assert.assertEquals(Float.valueOf(8.8F), book.getBookScore());
         Assert.assertEquals(187, book.getBookChapters().size());
         Assert.assertEquals(10, book.getBookTags().size());
     }

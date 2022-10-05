@@ -46,7 +46,7 @@ public class WereadBookTestCase {
         Assert.assertEquals("630480", book.getBookId());
         Assert.assertEquals("星际穿越", book.getBookTitle());
         Assert.assertEquals("9787213066856", book.getBookIsbn());
-        Assert.assertEquals("86.2", book.getBookScore());
+        Assert.assertEquals(Float.valueOf(86.6F), book.getBookScore());
         Assert.assertEquals(51, book.getBookChapters().size());
         Assert.assertEquals(5, book.getBookTags().size());
     }

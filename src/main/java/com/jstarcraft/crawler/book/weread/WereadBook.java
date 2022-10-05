@@ -62,12 +62,14 @@ public class WereadBook implements Book<WereadChapter> {
     /** 书籍路径模板 */
     // https://weread.qq.com/web/bookDetail/{href}
     private static final String bookUrl = "https://weread.qq.com/web/bookDetail/{}";
-    
+
     /** 版权路径模板 */
     // https://weread.qq.com/web/reader/{href}
     private static final String licenseUrl = "https://weread.qq.com/web/reader/{}";
 
     private static final JsoupCssSelector titleSelector = new JsoupCssSelector("div.bookInfo_right_header_title");
+
+    private static final JsoupCssSelector pictureSelector = new JsoupCssSelector("img.wr_bookCover_img");
 
     private static final JsoupCssSelector chapterSelector = new JsoupCssSelector("span.chapterItem_text");
 
@@ -92,14 +94,20 @@ public class WereadBook implements Book<WereadChapter> {
     /** 标题 */
     private String title;
 
+    /** 封面 */
+    private String pricture;
+
     /** 章节 */
     private List<WereadChapter> chapters;
 
     /** ISBN */
     private String isbn;
 
+    /** 价格 */
+    private Float price;
+
     /** 得分 */
-    private String score;
+    private Float score;
 
     /** 标签 */
     private List<String> tags;
@@ -125,6 +133,8 @@ public class WereadBook implements Book<WereadChapter> {
         Document document = Jsoup.parse(data);
         // 获取标题
         this.title = titleSelector.selectSingle(document.root()).text();
+        // 获取封面
+        this.pricture = pictureSelector.selectSingle(document.root()).attr("src");
         String script = scriptSelector.selectSingle(document.root()).html();
         script = script.replaceAll("window.__INITIAL_STATE__=([\\s\\S]*);\\(function[\\s\\S]*\\(\\)\\);", "$1");
         if (logger.isDebugEnabled()) {
@@ -155,8 +165,10 @@ public class WereadBook implements Book<WereadChapter> {
         }
         // 获取ISBN
         this.isbn = book.get("bookInfo").get("isbn").getString();
+        // 获取价格
+        this.price = book.get("bookInfo").get("publishPrice").getFloat();
         // 获取评分
-        this.score = regularSelector.selectSingle(scoreSelector.selectSingle(document.root()).text());
+        this.score = Float.valueOf(regularSelector.selectSingle(scoreSelector.selectSingle(document.root()).text()));
         // 获取标签
         String[] tags = tagSelector.selectSingle(document.root()).attr("content").split(",");
         this.tags = Arrays.asList(tags);
@@ -174,6 +186,11 @@ public class WereadBook implements Book<WereadChapter> {
     }
 
     @Override
+    public String getBookPicture() {
+        return pricture;
+    }
+
+    @Override
     public List<WereadChapter> getBookChapters() {
         return chapters;
     }
@@ -184,7 +201,12 @@ public class WereadBook implements Book<WereadChapter> {
     }
 
     @Override
-    public String getBookScore() {
+    public Float getBookPrice() {
+        return price;
+    }
+
+    @Override
+    public Float getBookScore() {
         return score;
     }
 

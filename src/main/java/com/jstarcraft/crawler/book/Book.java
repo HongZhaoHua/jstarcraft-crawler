@@ -25,6 +25,13 @@ public interface Book<C extends Chapter> {
     public String getBookTitle();
 
     /**
+     * 获取书籍封面
+     * 
+     * @return
+     */
+    public String getBookPicture();
+
+    /**
      * 获取书籍章节
      * 
      * @return
@@ -39,11 +46,18 @@ public interface Book<C extends Chapter> {
     public String getBookIsbn();
 
     /**
+     * 获取书籍价格
+     * 
+     * @return
+     */
+    public Float getBookPrice();
+
+    /**
      * 获取书籍得分
      * 
      * @return
      */
-    public String getBookScore();
+    public Float getBookScore();
 
     /**
      * 获取书籍标签
