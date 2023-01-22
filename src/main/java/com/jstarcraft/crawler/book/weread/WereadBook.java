@@ -227,7 +227,7 @@ public class WereadBook implements Book<WereadChapter> {
      * @param size
      * @return
      */
-    public static List<WereadSummary> search(RestTemplate template, String id, String key, int offset, int size) {
+    public static List<WereadSummary> searchContent(RestTemplate template, String id, String key, int offset, int size) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(headers);
         String url = StringUtility.format(searchUrl, id, key, offset, size);

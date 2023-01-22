@@ -1,6 +1,7 @@
 package com.jstarcraft.crawler.cosmetic;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jstarcraft.cloud.information.api.item.ProducerItem;
 import jstarcraft.cloud.information.api.item.TradePlatform;
@@ -27,7 +28,7 @@ public class CosmednaCosmetic implements ProducerItem {
     }
 
     @Override
-    public String getCategory() {
+    public List<String> getCategories() {
         return null;
     }
 

@@ -55,7 +55,7 @@ public class WereadBookTestCase {
     public void testSearchContent() {
         RestTemplate template = new RestTemplate();
         String id = "630480";
-        List<WereadSummary> summaries = WereadBook.search(template, id, "人类", 0, 10);
+        List<WereadSummary> summaries = WereadBook.searchContent(template, id, "人类", 0, 10);
         Assert.assertEquals(7, summaries.size());
     }
 
