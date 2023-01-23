@@ -1,5 +1,6 @@
 package com.jstarcraft.crawler.trade.index.legulegu;
 
+import java.net.URLDecoder;
 import java.util.Map;
 
 import org.springframework.http.HttpEntity;
@@ -11,8 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.selection.regular.RegularSelector;
 import com.jstarcraft.core.common.tuple.MapTuple;
-
-import jodd.net.URLDecoder;
 
 /**
  * 乐咕乐股指数
@@ -33,7 +32,7 @@ import jodd.net.URLDecoder;
 public class LeguleguStockIndex {
 
     /** 指数列表模板 */
-    private static final String indexUrl = URLDecoder.decode("https://legulegu.com/static/js/user/user-settings.js");
+    private static final String indexUrl = "https://legulegu.com/static/js/user/user-settings.js";
 
     private static final RegularSelector indexSelector = new RegularSelector("download\\('([\\S]+)',\\s([\\S]+)[,\\)]", 0, 0);
 

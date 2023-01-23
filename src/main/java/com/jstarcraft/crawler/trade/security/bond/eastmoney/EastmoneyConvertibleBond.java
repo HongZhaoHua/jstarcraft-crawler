@@ -1,5 +1,6 @@
 package com.jstarcraft.crawler.trade.security.bond.eastmoney;
 
+import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,8 +16,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
-
-import jodd.net.URLDecoder;
 
 /**
  * 东方财富转债
@@ -43,18 +42,26 @@ public class EastmoneyConvertibleBond {
 
     /** 转债详情模板 */
     // https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=&filter=(SECURITY_CODE%3D%22{code}%22)
-    private static final String bondUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=&filter=(SECURITY_CODE%3D%22{}%22)");
+    private static final String bondUrl;
 
     /** 转债历史模板 */
     // https://datacenter-web.eastmoney.com/api/data/get?sty=ALL&st=date&sr=1&type=RPTA_WEB_KZZ_LS&filter=(zcode%3D%22{code}%22)&p={page}&ps=8000
-    private static final String historyUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/get?sty=ALL&st=date&sr=1&type=RPTA_WEB_KZZ_LS&filter=(zcode%3D%22{}%22)&p={}&ps=8000");
+    private static final String historyUrl;
+
+    static {
+        try {
+            bondUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_BOND_CB_LIST&columns=ALL&quoteColumns=&filter=(SECURITY_CODE%3D%22{}%22)", "UTF-8");
+            historyUrl = URLDecoder.decode("https://datacenter-web.eastmoney.com/api/data/get?sty=ALL&st=date&sr=1&type=RPTA_WEB_KZZ_LS&filter=(zcode%3D%22{}%22)&p={}&ps=8000", "UTF-8");
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("链接解码异常", exception);
+        }
+    }
 
     public static Map<String, String> getItemByCode(RestTemplate template, String code) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(bondUrl, code);
-        url = URLDecoder.decode(url);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -71,7 +78,6 @@ public class EastmoneyConvertibleBond {
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(historyUrl, code, 1);
-        url = URLDecoder.decode(url);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {

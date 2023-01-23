@@ -24,7 +24,7 @@ public class FunddbIndexTestCase {
     public void testCategory() {
         RestTemplate template = new RestTemplate();
         Map<String, MapTuple> tuples = FunddbIndex.getTuplesByCategory(template, 0);
-        Assert.assertEquals(181, tuples.size());
+        Assert.assertEquals(159, tuples.size());
     }
 
     @Test

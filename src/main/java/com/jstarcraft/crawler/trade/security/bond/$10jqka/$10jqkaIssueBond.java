@@ -24,7 +24,6 @@ import com.jstarcraft.crawler.exception.CrawlerException;
 import com.jstarcraft.crawler.trade.security.bond.IssueBond;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
-import jodd.net.URLDecoder;
 
 /**
  * 同花顺转债
@@ -44,7 +43,7 @@ public class $10jqkaIssueBond implements IssueBond {
 
     /** 新债列表模板 */
     // http://data.10jqka.com.cn/ipo/kzz/
-    private static final String issueUrl = URLDecoder.decode("http://data.10jqka.com.cn/ipo/kzz/");
+    private static final String issueUrl = "http://data.10jqka.com.cn/ipo/kzz/";
 
     private ONode node;
 
@@ -115,7 +114,6 @@ public class $10jqkaIssueBond implements IssueBond {
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(issueUrl);
-        url = URLDecoder.decode(url);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {

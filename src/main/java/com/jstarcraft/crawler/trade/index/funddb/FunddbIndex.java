@@ -1,6 +1,7 @@
 package com.jstarcraft.crawler.trade.index.funddb;
 
 import java.lang.reflect.Type;
+import java.net.URLDecoder;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,7 +37,6 @@ import com.jstarcraft.crawler.trade.security.bond.eastmoney.EastmoneyIssueBond;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatRBTreeMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatSortedMap;
-import jodd.net.URLDecoder;
 
 /**
  * 韭圈儿指数
@@ -160,7 +160,7 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
 
     /** 指数列表模板 */
     // https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={category}
-    private static final String categoryUrl = URLDecoder.decode("https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={}");
+    private static final String categoryUrl = "https://api.jiucaishuo.com/v2/guzhi/showcategory?category_id={}";
 
     /**
      * 按照类型获取元组
@@ -174,7 +174,6 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
         headers.add(HttpHeaders.USER_AGENT, "PostmanRuntime/7.28.0");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(categoryUrl, category);
-        url = URLDecoder.decode(url);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
@@ -196,7 +195,7 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
     /** 指数详情模板 */
     // https://api.jiucaishuo.com/v2/guzhi/newtubiaodata
     // {"gu_code":"{code}","year":{3,5,10,-1},"ver":"new"}
-    private static final String indexUrl = URLDecoder.decode("https://api.jiucaishuo.com/v2/guzhi/newtubiaodata");
+    private static final String indexUrl = "https://api.jiucaishuo.com/v2/guzhi/newtubiaodata";
 
     public static FunddbIndex getIndexByCode(RestTemplate template, String code) {
         HttpHeaders headers = new HttpHeaders();
@@ -217,7 +216,7 @@ public class FunddbIndex implements StockIndex<FunddbConstituent, LocalDate> {
     /** 指数历史模板 */
     // https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata
     // {"gu_code":"{code}","pe_category":"{pe,pb,xilv}","year":{3,5,10,-1},"ver":"new"}
-    private static final String historyUrl = URLDecoder.decode("https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata");
+    private static final String historyUrl = "https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata";
 
     private static final Map<String, Duet<String, SnackJsonPathSelector>> measures = new HashMap<>();
 

@@ -21,8 +21,6 @@ import com.jstarcraft.core.common.conversion.json.JsonUtility;
 import com.jstarcraft.core.utility.StringUtility;
 import com.jstarcraft.crawler.trade.security.IssueSecurity;
 
-import jodd.net.URLDecoder;
-
 /**
  * 安信新债
  * 
@@ -39,7 +37,7 @@ public class EssenceIssueBond implements IssueSecurity {
 
     /** 新债列表模板 */
     // https://www.essence.com.cn/api/newbonds?pageNo={page}&pageSize={size}
-    private static final String issueUrl = URLDecoder.decode("https://www.essence.com.cn/api/newbonds?pageNo={}&pageSize={}");
+    private static final String issueUrl = "https://www.essence.com.cn/api/newbonds?pageNo={}&pageSize={}";
 
     private ONode node;
 
@@ -81,7 +79,6 @@ public class EssenceIssueBond implements IssueSecurity {
         headers.add(HttpHeaders.ACCEPT, "application/json");
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(null, headers);
         String url = StringUtility.format(issueUrl, page, size);
-        url = URLDecoder.decode(url);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.GET, request, String.class);
         String data = response.getBody();
         if (logger.isDebugEnabled()) {
